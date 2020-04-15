@@ -1,0 +1,456 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AC146C4D2446F4BF00F5EA02 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146C4C2446F4BF00F5EA02 /* AppDelegate.swift */; };
+		AC146C4F2446F4BF00F5EA02 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146C4E2446F4BF00F5EA02 /* SceneDelegate.swift */; };
+		AC146C512446F4BF00F5EA02 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146C502446F4BF00F5EA02 /* ViewController.swift */; };
+		AC146C562446F4C000F5EA02 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC146C552446F4C000F5EA02 /* Assets.xcassets */; };
+		AC146C592446F4C000F5EA02 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC146C572446F4C000F5EA02 /* LaunchScreen.storyboard */; };
+		AC146C792446F7C200F5EA02 /* AlloyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146C782446F7C200F5EA02 /* AlloyViewController.swift */; };
+		AC146C7B2446F7E400F5EA02 /* libAlloy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AC146C6F2446F78400F5EA02 /* libAlloy.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AC146C7C2446F7E400F5EA02 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AC146C412446F4BF00F5EA02 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AC146C6E2446F78400F5EA02;
+			remoteInfo = Alloy;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		AC146C6D2446F78400F5EA02 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		AC146C492446F4BF00F5EA02 /* AlloyExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlloyExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC146C4C2446F4BF00F5EA02 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		AC146C4E2446F4BF00F5EA02 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		AC146C502446F4BF00F5EA02 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		AC146C552446F4C000F5EA02 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AC146C582446F4C000F5EA02 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		AC146C5A2446F4C000F5EA02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AC146C6F2446F78400F5EA02 /* libAlloy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAlloy.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC146C782446F7C200F5EA02 /* AlloyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlloyViewController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AC146C462446F4BF00F5EA02 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC146C7B2446F7E400F5EA02 /* libAlloy.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AC146C6C2446F78400F5EA02 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AC146C402446F4BF00F5EA02 = {
+			isa = PBXGroup;
+			children = (
+				AC146C4B2446F4BF00F5EA02 /* AlloyExample */,
+				AC146C702446F78400F5EA02 /* Alloy */,
+				AC146C4A2446F4BF00F5EA02 /* Products */,
+				AC146C7A2446F7E400F5EA02 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		AC146C4A2446F4BF00F5EA02 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AC146C492446F4BF00F5EA02 /* AlloyExample.app */,
+				AC146C6F2446F78400F5EA02 /* libAlloy.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AC146C4B2446F4BF00F5EA02 /* AlloyExample */ = {
+			isa = PBXGroup;
+			children = (
+				AC146C4C2446F4BF00F5EA02 /* AppDelegate.swift */,
+				AC146C4E2446F4BF00F5EA02 /* SceneDelegate.swift */,
+				AC146C502446F4BF00F5EA02 /* ViewController.swift */,
+				AC146C552446F4C000F5EA02 /* Assets.xcassets */,
+				AC146C572446F4C000F5EA02 /* LaunchScreen.storyboard */,
+				AC146C5A2446F4C000F5EA02 /* Info.plist */,
+			);
+			path = AlloyExample;
+			sourceTree = "<group>";
+		};
+		AC146C702446F78400F5EA02 /* Alloy */ = {
+			isa = PBXGroup;
+			children = (
+				AC146C782446F7C200F5EA02 /* AlloyViewController.swift */,
+			);
+			path = Alloy;
+			sourceTree = "<group>";
+		};
+		AC146C7A2446F7E400F5EA02 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AC146C482446F4BF00F5EA02 /* AlloyExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AC146C5D2446F4C000F5EA02 /* Build configuration list for PBXNativeTarget "AlloyExample" */;
+			buildPhases = (
+				AC146C452446F4BF00F5EA02 /* Sources */,
+				AC146C462446F4BF00F5EA02 /* Frameworks */,
+				AC146C472446F4BF00F5EA02 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AC146C7D2446F7E400F5EA02 /* PBXTargetDependency */,
+			);
+			name = AlloyExample;
+			productName = Alloy;
+			productReference = AC146C492446F4BF00F5EA02 /* AlloyExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+		AC146C6E2446F78400F5EA02 /* Alloy */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AC146C732446F78400F5EA02 /* Build configuration list for PBXNativeTarget "Alloy" */;
+			buildPhases = (
+				AC146C6B2446F78400F5EA02 /* Sources */,
+				AC146C6C2446F78400F5EA02 /* Frameworks */,
+				AC146C6D2446F78400F5EA02 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Alloy;
+			productName = Alloy;
+			productReference = AC146C6F2446F78400F5EA02 /* libAlloy.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AC146C412446F4BF00F5EA02 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1140;
+				LastUpgradeCheck = 1140;
+				ORGANIZATIONNAME = Alloy;
+				TargetAttributes = {
+					AC146C482446F4BF00F5EA02 = {
+						CreatedOnToolsVersion = 11.4;
+					};
+					AC146C6E2446F78400F5EA02 = {
+						CreatedOnToolsVersion = 11.4;
+					};
+				};
+			};
+			buildConfigurationList = AC146C442446F4BF00F5EA02 /* Build configuration list for PBXProject "Alloy" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AC146C402446F4BF00F5EA02;
+			productRefGroup = AC146C4A2446F4BF00F5EA02 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AC146C482446F4BF00F5EA02 /* AlloyExample */,
+				AC146C6E2446F78400F5EA02 /* Alloy */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AC146C472446F4BF00F5EA02 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC146C592446F4C000F5EA02 /* LaunchScreen.storyboard in Resources */,
+				AC146C562446F4C000F5EA02 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AC146C452446F4BF00F5EA02 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC146C512446F4BF00F5EA02 /* ViewController.swift in Sources */,
+				AC146C4D2446F4BF00F5EA02 /* AppDelegate.swift in Sources */,
+				AC146C4F2446F4BF00F5EA02 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AC146C6B2446F78400F5EA02 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC146C792446F7C200F5EA02 /* AlloyViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AC146C7D2446F7E400F5EA02 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AC146C6E2446F78400F5EA02 /* Alloy */;
+			targetProxy = AC146C7C2446F7E400F5EA02 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		AC146C572446F4C000F5EA02 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AC146C582446F4C000F5EA02 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		AC146C5B2446F4C000F5EA02 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		AC146C5C2446F4C000F5EA02 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AC146C5E2446F4C000F5EA02 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RXT9WNH555;
+				INFOPLIST_FILE = AlloyExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = co.alloy.AlloyExample;
+				PRODUCT_NAME = AlloyExample;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AC146C5F2446F4C000F5EA02 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RXT9WNH555;
+				INFOPLIST_FILE = AlloyExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = co.alloy.AlloyExample;
+				PRODUCT_NAME = AlloyExample;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		AC146C742446F78400F5EA02 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RXT9WNH555;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AC146C752446F78400F5EA02 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RXT9WNH555;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AC146C442446F4BF00F5EA02 /* Build configuration list for PBXProject "Alloy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC146C5B2446F4C000F5EA02 /* Debug */,
+				AC146C5C2446F4C000F5EA02 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AC146C5D2446F4C000F5EA02 /* Build configuration list for PBXNativeTarget "AlloyExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC146C5E2446F4C000F5EA02 /* Debug */,
+				AC146C5F2446F4C000F5EA02 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AC146C732446F78400F5EA02 /* Build configuration list for PBXNativeTarget "Alloy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC146C742446F78400F5EA02 /* Debug */,
+				AC146C752446F78400F5EA02 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AC146C412446F4BF00F5EA02 /* Project object */;
+}
