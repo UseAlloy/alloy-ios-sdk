@@ -1,7 +1,8 @@
 import UIKit
 
-class AlloyViewController: UIViewController {
-    override func viewDidLoad() {
+public class AlloyViewController: UIViewController {
+    public override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .systemBackground
     }
 }
