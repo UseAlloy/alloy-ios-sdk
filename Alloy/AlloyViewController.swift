@@ -1,8 +1,9 @@
 import UIKit
 
-public class AlloyViewController: UIViewController {
+public class AlloyViewController: UINavigationController {
     public override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        let vc = MainViewController()
+        pushViewController(vc, animated: false)
     }
 }
