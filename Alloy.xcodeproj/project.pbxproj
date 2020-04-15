@@ -14,6 +14,8 @@
 		AC146C592446F4C000F5EA02 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC146C572446F4C000F5EA02 /* LaunchScreen.storyboard */; };
 		AC146C792446F7C200F5EA02 /* AlloyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146C782446F7C200F5EA02 /* AlloyViewController.swift */; };
 		AC146C7B2446F7E400F5EA02 /* libAlloy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AC146C6F2446F78400F5EA02 /* libAlloy.a */; };
+		AC146CA62447450600F5EA02 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146CA52447450600F5EA02 /* MainViewController.swift */; };
+		AC146CA82447485000F5EA02 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146CA72447485000F5EA02 /* CameraViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +50,8 @@
 		AC146C5A2446F4C000F5EA02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AC146C6F2446F78400F5EA02 /* libAlloy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAlloy.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC146C782446F7C200F5EA02 /* AlloyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlloyViewController.swift; sourceTree = "<group>"; };
+		AC146CA52447450600F5EA02 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		AC146CA72447485000F5EA02 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +109,8 @@
 			isa = PBXGroup;
 			children = (
 				AC146C782446F7C200F5EA02 /* AlloyViewController.swift */,
+				AC146CA52447450600F5EA02 /* MainViewController.swift */,
+				AC146CA72447485000F5EA02 /* CameraViewController.swift */,
 			);
 			path = Alloy;
 			sourceTree = "<group>";
@@ -219,6 +225,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC146C792446F7C200F5EA02 /* AlloyViewController.swift in Sources */,
+				AC146CA62447450600F5EA02 /* MainViewController.swift in Sources */,
+				AC146CA82447485000F5EA02 /* CameraViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
