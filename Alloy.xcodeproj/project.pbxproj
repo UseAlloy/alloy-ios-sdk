@@ -17,6 +17,7 @@
 		AC146CA62447450600F5EA02 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146CA52447450600F5EA02 /* MainViewController.swift */; };
 		AC146CA82447485000F5EA02 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146CA72447485000F5EA02 /* CameraViewController.swift */; };
 		AC146CAD2447583900F5EA02 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146CAC2447583900F5EA02 /* UIColor.swift */; };
+		AC146CB224475D3800F5EA02 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146CB124475D3800F5EA02 /* PrimaryButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		AC146CA52447450600F5EA02 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		AC146CA72447485000F5EA02 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		AC146CAC2447583900F5EA02 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		AC146CB124475D3800F5EA02 /* PrimaryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				AC146CAB2447582D00F5EA02 /* Extensions */,
+				AC146CB024475BAF00F5EA02 /* Views */,
 				AC146C782446F7C200F5EA02 /* AlloyViewController.swift */,
 				AC146CA52447450600F5EA02 /* MainViewController.swift */,
 				AC146CA72447485000F5EA02 /* CameraViewController.swift */,
@@ -131,6 +134,14 @@
 				AC146CAC2447583900F5EA02 /* UIColor.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		AC146CB024475BAF00F5EA02 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AC146CB124475D3800F5EA02 /* PrimaryButton.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -235,6 +246,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC146CB224475D3800F5EA02 /* PrimaryButton.swift in Sources */,
 				AC146C792446F7C200F5EA02 /* AlloyViewController.swift in Sources */,
 				AC146CA62447450600F5EA02 /* MainViewController.swift in Sources */,
 				AC146CA82447485000F5EA02 /* CameraViewController.swift in Sources */,
