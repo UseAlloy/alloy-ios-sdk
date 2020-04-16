@@ -19,6 +19,7 @@
 		AC146CAD2447583900F5EA02 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146CAC2447583900F5EA02 /* UIColor.swift */; };
 		AC146CB224475D3800F5EA02 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146CB124475D3800F5EA02 /* PrimaryButton.swift */; };
 		AC22473C244840F100892273 /* GetStartedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC22473B244840F100892273 /* GetStartedItem.swift */; };
+		AC22474424485A9700892273 /* ApiSecrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC22474324485A9700892273 /* ApiSecrets.swift */; };
 		AC91C94324483C0100FB8108 /* GetStartedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC91C94224483C0100FB8108 /* GetStartedViewController.swift */; };
 		AC91C94624483E3100FB8108 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC91C94524483E3100FB8108 /* UIImage.swift */; };
 /* End PBXBuildFile section */
@@ -60,6 +61,7 @@
 		AC146CAC2447583900F5EA02 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		AC146CB124475D3800F5EA02 /* PrimaryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
 		AC22473B244840F100892273 /* GetStartedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStartedItem.swift; sourceTree = "<group>"; };
+		AC22474324485A9700892273 /* ApiSecrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiSecrets.swift; sourceTree = "<group>"; };
 		AC91C94224483C0100FB8108 /* GetStartedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStartedViewController.swift; sourceTree = "<group>"; };
 		AC91C94424483C8100FB8108 /* AlloyAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AlloyAssets.xcassets; sourceTree = "<group>"; };
 		AC91C94524483E3100FB8108 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 		AC146C4B2446F4BF00F5EA02 /* AlloyExample */ = {
 			isa = PBXGroup;
 			children = (
+				AC22474324485A9700892273 /* ApiSecrets.swift */,
 				AC146C4C2446F4BF00F5EA02 /* AppDelegate.swift */,
 				AC146C502446F4BF00F5EA02 /* ViewController.swift */,
 				AC146C552446F4C000F5EA02 /* Assets.xcassets */,
@@ -249,6 +252,7 @@
 			files = (
 				AC146C512446F4BF00F5EA02 /* ViewController.swift in Sources */,
 				AC146C4D2446F4BF00F5EA02 /* AppDelegate.swift in Sources */,
+				AC22474424485A9700892273 /* ApiSecrets.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
