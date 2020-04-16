@@ -19,6 +19,7 @@
 		AC146CAA244753B700F5EA02 /* EndViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146CA9244753B700F5EA02 /* EndViewController.swift */; };
 		AC146CAD2447583900F5EA02 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146CAC2447583900F5EA02 /* UIColor.swift */; };
 		AC146CB224475D3800F5EA02 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146CB124475D3800F5EA02 /* PrimaryButton.swift */; };
+		AC22473C244840F100892273 /* GetStartedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC22473B244840F100892273 /* GetStartedItem.swift */; };
 		AC91C94324483C0100FB8108 /* GetStartedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC91C94224483C0100FB8108 /* GetStartedViewController.swift */; };
 		AC91C94624483E3100FB8108 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC91C94524483E3100FB8108 /* UIImage.swift */; };
 /* End PBXBuildFile section */
@@ -60,6 +61,7 @@
 		AC146CA9244753B700F5EA02 /* EndViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndViewController.swift; sourceTree = "<group>"; };
 		AC146CAC2447583900F5EA02 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		AC146CB124475D3800F5EA02 /* PrimaryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
+		AC22473B244840F100892273 /* GetStartedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStartedItem.swift; sourceTree = "<group>"; };
 		AC91C94224483C0100FB8108 /* GetStartedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStartedViewController.swift; sourceTree = "<group>"; };
 		AC91C94424483C8100FB8108 /* AlloyAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AlloyAssets.xcassets; sourceTree = "<group>"; };
 		AC91C94524483E3100FB8108 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
@@ -123,10 +125,10 @@
 				AC146CAB2447582D00F5EA02 /* Extensions */,
 				AC146CB024475BAF00F5EA02 /* Views */,
 				AC146C782446F7C200F5EA02 /* AlloyViewController.swift */,
+				AC91C94224483C0100FB8108 /* GetStartedViewController.swift */,
 				AC146CA52447450600F5EA02 /* MainViewController.swift */,
 				AC146CA72447485000F5EA02 /* CameraViewController.swift */,
 				AC146CA9244753B700F5EA02 /* EndViewController.swift */,
-				AC91C94224483C0100FB8108 /* GetStartedViewController.swift */,
 			);
 			path = Alloy;
 			sourceTree = "<group>";
@@ -151,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				AC146CB124475D3800F5EA02 /* PrimaryButton.swift */,
+				AC22473B244840F100892273 /* GetStartedItem.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 				AC146CB224475D3800F5EA02 /* PrimaryButton.swift in Sources */,
 				AC91C94624483E3100FB8108 /* UIImage.swift in Sources */,
 				AC146CAA244753B700F5EA02 /* EndViewController.swift in Sources */,
+				AC22473C244840F100892273 /* GetStartedItem.swift in Sources */,
 				AC146C792446F7C200F5EA02 /* AlloyViewController.swift in Sources */,
 				AC146CA62447450600F5EA02 /* MainViewController.swift in Sources */,
 				AC146CA82447485000F5EA02 /* CameraViewController.swift in Sources */,
