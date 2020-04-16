@@ -16,5 +16,5 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '11.0'
 
   s.frameworks = 'UIKit'
-  s.source_files = 'Alloy/**/*'
+  s.source_files = 'Alloy/**/*.swift'
 end
