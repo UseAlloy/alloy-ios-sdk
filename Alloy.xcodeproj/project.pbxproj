@@ -19,6 +19,7 @@
 		AC146CAA244753B700F5EA02 /* EndViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146CA9244753B700F5EA02 /* EndViewController.swift */; };
 		AC146CAD2447583900F5EA02 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146CAC2447583900F5EA02 /* UIColor.swift */; };
 		AC146CB224475D3800F5EA02 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146CB124475D3800F5EA02 /* PrimaryButton.swift */; };
+		AC91C94624483E3100FB8108 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC91C94524483E3100FB8108 /* UIImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		AC146CA9244753B700F5EA02 /* EndViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndViewController.swift; sourceTree = "<group>"; };
 		AC146CAC2447583900F5EA02 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		AC146CB124475D3800F5EA02 /* PrimaryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
+		AC91C94524483E3100FB8108 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				AC146CAC2447583900F5EA02 /* UIColor.swift */,
+				AC91C94524483E3100FB8108 /* UIImage.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC146CB224475D3800F5EA02 /* PrimaryButton.swift in Sources */,
+				AC91C94624483E3100FB8108 /* UIImage.swift in Sources */,
 				AC146CAA244753B700F5EA02 /* EndViewController.swift in Sources */,
 				AC146C792446F7C200F5EA02 /* AlloyViewController.swift in Sources */,
 				AC146CA62447450600F5EA02 /* MainViewController.swift in Sources */,
