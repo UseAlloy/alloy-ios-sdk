@@ -20,7 +20,13 @@ class ViewController: UIViewController {
     }
 
     @objc private func openAlloy() {
-        let vc = AlloyViewController()
+        let config = AlloyConfig(
+            token: ApiSecrets.token,
+            secret: ApiSecrets.secret,
+            for: .new(AlloyEvaluationData(nameFirst: "John", nameLast: "Doe"))
+        )
+
+        let vc = AlloyViewController(with: config)
         present(vc, animated: true)
     }
 }

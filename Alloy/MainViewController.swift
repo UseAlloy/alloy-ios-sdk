@@ -1,6 +1,8 @@
 import UIKit
 
 internal class MainViewController: UIViewController {
+    public var entitiToken: String?
+
     private lazy var closeButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title: "Close", style: .done, target: self, action: #selector(close))
         return button
