@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		AC146C4D2446F4BF00F5EA02 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146C4C2446F4BF00F5EA02 /* AppDelegate.swift */; };
-		AC146C4F2446F4BF00F5EA02 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146C4E2446F4BF00F5EA02 /* SceneDelegate.swift */; };
 		AC146C512446F4BF00F5EA02 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146C502446F4BF00F5EA02 /* ViewController.swift */; };
 		AC146C562446F4C000F5EA02 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC146C552446F4C000F5EA02 /* Assets.xcassets */; };
 		AC146C592446F4C000F5EA02 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC146C572446F4C000F5EA02 /* LaunchScreen.storyboard */; };
@@ -49,7 +48,6 @@
 /* Begin PBXFileReference section */
 		AC146C492446F4BF00F5EA02 /* AlloyExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlloyExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC146C4C2446F4BF00F5EA02 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		AC146C4E2446F4BF00F5EA02 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		AC146C502446F4BF00F5EA02 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		AC146C552446F4C000F5EA02 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AC146C582446F4C000F5EA02 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -109,7 +107,6 @@
 			isa = PBXGroup;
 			children = (
 				AC146C4C2446F4BF00F5EA02 /* AppDelegate.swift */,
-				AC146C4E2446F4BF00F5EA02 /* SceneDelegate.swift */,
 				AC146C502446F4BF00F5EA02 /* ViewController.swift */,
 				AC146C552446F4C000F5EA02 /* Assets.xcassets */,
 				AC146C572446F4C000F5EA02 /* LaunchScreen.storyboard */,
@@ -252,7 +249,6 @@
 			files = (
 				AC146C512446F4BF00F5EA02 /* ViewController.swift in Sources */,
 				AC146C4D2446F4BF00F5EA02 /* AppDelegate.swift in Sources */,
-				AC146C4F2446F4BF00F5EA02 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -415,6 +411,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RXT9WNH555;
 				INFOPLIST_FILE = AlloyExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -433,6 +430,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RXT9WNH555;
 				INFOPLIST_FILE = AlloyExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
