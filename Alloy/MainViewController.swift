@@ -8,6 +8,8 @@ internal class MainViewController: UIViewController {
         return button
     }()
 
+    private lazy var preview = UIImageView()
+
     private lazy var subheadline: UILabel = {
         let view = UILabel()
         view.numberOfLines = 0
@@ -20,14 +22,14 @@ internal class MainViewController: UIViewController {
     private lazy var frontButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Take front", for: .normal)
-        button.addTarget(self, action: #selector(openCamera), for: .touchUpInside)
+        button.addTarget(self, action: #selector(takeFrontPicture), for: .touchUpInside)
         return button
     }()
 
     private lazy var backButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Take back", for: .normal)
-        button.addTarget(self, action: #selector(openCamera), for: .touchUpInside)
+        button.addTarget(self, action: #selector(takeBackPicture), for: .touchUpInside)
         return button
     }()
 
@@ -41,6 +43,13 @@ internal class MainViewController: UIViewController {
         view.backgroundColor = .white
 
         navigationItem.leftBarButtonItem = closeButton
+
+        view.addSubview(preview)
+        preview.translatesAutoresizingMaskIntoConstraints = false
+        preview.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        preview.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        preview.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        preview.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
 
         view.addSubview(subheadline)
         subheadline.translatesAutoresizingMaskIntoConstraints = false
@@ -65,8 +74,21 @@ internal class MainViewController: UIViewController {
         dismiss(animated: true)
     }
 
-    @objc private func openCamera() {
+    @objc private func takeFrontPicture() {
+        self.takePicture(for: "Front side", storeIn: preview)
+    }
+
+    @objc private func takeBackPicture() {
+        self.takePicture(for: "Back side", storeIn: preview)
+    }
+
+    private func takePicture(for title: String, storeIn preview: UIImageView) {
         let vc = CameraViewController()
+        vc.title = title
+        vc.imageTaken = { [weak preview] data in
+            let image = UIImage(data: data)
+            preview?.image = image
+        }
         navigationController?.pushViewController(vc, animated: true)
     }
 }
