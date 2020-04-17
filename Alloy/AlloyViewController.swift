@@ -13,6 +13,10 @@ public class AlloyViewController: UINavigationController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+
     public override func viewDidLoad() {
         super.viewDidLoad()
         navigationBar.tintColor = .black
