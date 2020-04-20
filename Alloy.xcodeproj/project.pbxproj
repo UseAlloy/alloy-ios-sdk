@@ -22,6 +22,7 @@
 		AC22474424485A9700892273 /* ApiSecrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC22474324485A9700892273 /* ApiSecrets.swift */; };
 		AC22474724485CAF00892273 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC22474624485CAF00892273 /* Models.swift */; };
 		AC22474924485FD300892273 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC22474824485FD300892273 /* API.swift */; };
+		AC61FC41244D837600F64F56 /* CardDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC61FC40244D837600F64F56 /* CardDetail.swift */; };
 		AC91C94324483C0100FB8108 /* GetStartedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC91C94224483C0100FB8108 /* GetStartedViewController.swift */; };
 		AC91C94624483E3100FB8108 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC91C94524483E3100FB8108 /* UIImage.swift */; };
 /* End PBXBuildFile section */
@@ -66,6 +67,7 @@
 		AC22474324485A9700892273 /* ApiSecrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiSecrets.swift; sourceTree = "<group>"; };
 		AC22474624485CAF00892273 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		AC22474824485FD300892273 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		AC61FC40244D837600F64F56 /* CardDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetail.swift; sourceTree = "<group>"; };
 		AC91C94224483C0100FB8108 /* GetStartedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStartedViewController.swift; sourceTree = "<group>"; };
 		AC91C94424483C8100FB8108 /* AlloyAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AlloyAssets.xcassets; sourceTree = "<group>"; };
 		AC91C94524483E3100FB8108 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
@@ -157,8 +159,9 @@
 		AC146CB024475BAF00F5EA02 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				AC146CB124475D3800F5EA02 /* PrimaryButton.swift */,
+				AC61FC40244D837600F64F56 /* CardDetail.swift */,
 				AC22473B244840F100892273 /* GetStartedItem.swift */,
+				AC146CB124475D3800F5EA02 /* PrimaryButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -275,6 +278,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC22474924485FD300892273 /* API.swift in Sources */,
+				AC61FC41244D837600F64F56 /* CardDetail.swift in Sources */,
 				AC146CB224475D3800F5EA02 /* PrimaryButton.swift in Sources */,
 				AC91C94624483E3100FB8108 /* UIImage.swift in Sources */,
 				AC146CAA244753B700F5EA02 /* EndViewController.swift in Sources */,
