@@ -18,19 +18,28 @@ internal class MainViewController: UIViewController {
         view.textAlignment = .center
         return view
     }()
-
-    private lazy var frontButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Take front", for: .normal)
-        button.addTarget(self, action: #selector(takeFrontPicture), for: .touchUpInside)
-        return button
+    
+    private lazy var frontCard: CardDetail = {
+        let view = CardDetail()
+        view.takeButton.setTitle("Take front", for: .normal)
+        view.takeButton.addTarget(self, action: #selector(takeFrontPicture), for: .touchUpInside)
+        return view
     }()
 
-    private lazy var backButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Take back", for: .normal)
-        button.addTarget(self, action: #selector(takeBackPicture), for: .touchUpInside)
-        return button
+    private lazy var backCard: CardDetail = {
+        let view = CardDetail()
+        view.takeButton.setTitle("Take back", for: .normal)
+        view.takeButton.addTarget(self, action: #selector(takeBackPicture), for: .touchUpInside)
+        return view
+    }()
+
+    private lazy var cardsStack: UIStackView = {
+        let view = UIStackView()
+        view.alignment = .fill
+        view.axis = .vertical
+        view.distribution = .fillEqually
+        view.spacing = 20
+        return view
     }()
 
     override func viewDidLoad() {
@@ -57,15 +66,15 @@ internal class MainViewController: UIViewController {
         subheadline.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         subheadline.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
 
-        view.addSubview(frontButton)
-        frontButton.translatesAutoresizingMaskIntoConstraints = false
-        frontButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        frontButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        view.addSubview(cardsStack)
+        cardsStack.translatesAutoresizingMaskIntoConstraints = false
+        cardsStack.topAnchor.constraint(equalTo: subheadline.bottomAnchor, constant: 40).isActive = true
+        cardsStack.leadingAnchor.constraint(equalTo: subheadline.leadingAnchor).isActive = true
+        cardsStack.trailingAnchor.constraint(equalTo: subheadline.trailingAnchor).isActive = true
+        cardsStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -150).isActive = true
 
-        view.addSubview(backButton)
-        backButton.translatesAutoresizingMaskIntoConstraints = false
-        backButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        backButton.topAnchor.constraint(equalTo: frontButton.bottomAnchor, constant: 24).isActive = true
+        cardsStack.addArrangedSubview(frontCard)
+        cardsStack.addArrangedSubview(backCard)
     }
 
     // MARK: Actions
@@ -75,11 +84,11 @@ internal class MainViewController: UIViewController {
     }
 
     @objc private func takeFrontPicture() {
-        self.takePicture(for: "Front side", storeIn: preview)
+        self.takePicture(for: "Front side", storeIn: frontCard.preview)
     }
 
     @objc private func takeBackPicture() {
-        self.takePicture(for: "Back side", storeIn: preview)
+        self.takePicture(for: "Back side", storeIn: backCard.preview)
     }
 
     private func takePicture(for title: String, storeIn preview: UIImageView) {
