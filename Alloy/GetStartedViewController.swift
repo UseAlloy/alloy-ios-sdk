@@ -116,7 +116,8 @@ class GetStartedViewController: UIViewController {
 
     @objc private func getStarted() {
         let vc = MainViewController()
-        vc.entitiToken = entityToken
+        vc.api = api
+        vc.entityToken = entityToken
         navigationController?.pushViewController(vc, animated: true)
     }
 

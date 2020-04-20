@@ -1,7 +1,8 @@
 import UIKit
 
 internal class MainViewController: UIViewController {
-    public var entitiToken: String?
+    public var api: API!
+    public var entityToken: String?
 
     private lazy var closeButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title: "Close", style: .done, target: self, action: #selector(close))
@@ -94,10 +95,35 @@ internal class MainViewController: UIViewController {
     private func takePicture(for title: String, storeIn preview: UIImageView) {
         let vc = CameraViewController()
         vc.title = title
-        vc.imageTaken = { [weak preview] data in
+        vc.imageTaken = { [weak self, weak preview] data in
             let image = UIImage(data: data)
             preview?.image = image
+            self?.createDocument(data: data, for: title)
         }
         navigationController?.pushViewController(vc, animated: true)
+    }
+
+    // MARK: Alloy Actions
+
+    private func createDocument(data: Data, for side: String) {
+        guard let api = api, let entityToken = entityToken else { return }
+
+        let documentData = AlloyDocumentData(name: "license", extension: "jpg", type: "license")
+        api.create(document: documentData, andUpload: data, for: entityToken) { result in
+            switch result {
+            case let .failure(error):
+                print("create/upload", error)
+            case let .success(response):
+                let evaluation = AlloyCardEvaluationData(entityToken: entityToken, evaluationStep: .back(response.token))
+                api.evaluate(document: evaluation) { result in
+                    switch result {
+                    case let .failure(error):
+                        print("evaluate", error)
+                    case let .success(response):
+                        print(">", response.summary.outcome)
+                    }
+                }
+            }
+        }
     }
 }

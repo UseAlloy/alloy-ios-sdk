@@ -3,6 +3,10 @@ import Foundation
 private let sandboxApiUrl = URL(string: "https://sandbox.alloy.co/v1")!
 private let productionApiUrl = URL(string: "https://api.alloy.co/v1")!
 
+enum ApiError: Error {
+    case couldNotParse
+}
+
 internal class API {
     let client: URLSession = {
         return URLSession.shared
@@ -37,57 +41,57 @@ internal class API {
         return request
     }
 
-//    func authorization() {
-//        let requestUrl = apiUrl.appendingPathComponent("/oauth/bearer")
-//        var request = URLRequest(url: requestUrl)
-//        request.httpMethod = "POST"
-//        request.setValue("application/json", forHTTPHeaderField: "content-type")
-//        request.setValue(authString, forHTTPHeaderField: "Authorization")
-//
-//        let task = client.dataTask(with: request) { (data, response, error) in
-//            print(String(data: data!, encoding: .utf8))
-//            print(response)
-//            print(error)
-//        }
-//        task.resume()
-//    }
-
     func evaluate(_ data: AlloyEvaluationData, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
         let request = createRequest(path: "/evaluations", method: "POST")
 
         let jsonData = try! JSONEncoder().encode(data)
-        let jsonString = String(data: jsonData, encoding: .utf8)
-        print(jsonString!)
-        print("---")
-
         let task = client.uploadTask(with: request, from: jsonData, completionHandler: completion)
         task.resume()
-
-//        let task = client.uploadTask(with: request, from: jsonData) { (data, response, error) in
-//            let parsed = try! JSONDecoder().decode(AlloyEvaluationResponse.self, from: data!)
-//            print(parsed)
-//
-//            print(String(data: data!, encoding: .utf8)!)
-//            print(response!)
-//            print(error)
-//        }
     }
 
-    func describe(document: AlloyDocumentData, for entityToken: AlloyEntityToken? = nil) {
+    func create(document: AlloyDocumentData, andUpload data: Data, for entityToken: AlloyEntityToken, completion: @escaping (Result<AlloyDocumentResponse, Error>) -> Void) {
         let request = createRequest(path: "/entities/\(entityToken)/documents", method: "POST")
+        let jsonData = try! JSONEncoder().encode(document)
+        client.uploadTask(with: request, from: jsonData) { [weak self] data, response, error in
+            guard let data = data, let parsed = try? JSONDecoder().decode(AlloyDocumentResponse.self, from: data) else { return }
+            self?.upload(document: parsed.token, for: entityToken, data, completion: completion)
+        }.resume()
+    }
 
-        guard let jsonData = try? JSONEncoder().encode(document) else {
-            return
-        }
-
-        let task = client.uploadTask(with: request, from: jsonData) { data, response, error in
-            guard let data = data, let parsed = try? JSONDecoder().decode(AlloyDocumentResponse.self, from: data) else {
+    private func upload(document: AlloyDocumentToken, for entity: AlloyEntityToken, _ data: Data, completion: @escaping (Result<AlloyDocumentResponse, Error>) -> Void) {
+        var request = createRequest(path: "/entities/\(entity)/documents/\(document)", method: "PUT")
+        request.setValue("image/jpg", forHTTPHeaderField: "content-type")
+        client.uploadTask(with: request, from: data) { data, _, error in
+            if let error = error {
+                completion(.failure(error))
                 return
             }
 
-            print(parsed)
-        }
+            if let data = data, let parsed = try? JSONDecoder().decode(AlloyDocumentResponse.self, from: data) {
+                completion(.success(parsed))
+                return
+            }
 
-        task.resume()
+            completion(.failure(ApiError.couldNotParse))
+        }.resume()
+    }
+
+    func evaluate(document: AlloyCardEvaluationData, completion: @escaping (Result<AlloyCardEvaluationResponse, Error>) -> Void) {
+        var request = createRequest(path: "/evaluations", method: "POST")
+        request.setValue(document.entityToken, forHTTPHeaderField: "Alloy-Entity-Token")
+        let jsonData = try! JSONEncoder().encode(document.evaluationStep)
+        client.uploadTask(with: request, from: jsonData) { data, _, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+
+            if let data = data, let parsed = try? JSONDecoder().decode(AlloyCardEvaluationResponse.self, from: data) {
+                completion(.success(parsed))
+                return
+            }
+
+            completion(.failure(ApiError.couldNotParse))
+        }.resume()
     }
 }

@@ -88,3 +88,50 @@ internal struct AlloyDocumentResponse: Decodable {
              uploaded
     }
 }
+
+internal struct AlloyCardEvaluationData {
+    let entityToken: AlloyEntityToken
+    let evaluationStep: AlloyCardEvaluationStep
+}
+
+internal enum AlloyCardEvaluationStep: Encodable {
+    case front(AlloyDocumentToken)
+    case back(AlloyDocumentToken)
+    case both(AlloyDocumentToken, AlloyDocumentToken)
+
+    private enum CodingKeys: String, CodingKey {
+        case document_step,
+             document_token_front,
+             document_token_back
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        switch self {
+        case let .front(token):
+            try container.encode("front", forKey: .document_step)
+            try container.encode(token, forKey: .document_token_front)
+        case let .back(token):
+            try container.encode("back", forKey: .document_step)
+            try container.encode(token, forKey: .document_token_back)
+        case let .both(tokenFront, tokenBack):
+            try container.encode("both", forKey: .document_step)
+            try container.encode(tokenFront, forKey: .document_token_front)
+            try container.encode(tokenBack, forKey: .document_token_back)
+        }
+    }
+}
+
+internal struct AlloyCardEvaluationResponse: Codable {
+    let entityToken: AlloyEntityToken
+    let summary: Summary
+
+    internal struct Summary: Codable {
+        let outcome: String
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case entityToken = "entity_token",
+             summary
+    }
+}
