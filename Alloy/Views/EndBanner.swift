@@ -26,6 +26,9 @@ class EndBanner: UIView {
     private var innerCircle: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 37.5
+        view.layer.shadowOffset = CGSize(width: 0, height: 4)
+        view.layer.shadowOpacity = 0.5
+        view.layer.shadowRadius = 10
         return view
     }()
 
@@ -92,6 +95,7 @@ class EndBanner: UIView {
         outerCircle.backgroundColor = color
         midCircle.backgroundColor = color
         innerCircle.backgroundColor = color
+        innerCircle.layer.shadowColor = color.cgColor
         iconContainer.image = variant == .failure
             ? UIImage(fallbackSystemImage: "xmark")
             : UIImage(fallbackSystemImage: "checkmark")
