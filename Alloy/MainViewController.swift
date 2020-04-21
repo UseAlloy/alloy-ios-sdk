@@ -85,19 +85,20 @@ internal class MainViewController: UIViewController {
     }
 
     @objc private func takeFrontPicture() {
-        self.takePicture(for: "Front side", storeIn: frontCard.preview)
+        self.takePicture(for: "Front side", card: frontCard)
     }
 
     @objc private func takeBackPicture() {
-        self.takePicture(for: "Back side", storeIn: backCard.preview)
+        self.takePicture(for: "Back side", card: backCard)
     }
 
-    private func takePicture(for title: String, storeIn preview: UIImageView) {
+    private func takePicture(for title: String, card: CardDetail) {
         let vc = CameraViewController()
         vc.title = title
-        vc.imageTaken = { [weak self, weak preview] data in
+        vc.imageTaken = { [weak self, weak card] data in
             let image = UIImage(data: data)
-            preview?.image = image
+            card?.preview.image = image
+            card?.startLoading()
             self?.createDocument(data: data, for: title)
         }
         navigationController?.pushViewController(vc, animated: true)
