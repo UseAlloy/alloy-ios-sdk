@@ -18,6 +18,7 @@
 		AC146CAA244753B700F5EA02 /* EndViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146CA9244753B700F5EA02 /* EndViewController.swift */; };
 		AC146CAD2447583900F5EA02 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146CAC2447583900F5EA02 /* UIColor.swift */; };
 		AC146CB224475D3800F5EA02 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146CB124475D3800F5EA02 /* PrimaryButton.swift */; };
+		AC202648244ED2A900EF69A5 /* EndBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC202647244ED2A900EF69A5 /* EndBanner.swift */; };
 		AC22473C244840F100892273 /* GetStartedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC22473B244840F100892273 /* GetStartedItem.swift */; };
 		AC22474424485A9700892273 /* ApiSecrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC22474324485A9700892273 /* ApiSecrets.swift */; };
 		AC22474724485CAF00892273 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC22474624485CAF00892273 /* Models.swift */; };
@@ -63,6 +64,7 @@
 		AC146CA9244753B700F5EA02 /* EndViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndViewController.swift; sourceTree = "<group>"; };
 		AC146CAC2447583900F5EA02 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		AC146CB124475D3800F5EA02 /* PrimaryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
+		AC202647244ED2A900EF69A5 /* EndBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndBanner.swift; sourceTree = "<group>"; };
 		AC22473B244840F100892273 /* GetStartedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStartedItem.swift; sourceTree = "<group>"; };
 		AC22474324485A9700892273 /* ApiSecrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiSecrets.swift; sourceTree = "<group>"; };
 		AC22474624485CAF00892273 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 				AC61FC40244D837600F64F56 /* CardDetail.swift */,
 				AC22473B244840F100892273 /* GetStartedItem.swift */,
 				AC146CB124475D3800F5EA02 /* PrimaryButton.swift */,
+				AC202647244ED2A900EF69A5 /* EndBanner.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 				AC22473C244840F100892273 /* GetStartedItem.swift in Sources */,
 				AC146C792446F7C200F5EA02 /* AlloyViewController.swift in Sources */,
 				AC146CA62447450600F5EA02 /* MainViewController.swift in Sources */,
+				AC202648244ED2A900EF69A5 /* EndBanner.swift in Sources */,
 				AC146CA82447485000F5EA02 /* CameraViewController.swift in Sources */,
 				AC91C94324483C0100FB8108 /* GetStartedViewController.swift in Sources */,
 				AC146CAD2447583900F5EA02 /* UIColor.swift in Sources */,
