@@ -6,6 +6,11 @@ internal class CameraViewController: UIViewController {
 
     // MARK: Views
 
+    private lazy var backButton: UIBarButtonItem = {
+        let image = UIImage(fallbackSystemImage: "arrow.left")
+        return UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(goBack))
+    }()
+
     private var session: AVCaptureSession = {
         let session = AVCaptureSession()
         session.sessionPreset = .photo
@@ -42,6 +47,8 @@ internal class CameraViewController: UIViewController {
 
     private func setup() {
         view.backgroundColor = .black
+
+        navigationItem.leftBarButtonItem = backButton
 
         view.addSubview(shutterButton)
         shutterButton.translatesAutoresizingMaskIntoConstraints = false
@@ -82,6 +89,10 @@ internal class CameraViewController: UIViewController {
     }
 
     // MARK: Actions
+
+    @objc private func goBack() {
+        navigationController?.popViewController(animated: true)
+    }
 
     @objc private func onShutter() {
         let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])

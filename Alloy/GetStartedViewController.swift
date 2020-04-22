@@ -12,11 +12,6 @@ class GetStartedViewController: UIViewController {
 
     // MARK: Views
 
-    private lazy var closeButton: UIBarButtonItem = {
-        let image = UIImage(fallbackSystemImage: "xmark")
-        return UIBarButtonItem(image: image, style: .done, target: self, action: #selector(closeModal))
-    }()
-
     private lazy var stack: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
@@ -38,6 +33,14 @@ class GetStartedViewController: UIViewController {
         return view
     }()
 
+    private lazy var cancelButton: UIButton = {
+        let view = UIButton(type: .system)
+        view.setTitle("Cancel", for: .normal)
+        view.setTitleColor(UIColor.Theme.blue, for: .normal)
+        view.addTarget(self, action: #selector(closeModal), for: .touchUpInside)
+        return view
+    }()
+
     // MARK: Init
 
     override func viewDidLoad() {
@@ -46,15 +49,21 @@ class GetStartedViewController: UIViewController {
         loadData()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+
     // MARK: Setup
 
     private func setup() {
-        title = "Get Started"
         view.backgroundColor = UIColor.Theme.white
 
-        navigationItem.leftBarButtonItem = closeButton
-
         view.addSubview(stack)
+        view.addSubview(getStartedButton)
+        view.addSubview(loader)
+        view.addSubview(cancelButton)
+
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         stack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 40).isActive = true
@@ -72,18 +81,22 @@ class GetStartedViewController: UIViewController {
         item3.configure(with: "Mind your surroundings, the clearer the background of the picture is, the better.")
         stack.addArrangedSubview(item3)
 
-        view.addSubview(getStartedButton)
         getStartedButton.translatesAutoresizingMaskIntoConstraints = false
         getStartedButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         getStartedButton.leadingAnchor.constraint(equalTo: stack.leadingAnchor).isActive = true
         getStartedButton.trailingAnchor.constraint(equalTo: stack.trailingAnchor).isActive = true
-        getStartedButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -106).isActive = true
+        getStartedButton.bottomAnchor.constraint(equalTo: cancelButton.topAnchor, constant: -20).isActive = true
 
-        view.addSubview(loader)
         loader.translatesAutoresizingMaskIntoConstraints = false
         loader.centerYAnchor.constraint(equalTo: getStartedButton.centerYAnchor).isActive = true
         loader.centerXAnchor.constraint(equalTo: getStartedButton.centerXAnchor).isActive = true
         loader.startAnimating()
+
+        cancelButton.translatesAutoresizingMaskIntoConstraints = false
+        cancelButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        cancelButton.leadingAnchor.constraint(equalTo: stack.leadingAnchor).isActive = true
+        cancelButton.trailingAnchor.constraint(equalTo: stack.trailingAnchor).isActive = true
+        cancelButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40).isActive = true
     }
 
     // MARK: Data

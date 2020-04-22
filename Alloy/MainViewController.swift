@@ -19,8 +19,13 @@ internal class MainViewController: UIViewController {
     }
 
     private lazy var closeButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title: "Close", style: .done, target: self, action: #selector(close))
-        return button
+        let image = UIImage(fallbackSystemImage: "xmark")
+        return UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(close))
+    }()
+
+    private lazy var helpButton: UIBarButtonItem = {
+        let image = UIImage(fallbackSystemImage: "questionmark.circle")
+        return UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
     }()
 
     private lazy var scrollView = UIScrollView()
@@ -76,16 +81,26 @@ internal class MainViewController: UIViewController {
         return view
     }()
 
+    // MARK: Init
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+
+    // MARK: Setup
 
     private func setup() {
         title = "Scan your ID"
         view.backgroundColor = .white
 
         navigationItem.leftBarButtonItem = closeButton
+        navigationItem.rightBarButtonItem = helpButton
 
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
