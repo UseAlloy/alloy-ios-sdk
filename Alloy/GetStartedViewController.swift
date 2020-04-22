@@ -80,20 +80,32 @@ class GetStartedViewController: UIViewController {
         titleLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50).isActive = true
 
         stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        stack.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 60).isActive = true
         stack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 40).isActive = true
         stack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -40).isActive = true
 
         let item1 = GetStartedItem()
-        item1.configure(with: "Keep your ID close and make sure it is in good condition.")
+        item1.configure(
+            image: "checkid",
+            title: "Check your ID",
+            description: "Keep your ID close and make sure it is in good condition."
+        )
         stack.addArrangedSubview(item1)
 
         let item2 = GetStartedItem()
-        item2.configure(with: "Choose a room with good (indirect) lighting. Daylight works best.")
+        item2.configure(
+            image: "daylight",
+            title: "Daylight works best",
+            description: "Choose a room with good (indirect) lighting."
+        )
         stack.addArrangedSubview(item2)
 
         let item3 = GetStartedItem()
-        item3.configure(with: "Mind your surroundings, the clearer the background of the picture is, the better.")
+        item3.configure(
+            image: "surroundings",
+            title: "Mind your surroundings",
+            description: "The clearer the background of the picture is, the better."
+        )
         stack.addArrangedSubview(item3)
 
         getStartedButton.translatesAutoresizingMaskIntoConstraints = false

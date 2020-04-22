@@ -24,6 +24,7 @@
 		AC22474724485CAF00892273 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC22474624485CAF00892273 /* Models.swift */; };
 		AC22474924485FD300892273 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC22474824485FD300892273 /* API.swift */; };
 		AC61FC41244D837600F64F56 /* CardDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC61FC40244D837600F64F56 /* CardDetail.swift */; };
+		AC8465E3245078460031DA78 /* AlloyAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC91C94424483C8100FB8108 /* AlloyAssets.xcassets */; };
 		AC91C94324483C0100FB8108 /* GetStartedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC91C94224483C0100FB8108 /* GetStartedViewController.swift */; };
 		AC91C94624483E3100FB8108 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC91C94524483E3100FB8108 /* UIImage.swift */; };
 /* End PBXBuildFile section */
@@ -162,9 +163,9 @@
 			isa = PBXGroup;
 			children = (
 				AC61FC40244D837600F64F56 /* CardDetail.swift */,
+				AC202647244ED2A900EF69A5 /* EndBanner.swift */,
 				AC22473B244840F100892273 /* GetStartedItem.swift */,
 				AC146CB124475D3800F5EA02 /* PrimaryButton.swift */,
-				AC202647244ED2A900EF69A5 /* EndBanner.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -260,6 +261,7 @@
 			files = (
 				AC146C592446F4C000F5EA02 /* LaunchScreen.storyboard in Resources */,
 				AC146C562446F4C000F5EA02 /* Assets.xcassets in Resources */,
+				AC8465E3245078460031DA78 /* AlloyAssets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
