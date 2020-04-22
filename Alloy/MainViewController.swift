@@ -39,6 +39,7 @@ internal class MainViewController: UIViewController {
         let view = CardDetail()
         view.takeButton.setTitle("Take front", for: .normal)
         view.takeButton.addTarget(self, action: #selector(takeFrontPicture), for: .touchUpInside)
+        view.retakeButton.addTarget(self, action: #selector(takeFrontPicture), for: .touchUpInside)
         return view
     }()
 
@@ -47,6 +48,7 @@ internal class MainViewController: UIViewController {
         view.takeButton.setTitle("Take back", for: .normal)
         view.takeButton.addTarget(self, action: #selector(takeBackPicture), for: .touchUpInside)
         view.takeButton.isEnabled = false
+        view.retakeButton.addTarget(self, action: #selector(takeBackPicture), for: .touchUpInside)
         return view
     }()
 
@@ -62,6 +64,7 @@ internal class MainViewController: UIViewController {
     private lazy var sendButton: UIButton = {
         let button = PrimaryButton(title: "Send Pictures")
         button.isHidden = true
+        button.addTarget(self, action: #selector(validateBothSides), for: .touchUpInside)
         return button
     }()
 
@@ -159,6 +162,12 @@ internal class MainViewController: UIViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
 
+    private func showEndScreen(for outcome: EndVariant) {
+        let vc = EndViewController()
+        vc.variant = outcome
+        navigationController?.pushViewController(vc, animated: true)
+    }
+
     // MARK: Alloy Actions
 
     private func createDocument(data: Data, for card: CardDetail) {
@@ -170,13 +179,12 @@ internal class MainViewController: UIViewController {
             case let .failure(error):
                 print("create/upload", error)
             case let .success(response):
-                let evaluation = AlloyCardEvaluationData(entityToken: entityToken, evaluationStep: .back(response.token))
+                let evaluation = AlloyCardEvaluationData(entity: AlloyEntity(token: entityToken, nameFirst: "John", nameLast: "Doe"), evaluationStep: .back(response.token))
                 api.evaluate(document: evaluation) { result in
                     switch result {
                     case let .failure(error):
                         print("evaluate", error)
                     case let .success(responseE):
-                        print(">", responseE.summary.outcome)
                         DispatchQueue.main.async { [weak self] in
                             guard let self = self else { return }
                             if responseE.summary.outcome == "Approved" {
@@ -187,6 +195,46 @@ internal class MainViewController: UIViewController {
                                     self.backToken = response.token
                                 }
                             }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @objc private func validateBothSides() {
+        guard let entityToken = entityToken, let frontToken = frontToken, let backToken = backToken else {
+            sendButton.isHidden = true
+            retryButton.isHidden = true
+            return
+        }
+
+        let evaluation = AlloyCardEvaluationData(
+            entity: AlloyEntity(token: entityToken, nameFirst: "John", nameLast: "Retakeglarefront"),
+            evaluationStep: .both(frontToken, backToken)
+        )
+
+        api.evaluate(document: evaluation) { [weak self] result in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(let response):
+                DispatchQueue.main.async {
+                    if response.summary.outcome == "Approved" {
+                        self?.showEndScreen(for: .success)
+                        return
+                    }
+
+                    if response.summary.outcome == "Denied" {
+                        self?.showEndScreen(for: .failure)
+                        return
+                    }
+
+                    for reason in response.summary.outcomeReasons {
+                        if reason.starts(with: "Back") {
+                            self?.backCard.issueAppeared(reason)
+                        } else if reason.starts(with: "Front") {
+                            self?.frontCard.issueAppeared(reason)
                         }
                     }
                 }

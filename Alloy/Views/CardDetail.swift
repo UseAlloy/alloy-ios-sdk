@@ -1,6 +1,8 @@
 import UIKit
 
 class CardDetail: UIView {
+    static let borderColor: UIColor = UIColor(red: 0.95, green: 0.96, blue: 1, alpha: 1)
+
     // MARK: Views
 
     internal var preview: UIImageView = {
@@ -54,7 +56,7 @@ class CardDetail: UIView {
         return view
     }()
 
-    private var retakeButton: UIButton = {
+    internal var retakeButton: UIButton = {
         let button = UIButton(type: .system)
         button.isHidden = true
         button.setTitle("Retake", for: .normal)
@@ -77,7 +79,7 @@ class CardDetail: UIView {
     // MARK: Setup
 
     private func setup() {
-        layer.borderColor = UIColor(red: 0.95, green: 0.96, blue: 1, alpha: 1).cgColor
+        layer.borderColor = CardDetail.borderColor.cgColor
         layer.borderWidth = 2
         layer.cornerRadius = 20
         clipsToBounds = true
@@ -153,6 +155,7 @@ class CardDetail: UIView {
     }
 
     public func issueAppeared(_ issue: String) {
+        layer.borderColor = CardDetail.borderColor.cgColor
         statusContainer.isHidden = true
         statusIcon.isHidden = true
         takeButton.isHidden = true

@@ -71,6 +71,12 @@ internal struct AlloyEvaluationResponse: Decodable {
     }
 }
 
+internal struct AlloyEntity: Codable {
+    let token: AlloyEntityToken
+    let nameFirst: String
+    let nameLast: String
+}
+
 internal struct AlloyDocumentData: Codable {
     let name: String
     let `extension`: String
@@ -89,25 +95,25 @@ internal struct AlloyDocumentResponse: Decodable {
     }
 }
 
-internal struct AlloyCardEvaluationData {
-    let entityToken: AlloyEntityToken
+internal struct AlloyCardEvaluationData: Encodable {
+    let entity: AlloyEntity
     let evaluationStep: AlloyCardEvaluationStep
-}
-
-internal enum AlloyCardEvaluationStep: Encodable {
-    case front(AlloyDocumentToken)
-    case back(AlloyDocumentToken)
-    case both(AlloyDocumentToken, AlloyDocumentToken)
 
     private enum CodingKeys: String, CodingKey {
-        case document_step,
+        case name_first,
+             name_last,
+             document_step,
              document_token_front,
              document_token_back
     }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        switch self {
+
+        try container.encode(entity.nameFirst, forKey: .name_first)
+        try container.encode(entity.nameLast, forKey: .name_last)
+
+        switch evaluationStep {
         case let .front(token):
             try container.encode("front", forKey: .document_step)
             try container.encode(token, forKey: .document_token_front)
@@ -122,12 +128,24 @@ internal enum AlloyCardEvaluationStep: Encodable {
     }
 }
 
+internal enum AlloyCardEvaluationStep {
+    case front(AlloyDocumentToken)
+    case back(AlloyDocumentToken)
+    case both(AlloyDocumentToken, AlloyDocumentToken)
+}
+
 internal struct AlloyCardEvaluationResponse: Codable {
     let entityToken: AlloyEntityToken
     let summary: Summary
 
     internal struct Summary: Codable {
         let outcome: String
+        let outcomeReasons: [String]
+
+        private enum CodingKeys: String, CodingKey {
+            case outcome = "outcome",
+                 outcomeReasons = "outcome_reasons"
+        }
     }
 
     private enum CodingKeys: String, CodingKey {

@@ -78,8 +78,8 @@ internal class API {
 
     func evaluate(document: AlloyCardEvaluationData, completion: @escaping (Result<AlloyCardEvaluationResponse, Error>) -> Void) {
         var request = createRequest(path: "/evaluations", method: "POST")
-        request.setValue(document.entityToken, forHTTPHeaderField: "Alloy-Entity-Token")
-        let jsonData = try! JSONEncoder().encode(document.evaluationStep)
+        request.setValue(document.entity.token, forHTTPHeaderField: "Alloy-Entity-Token")
+        let jsonData = try! JSONEncoder().encode(document)
         client.uploadTask(with: request, from: jsonData) { data, _, error in
             if let error = error {
                 completion(.failure(error))
