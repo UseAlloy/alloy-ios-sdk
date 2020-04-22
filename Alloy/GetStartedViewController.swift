@@ -12,6 +12,15 @@ class GetStartedViewController: UIViewController {
 
     // MARK: Views
 
+    private lazy var titleLabel: UILabel = {
+        let view = UILabel()
+        view.font = .systemFont(ofSize: 22, weight: .bold)
+        view.numberOfLines = 0
+        view.text = "We have a few tips to make this process easier"
+        view.textAlignment = .center
+        return view
+    }()
+
     private lazy var stack: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
@@ -59,10 +68,16 @@ class GetStartedViewController: UIViewController {
     private func setup() {
         view.backgroundColor = UIColor.Theme.white
 
+        view.addSubview(titleLabel)
         view.addSubview(stack)
         view.addSubview(getStartedButton)
         view.addSubview(loader)
         view.addSubview(cancelButton)
+
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 50).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50).isActive = true
 
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
