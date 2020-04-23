@@ -30,6 +30,7 @@
 		ACB3AE822451883300718C54 /* Evaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB3AE812451883300718C54 /* Evaluation.swift */; };
 		ACB3AE842451887C00718C54 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB3AE832451887C00718C54 /* Document.swift */; };
 		ACB3AE8624518C8900718C54 /* Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB3AE8524518C8900718C54 /* Init.swift */; };
+		ACB3AE882451A97200718C54 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB3AE872451A97200718C54 /* UIView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +81,7 @@
 		ACB3AE812451883300718C54 /* Evaluation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Evaluation.swift; sourceTree = "<group>"; };
 		ACB3AE832451887C00718C54 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		ACB3AE8524518C8900718C54 /* Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Init.swift; sourceTree = "<group>"; };
+		ACB3AE872451A97200718C54 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +164,7 @@
 			children = (
 				AC146CAC2447583900F5EA02 /* UIColor.swift */,
 				AC91C94524483E3100FB8108 /* UIImage.swift */,
+				ACB3AE872451A97200718C54 /* UIView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -312,6 +315,7 @@
 				AC146CA62447450600F5EA02 /* MainViewController.swift in Sources */,
 				ACB3AE822451883300718C54 /* Evaluation.swift in Sources */,
 				AC202648244ED2A900EF69A5 /* EndBanner.swift in Sources */,
+				ACB3AE882451A97200718C54 /* UIView.swift in Sources */,
 				AC146CA82447485000F5EA02 /* CameraViewController.swift in Sources */,
 				AC91C94324483C0100FB8108 /* GetStartedViewController.swift in Sources */,
 				AC146CAD2447583900F5EA02 /* UIColor.swift in Sources */,
