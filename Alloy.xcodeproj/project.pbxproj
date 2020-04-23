@@ -21,12 +21,15 @@
 		AC202648244ED2A900EF69A5 /* EndBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC202647244ED2A900EF69A5 /* EndBanner.swift */; };
 		AC22473C244840F100892273 /* GetStartedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC22473B244840F100892273 /* GetStartedItem.swift */; };
 		AC22474424485A9700892273 /* ApiSecrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC22474324485A9700892273 /* ApiSecrets.swift */; };
-		AC22474724485CAF00892273 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC22474624485CAF00892273 /* Models.swift */; };
 		AC22474924485FD300892273 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC22474824485FD300892273 /* API.swift */; };
 		AC61FC41244D837600F64F56 /* CardDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC61FC40244D837600F64F56 /* CardDetail.swift */; };
 		AC8465E3245078460031DA78 /* AlloyAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC91C94424483C8100FB8108 /* AlloyAssets.xcassets */; };
 		AC91C94324483C0100FB8108 /* GetStartedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC91C94224483C0100FB8108 /* GetStartedViewController.swift */; };
 		AC91C94624483E3100FB8108 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC91C94524483E3100FB8108 /* UIImage.swift */; };
+		ACB3AE80245187F300718C54 /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB3AE7F245187F300718C54 /* Entity.swift */; };
+		ACB3AE822451883300718C54 /* Evaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB3AE812451883300718C54 /* Evaluation.swift */; };
+		ACB3AE842451887C00718C54 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB3AE832451887C00718C54 /* Document.swift */; };
+		ACB3AE8624518C8900718C54 /* Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB3AE8524518C8900718C54 /* Init.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,12 +71,15 @@
 		AC202647244ED2A900EF69A5 /* EndBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndBanner.swift; sourceTree = "<group>"; };
 		AC22473B244840F100892273 /* GetStartedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStartedItem.swift; sourceTree = "<group>"; };
 		AC22474324485A9700892273 /* ApiSecrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiSecrets.swift; sourceTree = "<group>"; };
-		AC22474624485CAF00892273 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		AC22474824485FD300892273 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		AC61FC40244D837600F64F56 /* CardDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetail.swift; sourceTree = "<group>"; };
 		AC91C94224483C0100FB8108 /* GetStartedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStartedViewController.swift; sourceTree = "<group>"; };
 		AC91C94424483C8100FB8108 /* AlloyAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AlloyAssets.xcassets; sourceTree = "<group>"; };
 		AC91C94524483E3100FB8108 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
+		ACB3AE7F245187F300718C54 /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
+		ACB3AE812451883300718C54 /* Evaluation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Evaluation.swift; sourceTree = "<group>"; };
+		ACB3AE832451887C00718C54 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
+		ACB3AE8524518C8900718C54 /* Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Init.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +139,7 @@
 				AC91C94424483C8100FB8108 /* AlloyAssets.xcassets */,
 				AC22474524485C9F00892273 /* API */,
 				AC146CAB2447582D00F5EA02 /* Extensions */,
+				ACB3AE7E245187DC00718C54 /* Models */,
 				AC146CB024475BAF00F5EA02 /* Views */,
 				AC146C782446F7C200F5EA02 /* AlloyViewController.swift */,
 				AC91C94224483C0100FB8108 /* GetStartedViewController.swift */,
@@ -174,9 +181,19 @@
 			isa = PBXGroup;
 			children = (
 				AC22474824485FD300892273 /* API.swift */,
-				AC22474624485CAF00892273 /* Models.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		ACB3AE7E245187DC00718C54 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				ACB3AE832451887C00718C54 /* Document.swift */,
+				ACB3AE7F245187F300718C54 /* Entity.swift */,
+				ACB3AE812451883300718C54 /* Evaluation.swift */,
+				ACB3AE8524518C8900718C54 /* Init.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -283,18 +300,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC22474924485FD300892273 /* API.swift in Sources */,
+				ACB3AE8624518C8900718C54 /* Init.swift in Sources */,
 				AC61FC41244D837600F64F56 /* CardDetail.swift in Sources */,
+				ACB3AE80245187F300718C54 /* Entity.swift in Sources */,
 				AC146CB224475D3800F5EA02 /* PrimaryButton.swift in Sources */,
 				AC91C94624483E3100FB8108 /* UIImage.swift in Sources */,
 				AC146CAA244753B700F5EA02 /* EndViewController.swift in Sources */,
 				AC22473C244840F100892273 /* GetStartedItem.swift in Sources */,
 				AC146C792446F7C200F5EA02 /* AlloyViewController.swift in Sources */,
+				ACB3AE842451887C00718C54 /* Document.swift in Sources */,
 				AC146CA62447450600F5EA02 /* MainViewController.swift in Sources */,
+				ACB3AE822451883300718C54 /* Evaluation.swift in Sources */,
 				AC202648244ED2A900EF69A5 /* EndBanner.swift in Sources */,
 				AC146CA82447485000F5EA02 /* CameraViewController.swift in Sources */,
 				AC91C94324483C0100FB8108 /* GetStartedViewController.swift in Sources */,
 				AC146CAD2447583900F5EA02 /* UIColor.swift in Sources */,
-				AC22474724485CAF00892273 /* Models.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

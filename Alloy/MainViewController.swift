@@ -188,7 +188,7 @@ internal class MainViewController: UIViewController {
     private func createDocument(data: Data, for card: CardDetail) {
         guard let api = api, let entityToken = entityToken else { return }
 
-        let documentData = AlloyDocumentData(name: "license", extension: "jpg", type: "license")
+        let documentData = AlloyDocumentPayload(name: "license", extension: .jpg, type: .license)
         api.create(document: documentData, andUpload: data, for: entityToken) { result in
             switch result {
             case let .failure(error):

@@ -49,25 +49,29 @@ internal class API {
         task.resume()
     }
 
-    func create(document: AlloyDocumentData, andUpload data: Data, for entityToken: AlloyEntityToken, completion: @escaping (Result<AlloyDocumentResponse, Error>) -> Void) {
+    func create(document: AlloyDocumentPayload, andUpload image: Data, for entityToken: AlloyEntityToken, completion: @escaping (Result<AlloyDocument, Error>) -> Void) {
         let request = createRequest(path: "/entities/\(entityToken)/documents", method: "POST")
         let jsonData = try! JSONEncoder().encode(document)
         client.uploadTask(with: request, from: jsonData) { [weak self] data, response, error in
-            guard let data = data, let parsed = try? JSONDecoder().decode(AlloyDocumentResponse.self, from: data) else { return }
-            self?.upload(document: parsed.token, for: entityToken, data, completion: completion)
+            guard let data = data, let parsed = try? JSONDecoder().decode(AlloyDocument.self, from: data) else {
+                completion(.failure(ApiError.couldNotParse))
+                return
+            }
+            let upload = AlloyDocumentUpload(token: parsed.token, extension: document.extension, imageData: image)
+            self?.upload(document: upload, for: entityToken, completion: completion)
         }.resume()
     }
 
-    private func upload(document: AlloyDocumentToken, for entity: AlloyEntityToken, _ data: Data, completion: @escaping (Result<AlloyDocumentResponse, Error>) -> Void) {
-        var request = createRequest(path: "/entities/\(entity)/documents/\(document)", method: "PUT")
-        request.setValue("image/jpg", forHTTPHeaderField: "content-type")
-        client.uploadTask(with: request, from: data) { data, _, error in
+    private func upload(document: AlloyDocumentUpload, for entity: AlloyEntityToken, completion: @escaping (Result<AlloyDocument, Error>) -> Void) {
+        var request = createRequest(path: "/entities/\(entity)/documents/\(document.token)", method: "PUT")
+        request.setValue("image/\(document.extension)", forHTTPHeaderField: "content-type")
+        client.uploadTask(with: request, from: document.imageData) { data, response, error in
             if let error = error {
                 completion(.failure(error))
                 return
             }
 
-            if let data = data, let parsed = try? JSONDecoder().decode(AlloyDocumentResponse.self, from: data) {
+            if let data = data, let parsed = try? JSONDecoder().decode(AlloyDocument.self, from: data) {
                 completion(.success(parsed))
                 return
             }

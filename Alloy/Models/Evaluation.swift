@@ -1,29 +1,8 @@
 import Foundation
 
 public typealias AlloyEvaluationToken = String
-public typealias AlloyEntityToken = String
-public typealias AlloyDocumentToken = String
 
-public enum AlloyEvaluationTarget {
-    case new(AlloyEvaluationData)
-    case existing(AlloyEntityToken)
-}
-
-public struct AlloyConfig {
-    // let key: String
-    // let externalEntityId: String?
-    let applicationToken: String
-    let applicationSecret: String
-    let evaluationTarget: AlloyEvaluationTarget
-    var maxEvaluationAttempts: Int = 2
-    var production: Bool = false
-
-    public init(token: String, secret: String, for evaluationTarget: AlloyEvaluationTarget) {
-        self.applicationToken = token
-        self.applicationSecret = secret
-        self.evaluationTarget = evaluationTarget
-    }
-}
+// Create Entity
 
 public struct AlloyEvaluationData: Codable {
     let nameFirst: String
@@ -71,29 +50,7 @@ internal struct AlloyEvaluationResponse: Decodable {
     }
 }
 
-internal struct AlloyEntity: Codable {
-    let token: AlloyEntityToken
-    let nameFirst: String
-    let nameLast: String
-}
-
-internal struct AlloyDocumentData: Codable {
-    let name: String
-    let `extension`: String
-    let type: String // ‘contract’, ‘license’, ‘passport’, or ‘utility’
-    // var note: String? = nil
-    // var note_author_agent_email: String? = nil
-}
-
-internal struct AlloyDocumentResponse: Decodable {
-    let token: AlloyDocumentToken
-    let uploaded: Bool
-
-    private enum CodingKeys: String, CodingKey {
-        case token = "document_token",
-             uploaded
-    }
-}
+// Evaluate document
 
 internal struct AlloyCardEvaluationData: Encodable {
     let entity: AlloyEntity
