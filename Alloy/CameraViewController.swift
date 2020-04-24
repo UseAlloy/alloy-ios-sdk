@@ -13,9 +13,9 @@ internal class CameraViewController: UIViewController {
     }()
 
     private var photoOutput = AVCapturePhotoOutput()
-    private lazy var videoPreviewLayer: CALayer = {
+    private lazy var videoPreviewLayer: AVCaptureVideoPreviewLayer = {
         let layer = AVCaptureVideoPreviewLayer(session: session)
-        layer.videoGravity = .resizeAspectFill
+        layer.videoGravity = .resizeAspect
         layer.connection?.videoOrientation = .portrait
         return layer
     }()
@@ -149,10 +149,27 @@ internal class CameraViewController: UIViewController {
         photoOutput.capturePhoto(with: settings, delegate: self)
     }
 
+    // MARK: Layout Subviews
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.videoPreviewLayer.frame = self.view.layer.frame
+
+        // Calculate new overlay mark
         overlay.maskRemove(cardFrame)
+
+        // Update preview frame and orientation based on device orientation
+        self.videoPreviewLayer.frame = self.view.layer.frame
+        let deviceOrientation = UIDevice.current.orientation
+        switch deviceOrientation {
+        case .landscapeLeft:
+            videoPreviewLayer.connection?.videoOrientation = .landscapeRight
+        case .landscapeRight:
+            videoPreviewLayer.connection?.videoOrientation = .landscapeLeft
+        case .portraitUpsideDown:
+            videoPreviewLayer.connection?.videoOrientation = .portraitUpsideDown
+        default:
+            videoPreviewLayer.connection?.videoOrientation = .portrait
+        }
     }
 }
 
