@@ -166,8 +166,8 @@ internal class MainViewController: UIViewController {
     private func takePicture(for title: String, card: CardDetail) {
         let vc = CameraViewController()
         vc.title = title
-        vc.imageTaken = { [weak self, weak card] data in
-            let image = UIImage(data: data)
+        vc.imageTaken = { [weak self, weak card] cgImage in
+            let image = UIImage(cgImage: cgImage)
             card?.preview.image = image
             card?.startLoading()
             if let self = self, let card = card {

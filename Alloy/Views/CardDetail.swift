@@ -7,7 +7,7 @@ class CardDetail: UIView {
 
     internal var preview: UIImageView = {
         let view = UIImageView()
-        view.contentMode = .scaleAspectFill
+        view.contentMode = .scaleToFill
         return view
     }()
 

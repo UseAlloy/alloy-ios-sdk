@@ -2,7 +2,7 @@ import AVFoundation
 import UIKit
 
 internal class CameraViewController: UIViewController {
-    public var imageTaken: ((Data) -> Void)?
+    public var imageTaken: ((CGImage) -> Void)?
 
     // MARK: Camera Views
 
@@ -96,8 +96,8 @@ internal class CameraViewController: UIViewController {
         subheadline.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -64).isActive = true
 
         cardFrame.translatesAutoresizingMaskIntoConstraints = false
-        cardFrame.heightAnchor.constraint(equalToConstant: 168).isActive = true
-        cardFrame.widthAnchor.constraint(equalToConstant: 295).isActive = true
+        cardFrame.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2).isActive = true
+        cardFrame.widthAnchor.constraint(greaterThanOrEqualTo: view.widthAnchor, multiplier: 0.8).isActive = true
         cardFrame.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         cardFrame.topAnchor.constraint(equalTo: subheadline.bottomAnchor, constant: 72).isActive = true
 
@@ -176,8 +176,32 @@ internal class CameraViewController: UIViewController {
 extension CameraViewController: AVCapturePhotoCaptureDelegate {
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         guard let imageData = photo.fileDataRepresentation() else { return }
-
-        imageTaken?(imageData)
+        guard let cropped = crop(image: imageData) else { return }
+        imageTaken?(cropped)
         navigationController?.popViewController(animated: true)
     }
+}
+
+// MARK: Image Cropping
+
+private func crop(image imageData: Data) -> CGImage? {
+    guard let image = UIImage(data: imageData)?.cgImage else {
+        return .none
+    }
+
+    let height = Double(image.height)
+    let width = Double(image.width)
+
+    let rect = CGRect(
+        x: width * 0.1,
+        y: height * 0.2,
+        width: width * 0.8,
+        height: height * 0.3
+    )
+
+    guard let cropped = image.cropping(to: rect) else {
+        return nil
+    }
+
+    return cropped
 }
