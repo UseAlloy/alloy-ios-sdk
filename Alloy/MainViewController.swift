@@ -170,7 +170,7 @@ internal class MainViewController: UIViewController {
             let image = UIImage(cgImage: cgImage)
             card?.preview.image = image
             card?.startLoading()
-            if let self = self, let card = card {
+            if let self = self, let card = card, let data = image.jpegData(compressionQuality: 0.9) {
                 self.createDocument(data: data, for: card)
             }
         }
@@ -225,7 +225,7 @@ internal class MainViewController: UIViewController {
         }
 
         let evaluation = AlloyCardEvaluationData(
-            entity: AlloyEntity(token: entityToken, nameFirst: "John", nameLast: "Retakeglarefront"),
+            entity: AlloyEntity(token: entityToken, nameFirst: "John", nameLast: "Doe"),
             evaluationStep: .both(frontToken, backToken)
         )
 
