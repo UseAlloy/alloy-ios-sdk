@@ -81,9 +81,19 @@ internal class API {
     }
 
     private func upload(document: AlloyDocumentUpload, for entity: AlloyEntityToken, completion: @escaping (Result<AlloyDocument, Error>) -> Void) {
-        var request = createRequest(path: "/entities/\(entity)/documents/\(document.token)", method: "PUT")
-        request.setValue("image/\(document.extension)", forHTTPHeaderField: "content-type")
-        client.uploadTask(with: request, from: document.imageData) { data, response, error in
+        var request = createRequest(path: "/entities/\(entity)/documents/\(document.token)", method: "POST")
+        let boundary = "Boundary-\(UUID().uuidString)"
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "content-type")
+
+        let body = NSMutableData()
+        body.append(convertFileData(
+            mimeType: "image/\(document.extension)",
+            fileData: document.imageData,
+            using: boundary
+        ))
+        body.appendString("--\(boundary)--")
+
+        client.uploadTask(with: request, from: body as Data) { data, response, error in
             if let error = error {
                 completion(.failure(error))
                 return
@@ -116,4 +126,24 @@ internal class API {
             completion(.failure(ApiError.couldNotParse))
         }.resume()
     }
+}
+
+private func convertFileData(mimeType: String, fileData: Data, using boundary: String) -> Data {
+  let data = NSMutableData()
+
+  data.appendString("--\(boundary)\r\n")
+  data.appendString("Content-Disposition: form-data; name=\"blob\"; filename=\"license\"\r\n")
+  data.appendString("Content-Type: \(mimeType)\r\n\r\n")
+  data.append(fileData)
+  data.appendString("\r\n")
+
+  return data as Data
+}
+
+private extension NSMutableData {
+  func appendString(_ string: String) {
+    if let data = string.data(using: .utf8) {
+      self.append(data)
+    }
+  }
 }
