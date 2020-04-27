@@ -81,6 +81,3 @@ fastlane/test_output
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
-
-# API Secrets
-ApiSecrets.swift

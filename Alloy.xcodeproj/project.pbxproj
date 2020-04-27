@@ -20,7 +20,6 @@
 		AC146CB224475D3800F5EA02 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146CB124475D3800F5EA02 /* PrimaryButton.swift */; };
 		AC202648244ED2A900EF69A5 /* EndBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC202647244ED2A900EF69A5 /* EndBanner.swift */; };
 		AC22473C244840F100892273 /* GetStartedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC22473B244840F100892273 /* GetStartedItem.swift */; };
-		AC22474424485A9700892273 /* ApiSecrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC22474324485A9700892273 /* ApiSecrets.swift */; };
 		AC22474924485FD300892273 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC22474824485FD300892273 /* API.swift */; };
 		AC61FC41244D837600F64F56 /* CardDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC61FC40244D837600F64F56 /* CardDetail.swift */; };
 		AC8465E3245078460031DA78 /* AlloyAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC91C94424483C8100FB8108 /* AlloyAssets.xcassets */; };
@@ -71,7 +70,6 @@
 		AC146CB124475D3800F5EA02 /* PrimaryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
 		AC202647244ED2A900EF69A5 /* EndBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndBanner.swift; sourceTree = "<group>"; };
 		AC22473B244840F100892273 /* GetStartedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStartedItem.swift; sourceTree = "<group>"; };
-		AC22474324485A9700892273 /* ApiSecrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiSecrets.swift; sourceTree = "<group>"; };
 		AC22474824485FD300892273 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		AC61FC40244D837600F64F56 /* CardDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetail.swift; sourceTree = "<group>"; };
 		AC91C94224483C0100FB8108 /* GetStartedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStartedViewController.swift; sourceTree = "<group>"; };
@@ -125,7 +123,6 @@
 		AC146C4B2446F4BF00F5EA02 /* AlloyExample */ = {
 			isa = PBXGroup;
 			children = (
-				AC22474324485A9700892273 /* ApiSecrets.swift */,
 				AC146C4C2446F4BF00F5EA02 /* AppDelegate.swift */,
 				AC146C502446F4BF00F5EA02 /* ViewController.swift */,
 				AC146C552446F4C000F5EA02 /* Assets.xcassets */,
@@ -294,7 +291,6 @@
 			files = (
 				AC146C512446F4BF00F5EA02 /* ViewController.swift in Sources */,
 				AC146C4D2446F4BF00F5EA02 /* AppDelegate.swift in Sources */,
-				AC22474424485A9700892273 /* ApiSecrets.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
