@@ -66,6 +66,7 @@ internal class CameraViewController: UIViewController {
         let view = UIButton(type: .system)
         view.setImage(image, for: .normal)
         view.tintColor = UIColor.Theme.white
+        view.addTarget(self, action: #selector(toggleFlash), for: .touchUpInside)
         return view
     }()
 
@@ -162,6 +163,31 @@ internal class CameraViewController: UIViewController {
     @objc private func onShutter() {
         let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
         photoOutput.capturePhoto(with: settings, delegate: self)
+    }
+
+    @objc private func toggleFlash() {
+        guard let device = AVCaptureDevice.default(for: .video) else { return }
+        guard device.hasTorch else { return }
+
+        try? device.lockForConfiguration()
+        defer {
+            device.unlockForConfiguration()
+            let image: UIImage?
+            switch device.torchMode {
+            case .on, .auto:
+                image = UIImage(fallbackSystemImage: "bolt.slash.fill")
+            case .off:
+                image = UIImage(fallbackSystemImage: "bolt.fill")
+            }
+            flashButton.setImage(image, for: .normal)
+        }
+
+        if (device.torchMode == .on) {
+            device.torchMode = .off
+            return
+        }
+
+        try? device.setTorchModeOn(level: 1.0)
     }
 
     // MARK: Layout Subviews
