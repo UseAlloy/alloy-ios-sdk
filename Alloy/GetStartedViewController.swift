@@ -55,7 +55,7 @@ class GetStartedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        loadData()
+        authInit()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -127,6 +127,17 @@ class GetStartedViewController: UIViewController {
     }
 
     // MARK: Data
+
+    private func authInit() {
+        api.authInit { [weak self] error in
+            if let error = error {
+                print(error)
+                self?.closeModal()
+                return
+            }
+            self?.loadData()
+        }
+    }
 
     private func loadData() {
         switch target {
