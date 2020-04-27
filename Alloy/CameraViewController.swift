@@ -61,6 +61,14 @@ internal class CameraViewController: UIViewController {
         return view
     }()
 
+    private lazy var flashButton: UIButton = {
+        let image = UIImage(fallbackSystemImage: "bolt.fill")
+        let view = UIButton(type: .system)
+        view.setImage(image, for: .normal)
+        view.tintColor = UIColor.Theme.white
+        return view
+    }()
+
     // MARK: Init
 
     override func viewDidLoad() {
@@ -83,6 +91,7 @@ internal class CameraViewController: UIViewController {
         view.addSubview(subheadline)
         view.addSubview(cardFrame)
         view.addSubview(shutterButton)
+        view.addSubview(flashButton)
 
         overlay.translatesAutoresizingMaskIntoConstraints = false
         overlay.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
@@ -106,6 +115,12 @@ internal class CameraViewController: UIViewController {
         shutterButton.widthAnchor.constraint(equalToConstant: 66).isActive = true
         shutterButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         shutterButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40).isActive = true
+
+        flashButton.translatesAutoresizingMaskIntoConstraints = false
+        flashButton.heightAnchor.constraint(equalToConstant: 26).isActive = true
+        flashButton.widthAnchor.constraint(equalToConstant: 26).isActive = true
+        flashButton.centerYAnchor.constraint(equalTo: shutterButton.centerYAnchor).isActive = true
+        flashButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -40).isActive = true
     }
 
     private func setupCamera() {
