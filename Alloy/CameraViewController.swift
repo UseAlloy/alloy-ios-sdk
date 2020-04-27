@@ -175,8 +175,22 @@ internal class CameraViewController: UIViewController {
 
 extension CameraViewController: AVCapturePhotoCaptureDelegate {
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+        var radians: CGFloat = 0
+        switch UIDevice.current.orientation {
+        case .portraitUpsideDown:
+            radians = .pi
+        case .landscapeLeft:
+            radians = .pi / -2
+        case .landscapeRight:
+            radians = .pi / 2
+        default:
+            break
+        }
+
         guard let imageData = photo.fileDataRepresentation() else { return }
-        guard let cropped = crop(image: imageData) else { return }
+        guard let image = UIImage(data: imageData)?.rotate(radians: radians) else { return }
+        guard let cropped = crop(image) else { return }
+
         imageTaken?(cropped)
         navigationController?.popViewController(animated: true)
     }
@@ -184,8 +198,8 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
 
 // MARK: Image Cropping
 
-private func crop(image imageData: Data) -> CGImage? {
-    guard let image = UIImage(data: imageData)?.cgImage else {
+private func crop(_ uiimage: UIImage) -> CGImage? {
+    guard let image = uiimage.cgImage else {
         return .none
     }
 
