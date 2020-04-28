@@ -55,6 +55,11 @@ class EndViewController: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        banner.play()
+    }
+
     private func setup() {
         view.backgroundColor = .white
 
