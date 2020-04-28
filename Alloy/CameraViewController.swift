@@ -16,7 +16,7 @@ internal class CameraViewController: UIViewController {
     private var photoOutput = AVCapturePhotoOutput()
     private lazy var videoPreviewLayer: AVCaptureVideoPreviewLayer = {
         let layer = AVCaptureVideoPreviewLayer(session: session)
-        layer.videoGravity = .resizeAspect
+        layer.videoGravity = .resizeAspectFill
         layer.connection?.videoOrientation = .portrait
         return layer
     }()
