@@ -53,6 +53,27 @@ internal class CameraViewController: UIViewController {
         return view
     }()
 
+    private lazy var cameraAccessIcon: UIImageView = {
+        let image = UIImage(named: "video.slash")
+        let view = UIImageView(image: image)
+        view.contentMode = .scaleAspectFit
+        view.isHidden = true
+        view.tintColor = UIColor.Theme.white
+        return view
+    }()
+
+    private lazy var cameraAccessLabel: UILabel = {
+        let label = UILabel()
+        label.alpha = 0.6
+        label.font = .systemFont(ofSize: 15)
+        label.isHidden = true
+        label.numberOfLines = 0
+        label.text = "Please allow camera access in Settings > Privacy"
+        label.textAlignment = .center
+        label.textColor = UIColor.Theme.white
+        return label
+    }()
+
     private lazy var toggleCameraButton: UIButton = {
         let image = UIImage(fallbackSystemImage: "camera.rotate")
         let view = UIButton(type: .system)
@@ -87,12 +108,11 @@ internal class CameraViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        setupCamera(position: currentCameraPosition)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
+        checkCameraPermissions()
     }
 
     private func setup() {
@@ -103,6 +123,8 @@ internal class CameraViewController: UIViewController {
         view.addSubview(overlay)
         view.addSubview(subheadline)
         view.addSubview(cardFrame)
+        view.addSubview(cameraAccessIcon)
+        view.addSubview(cameraAccessLabel)
         view.addSubview(toggleCameraButton)
         view.addSubview(shutterButton)
         view.addSubview(flashButton)
@@ -124,6 +146,17 @@ internal class CameraViewController: UIViewController {
         cardFrame.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         cardFrame.topAnchor.constraint(equalTo: subheadline.bottomAnchor, constant: 72).isActive = true
 
+        cameraAccessIcon.translatesAutoresizingMaskIntoConstraints = false
+        cameraAccessIcon.heightAnchor.constraint(equalToConstant: 52).isActive = true
+        cameraAccessIcon.widthAnchor.constraint(equalToConstant: 64).isActive = true
+        cameraAccessIcon.centerXAnchor.constraint(equalTo: cardFrame.centerXAnchor).isActive = true
+        cameraAccessIcon.centerYAnchor.constraint(equalTo: cardFrame.centerYAnchor).isActive = true
+
+        cameraAccessLabel.translatesAutoresizingMaskIntoConstraints = false
+        cameraAccessLabel.topAnchor.constraint(equalTo: cardFrame.bottomAnchor, constant: 16).isActive = true
+        cameraAccessLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 66).isActive = true
+        cameraAccessLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -66).isActive = true
+
         toggleCameraButton.translatesAutoresizingMaskIntoConstraints = false
         toggleCameraButton.heightAnchor.constraint(equalToConstant: 26).isActive = true
         toggleCameraButton.widthAnchor.constraint(equalToConstant: 26).isActive = true
@@ -141,6 +174,22 @@ internal class CameraViewController: UIViewController {
         flashButton.widthAnchor.constraint(equalToConstant: 26).isActive = true
         flashButton.centerYAnchor.constraint(equalTo: shutterButton.centerYAnchor).isActive = true
         flashButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -40).isActive = true
+    }
+
+    private func checkCameraPermissions() {
+        if AVCaptureDevice.authorizationStatus(for: .video) == .authorized {
+            setupCamera(position: currentCameraPosition)
+            return
+        }
+
+        AVCaptureDevice.requestAccess(for: .video) { [weak self] granted in
+            guard let self = self else { return }
+            if granted {
+                self.setupCamera(position: self.currentCameraPosition)
+            } else {
+                self.setupNoCamera()
+            }
+        }
     }
 
     private func setupCamera(position: AVCaptureDevice.Position) {
@@ -175,6 +224,43 @@ internal class CameraViewController: UIViewController {
 
         self.session.startRunning()
         self.session.commitConfiguration()
+        setupYesCamera()
+    }
+
+    private func setupYesCamera() {
+        let views = [cameraAccessIcon, cameraAccessLabel]
+        let buttons = [toggleCameraButton, shutterButton, flashButton]
+
+        DispatchQueue.main.async { [weak self] in
+            self?.cardFrame.backgroundColor = .clear
+
+            for view in views {
+                view.isHidden = true
+            }
+
+            for button in buttons {
+                button.isEnabled = true
+                button.alpha = 1
+            }
+        }
+    }
+
+    private func setupNoCamera() {
+        let views = [cameraAccessIcon, cameraAccessLabel]
+        let buttons = [toggleCameraButton, shutterButton, flashButton]
+
+        DispatchQueue.main.async { [weak self] in
+            self?.cardFrame.backgroundColor = UIColor.Theme.white.withAlphaComponent(0.2)
+
+            for view in views {
+                view.isHidden = false
+            }
+
+            for button in buttons {
+                button.isEnabled = false
+                button.alpha = 0.7
+            }
+        }
     }
 
     // MARK: Actions
