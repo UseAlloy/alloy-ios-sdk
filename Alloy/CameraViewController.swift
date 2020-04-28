@@ -12,6 +12,7 @@ internal class CameraViewController: UIViewController {
         return session
     }()
 
+    private var currentCameraPosition: AVCaptureDevice.Position = .back
     private var photoOutput = AVCapturePhotoOutput()
     private lazy var videoPreviewLayer: AVCaptureVideoPreviewLayer = {
         let layer = AVCaptureVideoPreviewLayer(session: session)
@@ -52,10 +53,21 @@ internal class CameraViewController: UIViewController {
         return view
     }()
 
+    private lazy var toggleCameraButton: UIButton = {
+        let image = UIImage(fallbackSystemImage: "camera.rotate")
+        let view = UIButton(type: .system)
+        view.setImage(image, for: .normal)
+        view.imageView?.contentMode = .scaleAspectFit
+        view.tintColor = UIColor.Theme.white
+        view.addTarget(self, action: #selector(toggleCamera), for: .touchUpInside)
+        return view
+    }()
+
     private lazy var shutterButton: UIButton = {
         let image = UIImage(named: "shutterButton")
         let view = UIButton(type: .system)
         view.setImage(image, for: .normal)
+        view.imageView?.contentMode = .scaleAspectFit
         view.tintColor = UIColor.Theme.white
         view.addTarget(self, action: #selector(onShutter), for: .touchUpInside)
         return view
@@ -75,7 +87,7 @@ internal class CameraViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        setupCamera()
+        setupCamera(position: currentCameraPosition)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -91,6 +103,7 @@ internal class CameraViewController: UIViewController {
         view.addSubview(overlay)
         view.addSubview(subheadline)
         view.addSubview(cardFrame)
+        view.addSubview(toggleCameraButton)
         view.addSubview(shutterButton)
         view.addSubview(flashButton)
 
@@ -111,6 +124,12 @@ internal class CameraViewController: UIViewController {
         cardFrame.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         cardFrame.topAnchor.constraint(equalTo: subheadline.bottomAnchor, constant: 72).isActive = true
 
+        toggleCameraButton.translatesAutoresizingMaskIntoConstraints = false
+        toggleCameraButton.heightAnchor.constraint(equalToConstant: 26).isActive = true
+        toggleCameraButton.widthAnchor.constraint(equalToConstant: 26).isActive = true
+        toggleCameraButton.centerYAnchor.constraint(equalTo: shutterButton.centerYAnchor).isActive = true
+        toggleCameraButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 40).isActive = true
+
         shutterButton.translatesAutoresizingMaskIntoConstraints = false
         shutterButton.heightAnchor.constraint(equalToConstant: 66).isActive = true
         shutterButton.widthAnchor.constraint(equalToConstant: 66).isActive = true
@@ -124,11 +143,11 @@ internal class CameraViewController: UIViewController {
         flashButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -40).isActive = true
     }
 
-    private func setupCamera() {
+    private func setupCamera(position: AVCaptureDevice.Position) {
         let discoverySession = AVCaptureDevice.DiscoverySession(
             deviceTypes: [.builtInWideAngleCamera],
             mediaType: .video,
-            position: .back
+            position: position
         )
 
         guard let device = discoverySession.devices.first else {
@@ -139,11 +158,15 @@ internal class CameraViewController: UIViewController {
             return
         }
 
-        if session.canAddInput(input) && session.canAddOutput(photoOutput) {
-            session.addInput(input)
+        if session.canAddOutput(photoOutput) {
             session.addOutput(photoOutput)
-            setupLivePreview()
         }
+
+        if session.canAddInput(input) {
+            session.addInput(input)
+        }
+
+        setupLivePreview()
     }
 
     private func setupLivePreview() {
@@ -163,6 +186,20 @@ internal class CameraViewController: UIViewController {
     @objc private func onShutter() {
         let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
         photoOutput.capturePhoto(with: settings, delegate: self)
+    }
+
+    @objc private func toggleCamera() {
+        var newPosition: AVCaptureDevice.Position = .back
+
+        if let input = session.inputs.first {
+            session.removeInput(input)
+            if (input as? AVCaptureDeviceInput)?.device.position == .back {
+                newPosition = .front
+            }
+        }
+
+        setupCamera(position: newPosition)
+        currentCameraPosition = newPosition
     }
 
     @objc private func toggleFlash() {
@@ -216,6 +253,7 @@ internal class CameraViewController: UIViewController {
 
 extension CameraViewController: AVCapturePhotoCaptureDelegate {
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+        let flip = currentCameraPosition == .front
         var radians: CGFloat = 0
         switch UIDevice.current.orientation {
         case .portraitUpsideDown:
@@ -229,7 +267,7 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
         }
 
         guard let imageData = photo.fileDataRepresentation() else { return }
-        guard let image = UIImage(data: imageData)?.rotate(radians: radians) else { return }
+        guard let image = UIImage(data: imageData)?.rotate(radians: radians, flip: flip) else { return }
         guard let cropped = crop(image) else { return }
 
         imageTaken?(cropped)
