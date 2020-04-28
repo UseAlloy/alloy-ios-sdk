@@ -12,6 +12,8 @@ Pod::Spec.new do |s|
   s.author           = 'Alloy'
   s.source           = { :git => 'https://github.com/z1digitalstudio/alloy-ios-sdk.git', :tag => s.version.to_s }
 
+  s.dependency 'lottie-ios', '~> 3.1.8'
+
   s.swift_version = '4.2'
   s.ios.deployment_target = '11.0'
 
