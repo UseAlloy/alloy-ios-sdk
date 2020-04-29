@@ -1,14 +1,21 @@
 import UIKit
 
-enum EndVariant {
+internal enum EndVariant {
     case success
     case failure
 }
 
-class EndViewController: UIViewController {
+internal class EndViewController: UIViewController {
+    public var noMoreAttempts: Bool = false {
+        didSet {
+            configureAlloyRetry()
+        }
+    }
+
     public var variant: EndVariant = .success {
         didSet {
             configureVariant()
+            configureAlloyRetry()
         }
     }
 
@@ -113,6 +120,10 @@ class EndViewController: UIViewController {
         mainButton.removeTarget(nil, action: nil, for: .touchUpInside)
         let action = variant == .failure ? #selector(retry) : #selector(leave)
         mainButton.addTarget(self, action: action, for: .touchUpInside)
+    }
+
+    private func configureAlloyRetry() {
+        mainButton.isHidden = variant == .failure && noMoreAttempts
     }
 
     // MARK: Actions

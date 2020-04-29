@@ -2,10 +2,8 @@ import UIKit
 
 internal class AlloyViewController: UINavigationController {
     public init(with config: Alloy) {
-        let api = API(config: config)
         let vc = GetStartedViewController()
-        vc.evaluationData = config.evaluationData
-        vc.api = api
+        vc.config = config
         super.init(rootViewController: vc)
     }
 

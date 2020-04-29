@@ -1,8 +1,10 @@
 import UIKit
 
 internal class MainViewController: UIViewController {
-    public var api: API!
-    public var evaluationData: AlloyEvaluationData?
+    private var numberOfAttempts = 0
+    private var evaluationData: AlloyEvaluationData? {
+        return config.evaluationData
+    }
 
     private var frontToken: AlloyDocumentToken? {
         didSet {
@@ -17,6 +19,13 @@ internal class MainViewController: UIViewController {
             retryButton.isHidden = false
         }
     }
+
+    // MARK: Init properties
+
+    var api: API!
+    var config: Alloy!
+
+    // MARK: Views
 
     private lazy var closeButton: UIBarButtonItem = {
         let image = UIImage(fallbackSystemImage: "xmark")
@@ -178,8 +187,10 @@ internal class MainViewController: UIViewController {
     }
 
     private func showEndScreen(for outcome: EndVariant) {
+        numberOfAttempts += 1
+
         let vc = EndViewController()
-        vc.variant = outcome
+        vc.noMoreAttempts = numberOfAttempts >= config.maxEvaluationAttempts
         navigationController?.pushViewController(vc, animated: true)
     }
 

@@ -1,8 +1,20 @@
 import UIKit
 
-class GetStartedViewController: UIViewController {
-    public var api: API!
-    public var evaluationData: AlloyEvaluationData?
+internal class GetStartedViewController: UIViewController {
+    private var api: API!
+    private var evaluationData: AlloyEvaluationData? {
+        return config.evaluationData
+    }
+
+    // MARK: Init properties
+
+    var config: Alloy! {
+        didSet {
+            if let config = config {
+                api = API(config: config)
+            }
+        }
+    }
 
     // MARK: Views
 
@@ -43,12 +55,16 @@ class GetStartedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        authInit()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        authInit()
     }
 
     // MARK: Setup
@@ -149,8 +165,8 @@ class GetStartedViewController: UIViewController {
 
     @objc private func getStarted() {
         let vc = MainViewController()
+        vc.config = config
         vc.api = api
-        vc.evaluationData = evaluationData
         navigationController?.pushViewController(vc, animated: true)
     }
 
