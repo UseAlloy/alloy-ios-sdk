@@ -54,10 +54,10 @@ class ViewController: UIViewController {
     @objc private func openAlloy() {
         let alloy = Alloy(
             key: "028d85e0-aa24-4ca1-99f2-90e3ee3f4e6b",
-            for: .new(AlloyEvaluationData(
+            for: AlloyEvaluationData(
                 nameFirst: nameFirstField.text ?? "",
                 nameLast: nameLastField.text ?? ""
-            ))
+            )
         )
 
         alloy.open(in: self)

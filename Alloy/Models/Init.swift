@@ -14,21 +14,17 @@ internal struct AlloyInitResponse: Codable {
     }
 }
 
-public enum AlloyEvaluationTarget {
-    case new(AlloyEvaluationData)
-    case existing(AlloyEntityToken)
-}
-
 public struct Alloy {
     let key: String
-    public var externalEntityId: String? = nil
-    let evaluationTarget: AlloyEvaluationTarget
+    let evaluationData: AlloyEvaluationData
+    public var entityToken: AlloyEntityToken? = nil
+    public var externalEntityId: AlloyEntityToken? = nil
     public var maxEvaluationAttempts: Int = 2
     public var production: Bool = false
 
-    public init(key: String, for evaluationTarget: AlloyEvaluationTarget) {
+    public init(key: String, for evaluationData: AlloyEvaluationData) {
         self.key = key
-        self.evaluationTarget = evaluationTarget
+        self.evaluationData = evaluationData
     }
 
     public func open(in parent: UIViewController) {

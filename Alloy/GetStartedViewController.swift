@@ -1,14 +1,8 @@
 import UIKit
 
 class GetStartedViewController: UIViewController {
-    private var entityToken: AlloyEntityToken? {
-        didSet {
-            enableGetStarted()
-        }
-    }
-
     public var api: API!
-    public var target: AlloyEvaluationTarget?
+    public var evaluationData: AlloyEvaluationData?
 
     // MARK: Views
 
@@ -129,14 +123,12 @@ class GetStartedViewController: UIViewController {
     }
 
     private func loadData() {
-        switch target {
-        case .existing(let token):
-            self.entityToken = token
-        case .new(let data):
-            api.evaluate(data, completion: evaluationCompletion)
-        case .none:
+        guard let data = evaluationData else {
             closeModal()
+            return
         }
+
+        api.evaluate(data, completion: evaluationCompletion)
     }
 
     private func evaluationCompletion(_ data: Data?, _ response: URLResponse?, _ error: Error?) {
@@ -145,7 +137,8 @@ class GetStartedViewController: UIViewController {
             return
         }
 
-        self.entityToken = parsed.entityToken
+        self.api.entityToken = parsed.entityToken
+        enableGetStarted()
     }
 
     // MARK: Actions
@@ -157,7 +150,7 @@ class GetStartedViewController: UIViewController {
     @objc private func getStarted() {
         let vc = MainViewController()
         vc.api = api
-        vc.entityToken = entityToken
+        vc.evaluationData = evaluationData
         navigationController?.pushViewController(vc, animated: true)
     }
 

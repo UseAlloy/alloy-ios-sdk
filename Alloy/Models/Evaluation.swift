@@ -53,7 +53,7 @@ internal struct AlloyEvaluationResponse: Decodable {
 // Evaluate document
 
 internal struct AlloyCardEvaluationData: Encodable {
-    let entity: AlloyEntity
+    let evaluationData: AlloyEvaluationData
     let evaluationStep: AlloyCardEvaluationStep
 
     private enum CodingKeys: String, CodingKey {
@@ -67,8 +67,8 @@ internal struct AlloyCardEvaluationData: Encodable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
 
-        try container.encode(entity.nameFirst, forKey: .name_first)
-        try container.encode(entity.nameLast, forKey: .name_last)
+        try container.encode(evaluationData.nameFirst, forKey: .name_first)
+        try container.encode(evaluationData.nameLast, forKey: .name_last)
 
         switch evaluationStep {
         case let .front(token):
