@@ -3,6 +3,7 @@ import UIKit
 internal class MainViewController: UIViewController {
     public var api: API!
     public var entityToken: String?
+    public var evaluationData: AlloyEvaluationData?
 
     private var frontToken: AlloyDocumentToken? {
         didSet {

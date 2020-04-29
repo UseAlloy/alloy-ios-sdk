@@ -21,10 +21,14 @@ internal class API {
     let domain: String = Bundle.main.bundleIdentifier ?? ""
     let production: Bool
     var accessToken: String? = nil
+    var entityToken: AlloyEntityToken? = nil
+    var externalEntityToken: AlloyEntityToken? = nil
 
-    init(id: String, production: Bool = false) {
-        self.id = id
-        self.production = production
+    init(config: Alloy) {
+        self.id = config.key
+        self.production = config.production
+        self.entityToken = config.entityToken
+        self.externalEntityToken = config.externalEntityId
     }
 
     private func createRequest(path: String, method: String) -> URLRequest {
@@ -36,6 +40,8 @@ internal class API {
         request.httpMethod = method
         request.setValue("application/json", forHTTPHeaderField: "content-type")
         request.setValue(authString, forHTTPHeaderField: "authorization")
+        request.setValue(entityToken, forHTTPHeaderField: "Alloy-Entity-Token")
+        request.setValue(externalEntityToken, forHTTPHeaderField: "Alloy-External-Entity-ID")
         return request
     }
 
