@@ -1,3 +1,4 @@
+import Lottie
 import UIKit
 
 class EndBanner: UIView {
@@ -9,33 +10,8 @@ class EndBanner: UIView {
 
     // MARK: Views
 
-    private var outerCircle: UIView = {
-        let view = UIView()
-        view.alpha = 0.05
-        view.layer.cornerRadius = 74
-        return view
-    }()
-
-    private var midCircle: UIView = {
-        let view = UIView()
-        view.alpha = 0.08
-        view.layer.cornerRadius = 55
-        return view
-    }()
-
-    private var innerCircle: UIView = {
-        let view = UIView()
-        view.layer.cornerRadius = 37.5
-        view.layer.shadowOffset = CGSize(width: 0, height: 4)
-        view.layer.shadowOpacity = 0.5
-        view.layer.shadowRadius = 10
-        return view
-    }()
-
-    private var iconContainer: UIImageView = {
-        let view = UIImageView()
-        view.contentMode = .scaleAspectFit
-        view.tintColor = UIColor.Theme.white
+    private lazy var animationView: AnimationView = {
+        let view = AnimationView()
         return view
     }()
 
@@ -54,50 +30,29 @@ class EndBanner: UIView {
     // MARK: Setup
 
     private func setup() {
-        addSubview(outerCircle)
-        addSubview(midCircle)
-        addSubview(innerCircle)
-        addSubview(iconContainer)
+        addSubview(animationView)
 
         translatesAutoresizingMaskIntoConstraints = false
-        heightAnchor.constraint(equalToConstant: 148).isActive = true
-        widthAnchor.constraint(equalToConstant: 148).isActive = true
+        heightAnchor.constraint(equalToConstant: 350).isActive = true
+        widthAnchor.constraint(equalToConstant: 350).isActive = true
 
-        outerCircle.translatesAutoresizingMaskIntoConstraints = false
-        outerCircle.heightAnchor.constraint(equalToConstant: 148).isActive = true
-        outerCircle.widthAnchor.constraint(equalToConstant: 148).isActive = true
-        outerCircle.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        outerCircle.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-
-        midCircle.translatesAutoresizingMaskIntoConstraints = false
-        midCircle.heightAnchor.constraint(equalToConstant: 110).isActive = true
-        midCircle.widthAnchor.constraint(equalToConstant: 110).isActive = true
-        midCircle.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        midCircle.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-
-        innerCircle.translatesAutoresizingMaskIntoConstraints = false
-        innerCircle.heightAnchor.constraint(equalToConstant: 75).isActive = true
-        innerCircle.widthAnchor.constraint(equalToConstant: 75).isActive = true
-        innerCircle.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        innerCircle.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-
-        iconContainer.translatesAutoresizingMaskIntoConstraints = false
-        iconContainer.heightAnchor.constraint(equalToConstant: 26).isActive = true
-        iconContainer.widthAnchor.constraint(equalToConstant: 26).isActive = true
-        iconContainer.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        iconContainer.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        animationView.translatesAutoresizingMaskIntoConstraints = false
+        animationView.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
+        animationView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+        animationView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        animationView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
 
     // MARK: Configure
 
     private func changeVariant() {
-        let color = variant == .failure ? UIColor.Theme.red : UIColor.Theme.green
-        outerCircle.backgroundColor = color
-        midCircle.backgroundColor = color
-        innerCircle.backgroundColor = color
-        innerCircle.layer.shadowColor = color.cgColor
-        iconContainer.image = variant == .failure
-            ? UIImage(fallbackSystemImage: "xmark")
-            : UIImage(fallbackSystemImage: "checkmark")
+        let animation = Animation.named(variant == .success ? "EndSuccess" : "EndFailure")
+        animationView.animation = animation
+    }
+
+    // MARK: Actions
+
+    internal func play() {
+        animationView.play()
     }
 }
