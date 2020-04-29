@@ -2,7 +2,6 @@ import UIKit
 
 internal class MainViewController: UIViewController {
     public var api: API!
-    public var entityToken: String?
     public var evaluationData: AlloyEvaluationData?
 
     private var frontToken: AlloyDocumentToken? {
@@ -187,15 +186,15 @@ internal class MainViewController: UIViewController {
     // MARK: Alloy Actions
 
     private func createDocument(data: Data, for card: CardDetail) {
-        guard let api = api, let entityToken = entityToken else { return }
+        guard let api = api, let evaluationData = evaluationData else { return }
 
         let documentData = AlloyDocumentPayload(name: "license", extension: .jpg, type: .license)
-        api.create(document: documentData, andUpload: data, for: entityToken) { result in
+        api.create(document: documentData, andUpload: data) { result in
             switch result {
             case let .failure(error):
                 print("create/upload", error)
             case let .success(response):
-                let evaluation = AlloyCardEvaluationData(entity: AlloyEntity(token: entityToken, nameFirst: "John", nameLast: "Doe"), evaluationStep: .back(response.token))
+                let evaluation = AlloyCardEvaluationData(evaluationData: evaluationData, evaluationStep: .back(response.token))
                 api.evaluate(document: evaluation) { result in
                     switch result {
                     case let .failure(error):
@@ -219,14 +218,14 @@ internal class MainViewController: UIViewController {
     }
 
     @objc private func validateBothSides() {
-        guard let entityToken = entityToken, let frontToken = frontToken, let backToken = backToken else {
+        guard let evaluationData = evaluationData, let frontToken = frontToken, let backToken = backToken else {
             sendButton.isHidden = true
             retryButton.isHidden = true
             return
         }
 
         let evaluation = AlloyCardEvaluationData(
-            entity: AlloyEntity(token: entityToken, nameFirst: "John", nameLast: "Doe"),
+            evaluationData: evaluationData,
             evaluationStep: .both(frontToken, backToken)
         )
 

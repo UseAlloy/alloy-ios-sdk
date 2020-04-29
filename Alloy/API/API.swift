@@ -73,8 +73,13 @@ internal class API {
         task.resume()
     }
 
-    func create(document: AlloyDocumentPayload, andUpload image: Data, for entityToken: AlloyEntityToken, completion: @escaping (Result<AlloyDocument, Error>) -> Void) {
-        let request = createRequest(path: "/entities/\(entityToken)/documents", method: "POST")
+    func create(document: AlloyDocumentPayload, andUpload image: Data, completion: @escaping (Result<AlloyDocument, Error>) -> Void) {
+        var path = "/documents"
+        if let entityToken = entityToken {
+            path = "/entities/\(entityToken)\(path)"
+        }
+
+        let request = createRequest(path: path, method: "POST")
         let jsonData = try! JSONEncoder().encode(document)
         client.uploadTask(with: request, from: jsonData) { [weak self] data, response, error in
             guard let data = data, let parsed = try? JSONDecoder().decode(AlloyDocument.self, from: data) else {
@@ -82,12 +87,17 @@ internal class API {
                 return
             }
             let upload = AlloyDocumentUpload(token: parsed.token, extension: document.extension, imageData: image)
-            self?.upload(document: upload, for: entityToken, completion: completion)
+            self?.upload(document: upload, completion: completion)
         }.resume()
     }
 
-    private func upload(document: AlloyDocumentUpload, for entity: AlloyEntityToken, completion: @escaping (Result<AlloyDocument, Error>) -> Void) {
-        var request = createRequest(path: "/entities/\(entity)/documents/\(document.token)", method: "POST")
+    private func upload(document: AlloyDocumentUpload, completion: @escaping (Result<AlloyDocument, Error>) -> Void) {
+        var path = "/documents/\(document.token)"
+        if let entityToken = entityToken {
+            path = "/entities/\(entityToken)\(path)"
+        }
+
+        var request = createRequest(path: path, method: "POST")
         let boundary = "Boundary-\(UUID().uuidString)"
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "content-type")
 
@@ -115,8 +125,7 @@ internal class API {
     }
 
     func evaluate(document: AlloyCardEvaluationData, completion: @escaping (Result<AlloyCardEvaluationResponse, Error>) -> Void) {
-        var request = createRequest(path: "/evaluations", method: "POST")
-        request.setValue(document.entity.token, forHTTPHeaderField: "Alloy-Entity-Token")
+        let request = createRequest(path: "/evaluations", method: "POST")
         let jsonData = try! JSONEncoder().encode(document)
         client.uploadTask(with: request, from: jsonData) { data, _, error in
             if let error = error {
