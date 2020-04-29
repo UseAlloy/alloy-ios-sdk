@@ -19,4 +19,7 @@ Pod::Spec.new do |s|
 
   s.frameworks = 'UIKit'
   s.source_files = 'Alloy/**/*.swift'
+  s.resources = [
+    'Alloy/Animations/*.json',
+  ]
 end
