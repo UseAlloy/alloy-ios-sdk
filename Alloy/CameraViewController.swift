@@ -108,10 +108,6 @@ internal class CameraViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         checkCameraPermissions()
     }
 
