@@ -30,15 +30,9 @@ class GetStartedViewController: UIViewController {
         return view
     }()
 
-    private lazy var getStartedButton: UIButton = {
+    private lazy var getStartedButton: PrimaryButton = {
         let view = PrimaryButton(title: "Get Started")
         view.addTarget(self, action: #selector(getStarted), for: .touchUpInside)
-        view.alpha = 0
-        return view
-    }()
-
-    private lazy var loader: UIActivityIndicatorView = {
-        let view = UIActivityIndicatorView(style: .gray)
         return view
     }()
 
@@ -71,7 +65,6 @@ class GetStartedViewController: UIViewController {
         view.addSubview(titleLabel)
         view.addSubview(stack)
         view.addSubview(getStartedButton)
-        view.addSubview(loader)
         view.addSubview(cancelButton)
 
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -113,11 +106,7 @@ class GetStartedViewController: UIViewController {
         getStartedButton.leadingAnchor.constraint(equalTo: stack.leadingAnchor).isActive = true
         getStartedButton.trailingAnchor.constraint(equalTo: stack.trailingAnchor).isActive = true
         getStartedButton.bottomAnchor.constraint(equalTo: cancelButton.topAnchor, constant: -20).isActive = true
-
-        loader.translatesAutoresizingMaskIntoConstraints = false
-        loader.centerYAnchor.constraint(equalTo: getStartedButton.centerYAnchor).isActive = true
-        loader.centerXAnchor.constraint(equalTo: getStartedButton.centerXAnchor).isActive = true
-        loader.startAnimating()
+        getStartedButton.isLoading = true
 
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
         cancelButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
@@ -173,11 +162,6 @@ class GetStartedViewController: UIViewController {
     }
 
     private func enableGetStarted() {
-        DispatchQueue.main.async {
-            UIView.animate(withDuration: 0.2) { [weak self] in
-                self?.getStartedButton.alpha = 1
-                self?.loader.stopAnimating()
-            }
-        }
+        getStartedButton.isLoading = false
     }
 }
