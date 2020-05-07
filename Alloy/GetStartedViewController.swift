@@ -160,7 +160,9 @@ internal class GetStartedViewController: UIViewController {
     // MARK: Actions
 
     @objc private func closeModal() {
-        dismiss(animated: true)
+        DispatchQueue.main.async { [weak self] in
+            self?.dismiss(animated: true)
+        }
     }
 
     @objc private func getStarted() {
