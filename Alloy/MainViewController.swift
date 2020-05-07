@@ -51,6 +51,7 @@ internal class MainViewController: UIViewController {
     
     private lazy var frontCard: CardDetail = {
         let view = CardDetail()
+        view.preview.image = UIImage(named: "Front Card Placeholder")
         view.takeButton.setTitle("Take front", for: .normal)
         view.takeButton.addTarget(self, action: #selector(takeFrontPicture), for: .touchUpInside)
         view.retakeButton.addTarget(self, action: #selector(takeFrontPicture), for: .touchUpInside)
@@ -59,6 +60,7 @@ internal class MainViewController: UIViewController {
 
     private lazy var backCard: CardDetail = {
         let view = CardDetail()
+        view.preview.image = UIImage(named: "Back Card Placeholder")
         view.takeButton.setTitle("Take back", for: .normal)
         view.takeButton.addTarget(self, action: #selector(takeBackPicture), for: .touchUpInside)
         view.takeButton.isEnabled = false
