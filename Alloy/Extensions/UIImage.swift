@@ -1,6 +1,10 @@
 import UIKit
 
 internal extension UIImage {
+    convenience init?(named name: String) {
+        self.init(named: name, in: .alloy, compatibleWith: nil)
+    }
+
     convenience init?(fallbackSystemImage name: String) {
         if #available(iOS 13.0, *) {
             self.init(systemName: name)

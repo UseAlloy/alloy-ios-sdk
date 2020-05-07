@@ -46,7 +46,7 @@ class EndBanner: UIView {
     // MARK: Configure
 
     private func changeVariant() {
-        let animation = Animation.named(variant == .success ? "EndSuccess" : "EndFailure")
+        let animation = Animation.named(variant == .success ? "EndSuccess" : "EndFailure", bundle: .alloy)
         animationView.animation = animation
     }
 
