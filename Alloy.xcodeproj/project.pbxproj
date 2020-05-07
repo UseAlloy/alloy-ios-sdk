@@ -74,6 +74,7 @@
 		AC202647244ED2A900EF69A5 /* EndBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndBanner.swift; sourceTree = "<group>"; };
 		AC22473B244840F100892273 /* GetStartedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStartedItem.swift; sourceTree = "<group>"; };
 		AC22474824485FD300892273 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		AC2B5DC124641CB5001E070A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		AC61FC40244D837600F64F56 /* CardDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetail.swift; sourceTree = "<group>"; };
 		AC69CBFF2458356B00197A0B /* EndFailure.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = EndFailure.json; sourceTree = "<group>"; };
 		AC69CC002458356B00197A0B /* EndSuccess.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = EndSuccess.json; sourceTree = "<group>"; };
@@ -110,6 +111,7 @@
 		AC146C402446F4BF00F5EA02 = {
 			isa = PBXGroup;
 			children = (
+				AC2B5DC124641CB5001E070A /* README.md */,
 				AC146C4B2446F4BF00F5EA02 /* AlloyExample */,
 				AC146C702446F78400F5EA02 /* Alloy */,
 				AC146C4A2446F4BF00F5EA02 /* Products */,
