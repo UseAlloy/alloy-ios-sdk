@@ -1,6 +1,6 @@
 import Foundation
 
-extension Bundle {
+internal extension Bundle {
     static var alloy: Bundle {
         let bundlePath = Bundle(for: AlloyViewController.self)
             .path(forResource: "AlloyAssets", ofType: "bundle")
