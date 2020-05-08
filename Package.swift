@@ -12,10 +12,14 @@ let package = Package(
             name: "Alloy",
             targets: ["Alloy"]),
     ],
+    dependencies: [
+        .package(url: "https://github.com/airbnb/lottie-ios.git", from: "3.1.8"),
+    ],
     targets: [
         .target(
             name: "Alloy",
-            path: "Alloy"),
+            dependencies: ["Lottie"],
+            path: "Alloy")
     ],
     swiftLanguageVersions: [
         .v4_2,
