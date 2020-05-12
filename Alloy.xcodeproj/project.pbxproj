@@ -11,49 +11,56 @@
 		AC146C512446F4BF00F5EA02 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146C502446F4BF00F5EA02 /* ViewController.swift */; };
 		AC146C562446F4C000F5EA02 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC146C552446F4C000F5EA02 /* Assets.xcassets */; };
 		AC146C592446F4C000F5EA02 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC146C572446F4C000F5EA02 /* LaunchScreen.storyboard */; };
-		AC146C792446F7C200F5EA02 /* AlloyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146C782446F7C200F5EA02 /* AlloyViewController.swift */; };
-		AC146C7B2446F7E400F5EA02 /* libAlloy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AC146C6F2446F78400F5EA02 /* libAlloy.a */; };
-		AC146CA62447450600F5EA02 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146CA52447450600F5EA02 /* MainViewController.swift */; };
-		AC146CA82447485000F5EA02 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146CA72447485000F5EA02 /* CameraViewController.swift */; };
-		AC146CAA244753B700F5EA02 /* EndViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146CA9244753B700F5EA02 /* EndViewController.swift */; };
-		AC146CAD2447583900F5EA02 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146CAC2447583900F5EA02 /* UIColor.swift */; };
-		AC146CB224475D3800F5EA02 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146CB124475D3800F5EA02 /* PrimaryButton.swift */; };
-		AC202648244ED2A900EF69A5 /* EndBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC202647244ED2A900EF69A5 /* EndBanner.swift */; };
-		AC22473C244840F100892273 /* GetStartedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC22473B244840F100892273 /* GetStartedItem.swift */; };
-		AC22474924485FD300892273 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC22474824485FD300892273 /* API.swift */; };
-		AC2B5DC52464312A001E070A /* NSBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2B5DC42464312A001E070A /* NSBundle.swift */; };
-		AC61FC41244D837600F64F56 /* CardDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC61FC40244D837600F64F56 /* CardDetail.swift */; };
-		AC69CBFD245832DA00197A0B /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = AC69CBFC245832DA00197A0B /* Lottie */; };
 		AC69CC0124583B5900197A0B /* EndFailure.json in Resources */ = {isa = PBXBuildFile; fileRef = AC69CBFF2458356B00197A0B /* EndFailure.json */; };
 		AC69CC0224583B5F00197A0B /* EndSuccess.json in Resources */ = {isa = PBXBuildFile; fileRef = AC69CC002458356B00197A0B /* EndSuccess.json */; };
 		AC8465E3245078460031DA78 /* AlloyAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC91C94424483C8100FB8108 /* AlloyAssets.xcassets */; };
-		AC91C94324483C0100FB8108 /* GetStartedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC91C94224483C0100FB8108 /* GetStartedViewController.swift */; };
-		AC91C94624483E3100FB8108 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC91C94524483E3100FB8108 /* UIImage.swift */; };
-		ACB3AE80245187F300718C54 /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB3AE7F245187F300718C54 /* Entity.swift */; };
-		ACB3AE822451883300718C54 /* Evaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB3AE812451883300718C54 /* Evaluation.swift */; };
-		ACB3AE842451887C00718C54 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB3AE832451887C00718C54 /* Document.swift */; };
-		ACB3AE8624518C8900718C54 /* Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB3AE8524518C8900718C54 /* Init.swift */; };
-		ACB3AE882451A97200718C54 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB3AE872451A97200718C54 /* UIView.swift */; };
+		ACEB0F6424656FB300759C5A /* Alloy.h in Headers */ = {isa = PBXBuildFile; fileRef = ACEB0F6224656FB300759C5A /* Alloy.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ACEB0F6724656FB300759C5A /* Alloy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACEB0F6024656FB300759C5A /* Alloy.framework */; };
+		ACEB0F6824656FB300759C5A /* Alloy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ACEB0F6024656FB300759C5A /* Alloy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		ACEB0F6D24656FC300759C5A /* GetStartedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC91C94224483C0100FB8108 /* GetStartedViewController.swift */; };
+		ACEB0F6E24656FC300759C5A /* AlloyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146C782446F7C200F5EA02 /* AlloyViewController.swift */; };
+		ACEB0F6F24656FC300759C5A /* EndViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146CA9244753B700F5EA02 /* EndViewController.swift */; };
+		ACEB0F7024656FC300759C5A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146CA52447450600F5EA02 /* MainViewController.swift */; };
+		ACEB0F7124656FC300759C5A /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146CA72447485000F5EA02 /* CameraViewController.swift */; };
+		ACEB0F722465706A00759C5A /* AlloyAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC91C94424483C8100FB8108 /* AlloyAssets.xcassets */; };
+		ACEB0F732465707E00759C5A /* CardDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC61FC40244D837600F64F56 /* CardDetail.swift */; };
+		ACEB0F742465708000759C5A /* EndBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC202647244ED2A900EF69A5 /* EndBanner.swift */; };
+		ACEB0F752465708300759C5A /* GetStartedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC22473B244840F100892273 /* GetStartedItem.swift */; };
+		ACEB0F762465708600759C5A /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146CB124475D3800F5EA02 /* PrimaryButton.swift */; };
+		ACEB0F772465708A00759C5A /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB3AE832451887C00718C54 /* Document.swift */; };
+		ACEB0F782465708E00759C5A /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB3AE7F245187F300718C54 /* Entity.swift */; };
+		ACEB0F792465709000759C5A /* Evaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB3AE812451883300718C54 /* Evaluation.swift */; };
+		ACEB0F7A2465709300759C5A /* Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB3AE8524518C8900718C54 /* Init.swift */; };
+		ACEB0F7B2465709700759C5A /* NSBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2B5DC42464312A001E070A /* NSBundle.swift */; };
+		ACEB0F7C2465709F00759C5A /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146CAC2447583900F5EA02 /* UIColor.swift */; };
+		ACEB0F7D246570A200759C5A /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC91C94524483E3100FB8108 /* UIImage.swift */; };
+		ACEB0F7E246570A500759C5A /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB3AE872451A97200718C54 /* UIView.swift */; };
+		ACEB0F7F246570AE00759C5A /* EndSuccess.json in Resources */ = {isa = PBXBuildFile; fileRef = AC69CC002458356B00197A0B /* EndSuccess.json */; };
+		ACEB0F80246570B200759C5A /* EndFailure.json in Resources */ = {isa = PBXBuildFile; fileRef = AC69CBFF2458356B00197A0B /* EndFailure.json */; };
+		ACEB0F81246570B700759C5A /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC22474824485FD300892273 /* API.swift */; };
+		ACEB0F83246570F500759C5A /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = ACEB0F82246570F500759C5A /* Lottie */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		AC146C7C2446F7E400F5EA02 /* PBXContainerItemProxy */ = {
+		ACEB0F6524656FB300759C5A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = AC146C412446F4BF00F5EA02 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = AC146C6E2446F78400F5EA02;
+			remoteGlobalIDString = ACEB0F5F24656FB300759C5A;
 			remoteInfo = Alloy;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		AC146C6D2446F78400F5EA02 /* CopyFiles */ = {
+		ACEB0F6C24656FB300759C5A /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
+			dstPath = "";
+			dstSubfolderSpec = 10;
 			files = (
+				ACEB0F6824656FB300759C5A /* Alloy.framework in Embed Frameworks */,
 			);
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -65,7 +72,6 @@
 		AC146C552446F4C000F5EA02 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AC146C582446F4C000F5EA02 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AC146C5A2446F4C000F5EA02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AC146C6F2446F78400F5EA02 /* libAlloy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAlloy.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC146C782446F7C200F5EA02 /* AlloyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlloyViewController.swift; sourceTree = "<group>"; };
 		AC146CA52447450600F5EA02 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		AC146CA72447485000F5EA02 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
@@ -88,6 +94,9 @@
 		ACB3AE832451887C00718C54 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		ACB3AE8524518C8900718C54 /* Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Init.swift; sourceTree = "<group>"; };
 		ACB3AE872451A97200718C54 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		ACEB0F6024656FB300759C5A /* Alloy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alloy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		ACEB0F6224656FB300759C5A /* Alloy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Alloy.h; sourceTree = "<group>"; };
+		ACEB0F6324656FB300759C5A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,15 +104,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC146C7B2446F7E400F5EA02 /* libAlloy.a in Frameworks */,
+				ACEB0F6724656FB300759C5A /* Alloy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AC146C6C2446F78400F5EA02 /* Frameworks */ = {
+		ACEB0F5D24656FB300759C5A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC69CBFD245832DA00197A0B /* Lottie in Frameworks */,
+				ACEB0F83246570F500759C5A /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,7 +124,7 @@
 			children = (
 				AC2B5DC124641CB5001E070A /* README.md */,
 				AC146C4B2446F4BF00F5EA02 /* AlloyExample */,
-				AC146C702446F78400F5EA02 /* Alloy */,
+				ACEB0F6124656FB300759C5A /* Alloy */,
 				AC146C4A2446F4BF00F5EA02 /* Products */,
 				AC146C7A2446F7E400F5EA02 /* Frameworks */,
 			);
@@ -125,7 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				AC146C492446F4BF00F5EA02 /* AlloyExample.app */,
-				AC146C6F2446F78400F5EA02 /* libAlloy.a */,
+				ACEB0F6024656FB300759C5A /* Alloy.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -140,24 +149,6 @@
 				AC146C5A2446F4C000F5EA02 /* Info.plist */,
 			);
 			path = AlloyExample;
-			sourceTree = "<group>";
-		};
-		AC146C702446F78400F5EA02 /* Alloy */ = {
-			isa = PBXGroup;
-			children = (
-				AC91C94424483C8100FB8108 /* AlloyAssets.xcassets */,
-				AC22474524485C9F00892273 /* API */,
-				AC69CBFE2458355700197A0B /* Animations */,
-				AC146CAB2447582D00F5EA02 /* Extensions */,
-				ACB3AE7E245187DC00718C54 /* Models */,
-				AC146CB024475BAF00F5EA02 /* Views */,
-				AC146C782446F7C200F5EA02 /* AlloyViewController.swift */,
-				AC91C94224483C0100FB8108 /* GetStartedViewController.swift */,
-				AC146CA52447450600F5EA02 /* MainViewController.swift */,
-				AC146CA72447485000F5EA02 /* CameraViewController.swift */,
-				AC146CA9244753B700F5EA02 /* EndViewController.swift */,
-			);
-			path = Alloy;
 			sourceTree = "<group>";
 		};
 		AC146C7A2446F7E400F5EA02 /* Frameworks */ = {
@@ -217,7 +208,38 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		ACEB0F6124656FB300759C5A /* Alloy */ = {
+			isa = PBXGroup;
+			children = (
+				ACEB0F6224656FB300759C5A /* Alloy.h */,
+				ACEB0F6324656FB300759C5A /* Info.plist */,
+				AC91C94424483C8100FB8108 /* AlloyAssets.xcassets */,
+				AC22474524485C9F00892273 /* API */,
+				AC69CBFE2458355700197A0B /* Animations */,
+				AC146CAB2447582D00F5EA02 /* Extensions */,
+				ACB3AE7E245187DC00718C54 /* Models */,
+				AC146CB024475BAF00F5EA02 /* Views */,
+				AC146C782446F7C200F5EA02 /* AlloyViewController.swift */,
+				AC91C94224483C0100FB8108 /* GetStartedViewController.swift */,
+				AC146CA52447450600F5EA02 /* MainViewController.swift */,
+				AC146CA72447485000F5EA02 /* CameraViewController.swift */,
+				AC146CA9244753B700F5EA02 /* EndViewController.swift */,
+			);
+			path = Alloy;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		ACEB0F5B24656FB300759C5A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ACEB0F6424656FB300759C5A /* Alloy.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		AC146C482446F4BF00F5EA02 /* AlloyExample */ = {
@@ -227,24 +249,26 @@
 				AC146C452446F4BF00F5EA02 /* Sources */,
 				AC146C462446F4BF00F5EA02 /* Frameworks */,
 				AC146C472446F4BF00F5EA02 /* Resources */,
+				ACEB0F6C24656FB300759C5A /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				AC146C7D2446F7E400F5EA02 /* PBXTargetDependency */,
+				ACEB0F6624656FB300759C5A /* PBXTargetDependency */,
 			);
 			name = AlloyExample;
 			productName = Alloy;
 			productReference = AC146C492446F4BF00F5EA02 /* AlloyExample.app */;
 			productType = "com.apple.product-type.application";
 		};
-		AC146C6E2446F78400F5EA02 /* Alloy */ = {
+		ACEB0F5F24656FB300759C5A /* Alloy */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AC146C732446F78400F5EA02 /* Build configuration list for PBXNativeTarget "Alloy" */;
+			buildConfigurationList = ACEB0F6924656FB300759C5A /* Build configuration list for PBXNativeTarget "Alloy" */;
 			buildPhases = (
-				AC146C6B2446F78400F5EA02 /* Sources */,
-				AC146C6C2446F78400F5EA02 /* Frameworks */,
-				AC146C6D2446F78400F5EA02 /* CopyFiles */,
+				ACEB0F5B24656FB300759C5A /* Headers */,
+				ACEB0F5C24656FB300759C5A /* Sources */,
+				ACEB0F5D24656FB300759C5A /* Frameworks */,
+				ACEB0F5E24656FB300759C5A /* Resources */,
 			);
 			buildRules = (
 			);
@@ -252,11 +276,11 @@
 			);
 			name = Alloy;
 			packageProductDependencies = (
-				AC69CBFC245832DA00197A0B /* Lottie */,
+				ACEB0F82246570F500759C5A /* Lottie */,
 			);
 			productName = Alloy;
-			productReference = AC146C6F2446F78400F5EA02 /* libAlloy.a */;
-			productType = "com.apple.product-type.library.static";
+			productReference = ACEB0F6024656FB300759C5A /* Alloy.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
@@ -271,8 +295,8 @@
 					AC146C482446F4BF00F5EA02 = {
 						CreatedOnToolsVersion = 11.4;
 					};
-					AC146C6E2446F78400F5EA02 = {
-						CreatedOnToolsVersion = 11.4;
+					ACEB0F5F24656FB300759C5A = {
+						CreatedOnToolsVersion = 11.4.1;
 					};
 				};
 			};
@@ -293,7 +317,7 @@
 			projectRoot = "";
 			targets = (
 				AC146C482446F4BF00F5EA02 /* AlloyExample */,
-				AC146C6E2446F78400F5EA02 /* Alloy */,
+				ACEB0F5F24656FB300759C5A /* Alloy */,
 			);
 		};
 /* End PBXProject section */
@@ -311,6 +335,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		ACEB0F5E24656FB300759C5A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ACEB0F722465706A00759C5A /* AlloyAssets.xcassets in Resources */,
+				ACEB0F7F246570AE00759C5A /* EndSuccess.json in Resources */,
+				ACEB0F80246570B200759C5A /* EndFailure.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -323,38 +357,38 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AC146C6B2446F78400F5EA02 /* Sources */ = {
+		ACEB0F5C24656FB300759C5A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC22474924485FD300892273 /* API.swift in Sources */,
-				ACB3AE8624518C8900718C54 /* Init.swift in Sources */,
-				AC61FC41244D837600F64F56 /* CardDetail.swift in Sources */,
-				ACB3AE80245187F300718C54 /* Entity.swift in Sources */,
-				AC146CB224475D3800F5EA02 /* PrimaryButton.swift in Sources */,
-				AC91C94624483E3100FB8108 /* UIImage.swift in Sources */,
-				AC2B5DC52464312A001E070A /* NSBundle.swift in Sources */,
-				AC146CAA244753B700F5EA02 /* EndViewController.swift in Sources */,
-				AC22473C244840F100892273 /* GetStartedItem.swift in Sources */,
-				AC146C792446F7C200F5EA02 /* AlloyViewController.swift in Sources */,
-				ACB3AE842451887C00718C54 /* Document.swift in Sources */,
-				AC146CA62447450600F5EA02 /* MainViewController.swift in Sources */,
-				ACB3AE822451883300718C54 /* Evaluation.swift in Sources */,
-				AC202648244ED2A900EF69A5 /* EndBanner.swift in Sources */,
-				ACB3AE882451A97200718C54 /* UIView.swift in Sources */,
-				AC146CA82447485000F5EA02 /* CameraViewController.swift in Sources */,
-				AC91C94324483C0100FB8108 /* GetStartedViewController.swift in Sources */,
-				AC146CAD2447583900F5EA02 /* UIColor.swift in Sources */,
+				ACEB0F7A2465709300759C5A /* Init.swift in Sources */,
+				ACEB0F762465708600759C5A /* PrimaryButton.swift in Sources */,
+				ACEB0F6F24656FC300759C5A /* EndViewController.swift in Sources */,
+				ACEB0F7124656FC300759C5A /* CameraViewController.swift in Sources */,
+				ACEB0F7C2465709F00759C5A /* UIColor.swift in Sources */,
+				ACEB0F792465709000759C5A /* Evaluation.swift in Sources */,
+				ACEB0F732465707E00759C5A /* CardDetail.swift in Sources */,
+				ACEB0F772465708A00759C5A /* Document.swift in Sources */,
+				ACEB0F6E24656FC300759C5A /* AlloyViewController.swift in Sources */,
+				ACEB0F7D246570A200759C5A /* UIImage.swift in Sources */,
+				ACEB0F7B2465709700759C5A /* NSBundle.swift in Sources */,
+				ACEB0F6D24656FC300759C5A /* GetStartedViewController.swift in Sources */,
+				ACEB0F782465708E00759C5A /* Entity.swift in Sources */,
+				ACEB0F7E246570A500759C5A /* UIView.swift in Sources */,
+				ACEB0F752465708300759C5A /* GetStartedItem.swift in Sources */,
+				ACEB0F7024656FC300759C5A /* MainViewController.swift in Sources */,
+				ACEB0F81246570B700759C5A /* API.swift in Sources */,
+				ACEB0F742465708000759C5A /* EndBanner.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		AC146C7D2446F7E400F5EA02 /* PBXTargetDependency */ = {
+		ACEB0F6624656FB300759C5A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = AC146C6E2446F78400F5EA02 /* Alloy */;
-			targetProxy = AC146C7C2446F7E400F5EA02 /* PBXContainerItemProxy */;
+			target = ACEB0F5F24656FB300759C5A /* Alloy */;
+			targetProxy = ACEB0F6524656FB300759C5A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -487,6 +521,7 @@
 		AC146C5E2446F4C000F5EA02 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RXT9WNH555;
@@ -506,6 +541,7 @@
 		AC146C5F2446F4C000F5EA02 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RXT9WNH555;
@@ -522,31 +558,59 @@
 			};
 			name = Release;
 		};
-		AC146C742446F78400F5EA02 /* Debug */ = {
+		ACEB0F6A24656FB300759C5A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = RXT9WNH555;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Alloy/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = co.alloy.Alloy;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
-		AC146C752446F78400F5EA02 /* Release */ = {
+		ACEB0F6B24656FB300759C5A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = RXT9WNH555;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Alloy/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = co.alloy.Alloy;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
@@ -571,11 +635,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AC146C732446F78400F5EA02 /* Build configuration list for PBXNativeTarget "Alloy" */ = {
+		ACEB0F6924656FB300759C5A /* Build configuration list for PBXNativeTarget "Alloy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				AC146C742446F78400F5EA02 /* Debug */,
-				AC146C752446F78400F5EA02 /* Release */,
+				ACEB0F6A24656FB300759C5A /* Debug */,
+				ACEB0F6B24656FB300759C5A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -594,7 +658,7 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		AC69CBFC245832DA00197A0B /* Lottie */ = {
+		ACEB0F82246570F500759C5A /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = AC69CBFB245832DA00197A0B /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
