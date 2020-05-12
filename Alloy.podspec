@@ -18,12 +18,13 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '11.0'
 
   s.frameworks = 'UIKit'
-  s.source_files = 'Alloy/**/*.swift'
 
+  s.vendored_framework = 'Alloy.framework'
+  s.module_map = 'Alloy.framework/Modules/module.modulemap'
   s.resource_bundles = {
     'AlloyAssets' => [
-      'Alloy/Animations/*.json',
-      'Alloy/AlloyAssets.xcassets',
+      'Alloy.framework/*.json',
+      'Alloy.framework/AlloyAssets.xcassets',
     ]
   }
 end

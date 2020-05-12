@@ -1,7 +1,7 @@
 #!/bin/sh
 
-# Create folder where we place built frameworks
-mkdir build
+# Clean folder where we place built frameworks
+rm -rf build
 
 # build framework for simulators
 xcodebuild clean build \
@@ -12,7 +12,7 @@ xcodebuild clean build \
   -derivedDataPath derived_data
 
 # Create folder to store compiled framework for simulator
-mkdir build/simulator
+mkdir -p build/simulator
 
 # copy compiled framework for simulator into our build folder
 cp -r derived_data/Build/Products/Release-iphonesimulator/Alloy.framework build/simulator
@@ -26,13 +26,13 @@ xcodebuild clean build \
   -derivedDataPath derived_data
 
 # Create folder to store compiled framework for devices
-mkdir build/devices
+mkdir -p build/devices
 
 # copy compiled framework for simulator into our build folder
 cp -r derived_data/Build/Products/Release-iphoneos/Alloy.framework build/devices
 
 # create folder to store compiled universal framework
-mkdir build/universal
+mkdir -p build/universal
 
 ####################### Create universal framework #############################
 
@@ -47,3 +47,4 @@ lipo -create \
 
 # copy simulator Swift public interface to universal framework
 cp build/simulator/Alloy.framework/Modules/Alloy.swiftmodule/* build/universal/Alloy.framework/Modules/Alloy.swiftmodule
+cp -r Alloy/AlloyAssets.xcassets build/universal/Alloy.framework
