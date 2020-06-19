@@ -166,7 +166,7 @@ internal class GetStartedViewController: UIViewController {
     }
 
     @objc private func getStarted() {
-        let vc = MainViewController()
+        let vc = SelectDocumentViewController()
         vc.config = config
         vc.api = api
         navigationController?.pushViewController(vc, animated: true)
