@@ -297,6 +297,8 @@ internal class CameraViewController: UIViewController {
                 image = UIImage(fallbackSystemImage: "bolt.slash.fill")
             case .off:
                 image = UIImage(fallbackSystemImage: "bolt.fill")
+            @unknown default:
+                image = UIImage(fallbackSystemImage: "bolt.fill")
             }
             flashButton.setImage(image, for: .normal)
         }
