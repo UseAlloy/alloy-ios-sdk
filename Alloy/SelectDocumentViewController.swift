@@ -107,9 +107,18 @@ class SelectDocumentViewController: UIViewController {
     }
 
     @objc private func onContinue() {
-        let vc = MainViewController()
-        vc.api = api
-        vc.config = config
-        navigationController?.pushViewController(vc, animated: true)
+        let variant = buttons.first(where: \.isSelected).map(\.variant)
+        switch variant {
+        case .passport:
+            let vc = ScanPassportViewController()
+            navigationController?.pushViewController(vc, animated: true)
+        case .id:
+            let vc = ScanIDViewController()
+            vc.api = api
+            vc.config = config
+            navigationController?.pushViewController(vc, animated: true)
+        default:
+            break
+        }
     }
 }

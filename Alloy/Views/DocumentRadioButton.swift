@@ -5,6 +5,8 @@ internal class DocumentRadioButton: UIButton {
         case passport, id
     }
 
+    var variant: Variant!
+
     override var isSelected: Bool {
         didSet {
             check.isHidden = !isSelected
@@ -77,6 +79,7 @@ internal class DocumentRadioButton: UIButton {
     }
 
     private func configure(_ variant: Variant) {
+        self.variant = variant
         switch variant {
         case .passport:
             label.text = "Passport"

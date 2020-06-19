@@ -1,6 +1,6 @@
 import UIKit
 
-internal class MainViewController: UIViewController {
+internal class ScanIDViewController: UIViewController {
     private var numberOfAttempts = 0
     private var evaluationData: AlloyEvaluationData? {
         return config.evaluationData
@@ -27,9 +27,9 @@ internal class MainViewController: UIViewController {
 
     // MARK: Views
 
-    private lazy var closeButton: UIBarButtonItem = {
-        let image = UIImage(fallbackSystemImage: "xmark")
-        return UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(close))
+    private lazy var backButton: UIBarButtonItem = {
+        let image = UIImage(fallbackSystemImage: "arrow.left")
+        return UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(onBack))
     }()
 
     private lazy var helpButton: UIBarButtonItem = {
@@ -110,7 +110,7 @@ internal class MainViewController: UIViewController {
         title = "Scan your ID"
         view.backgroundColor = .white
 
-        navigationItem.leftBarButtonItem = closeButton
+        navigationItem.leftBarButtonItem = backButton
         navigationItem.rightBarButtonItem = helpButton
 
         view.addSubview(scrollView)
@@ -161,8 +161,8 @@ internal class MainViewController: UIViewController {
 
     // MARK: Actions
 
-    @objc private func close() {
-        dismiss(animated: true)
+    @objc private func onBack() {
+        navigationController?.popViewController(animated: true)
     }
 
     @objc private func takeFrontPicture() {
