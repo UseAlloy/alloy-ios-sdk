@@ -12,6 +12,7 @@
 		AC146C562446F4C000F5EA02 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC146C552446F4C000F5EA02 /* Assets.xcassets */; };
 		AC146C592446F4C000F5EA02 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC146C572446F4C000F5EA02 /* LaunchScreen.storyboard */; };
 		AC1FB2C9249CA15F00E9FCC2 /* SelectDocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1FB2C8249CA15F00E9FCC2 /* SelectDocumentViewController.swift */; };
+		AC1FB2CB249CA54D00E9FCC2 /* DocumentRadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1FB2CA249CA54D00E9FCC2 /* DocumentRadioButton.swift */; };
 		AC69CC0124583B5900197A0B /* EndFailure.json in Resources */ = {isa = PBXBuildFile; fileRef = AC69CBFF2458356B00197A0B /* EndFailure.json */; };
 		AC69CC0224583B5F00197A0B /* EndSuccess.json in Resources */ = {isa = PBXBuildFile; fileRef = AC69CC002458356B00197A0B /* EndSuccess.json */; };
 		AC8465E3245078460031DA78 /* AlloyAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC91C94424483C8100FB8108 /* AlloyAssets.xcassets */; };
@@ -80,6 +81,7 @@
 		AC146CAC2447583900F5EA02 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		AC146CB124475D3800F5EA02 /* PrimaryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
 		AC1FB2C8249CA15F00E9FCC2 /* SelectDocumentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDocumentViewController.swift; sourceTree = "<group>"; };
+		AC1FB2CA249CA54D00E9FCC2 /* DocumentRadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentRadioButton.swift; sourceTree = "<group>"; };
 		AC202647244ED2A900EF69A5 /* EndBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndBanner.swift; sourceTree = "<group>"; };
 		AC22473B244840F100892273 /* GetStartedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStartedItem.swift; sourceTree = "<group>"; };
 		AC22474824485FD300892273 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				AC61FC40244D837600F64F56 /* CardDetail.swift */,
+				AC1FB2CA249CA54D00E9FCC2 /* DocumentRadioButton.swift */,
 				AC202647244ED2A900EF69A5 /* EndBanner.swift */,
 				AC22473B244840F100892273 /* GetStartedItem.swift */,
 				AC146CB124475D3800F5EA02 /* PrimaryButton.swift */,
@@ -366,6 +369,7 @@
 			files = (
 				ACEB0F7A2465709300759C5A /* Init.swift in Sources */,
 				ACEB0F762465708600759C5A /* PrimaryButton.swift in Sources */,
+				AC1FB2CB249CA54D00E9FCC2 /* DocumentRadioButton.swift in Sources */,
 				ACEB0F6F24656FC300759C5A /* EndViewController.swift in Sources */,
 				ACEB0F7124656FC300759C5A /* CameraViewController.swift in Sources */,
 				ACEB0F7C2465709F00759C5A /* UIColor.swift in Sources */,
