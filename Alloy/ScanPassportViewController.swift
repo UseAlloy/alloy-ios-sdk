@@ -12,6 +12,22 @@ class ScanPassportViewController: UIViewController {
         let image = UIImage(fallbackSystemImage: "questionmark.circle")
         return UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
     }()
+
+    private lazy var subheadline: UILabel = {
+        let view = UILabel()
+        view.numberOfLines = 0
+        view.font = .systemFont(ofSize: 15)
+        view.text = "Open your passport and take a picture from inside. It may take a while to validate your personal information."
+        view.textAlignment = .center
+        return view
+    }()
+
+    private lazy var passportPicture: CardDetail = {
+        let view = CardDetail()
+        view.preview.image = UIImage(named: "Front Card Placeholder")
+        view.takeButton.setTitle("Take picture", for: .normal)
+        return view
+    }()
     
     // MARK: Init
 
@@ -33,6 +49,22 @@ class ScanPassportViewController: UIViewController {
 
         navigationItem.leftBarButtonItem = backButton
         navigationItem.rightBarButtonItem = helpButton
+
+        let safeArea = view.safeAreaLayoutGuide
+        view.addSubview(subheadline)
+        view.addSubview(passportPicture)
+
+        subheadline.translatesAutoresizingMaskIntoConstraints = false
+        subheadline.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 40).isActive = true
+        subheadline.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20).isActive = true
+        subheadline.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20).isActive = true
+
+        passportPicture.translatesAutoresizingMaskIntoConstraints = false
+        passportPicture.heightAnchor.constraint(equalToConstant: 190).isActive = true
+        passportPicture.topAnchor.constraint(equalTo: subheadline.bottomAnchor, constant: 40).isActive = true
+        passportPicture.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 40).isActive = true
+        passportPicture.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -40).isActive = true
+
     }
 
     // MARK: Actions
