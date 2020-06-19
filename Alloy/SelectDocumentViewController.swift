@@ -1,6 +1,6 @@
 import UIKit
 
-class SelectDocumentViewController: UIViewController {
+internal class SelectDocumentViewController: UIViewController {
     // MARK: Init properties
 
     var api: API!
