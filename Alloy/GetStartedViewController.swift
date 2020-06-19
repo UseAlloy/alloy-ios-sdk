@@ -32,7 +32,7 @@ internal class GetStartedViewController: UIViewController {
         view.axis = .vertical
         view.alignment = .fill
         view.distribution = .fillEqually
-        view.spacing = 30
+        view.spacing = 23
         return view
     }()
 
@@ -83,7 +83,7 @@ internal class GetStartedViewController: UIViewController {
         titleLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50).isActive = true
 
         stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 60).isActive = true
+        stack.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 50).isActive = true
         stack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 40).isActive = true
         stack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -40).isActive = true
 
@@ -110,6 +110,14 @@ internal class GetStartedViewController: UIViewController {
             description: "The clearer the background of the picture is, the better."
         )
         stack.addArrangedSubview(item3)
+
+        let item4 = GetStartedItem()
+        item4.configure(
+            image: "selfie",
+            title: "Be prepared for a selfie",
+            description: "This helps us match your face with your ID photo."
+        )
+        stack.addArrangedSubview(item4)
 
         getStartedButton.translatesAutoresizingMaskIntoConstraints = false
         getStartedButton.leadingAnchor.constraint(equalTo: stack.leadingAnchor).isActive = true
