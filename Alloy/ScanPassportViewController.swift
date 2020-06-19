@@ -26,6 +26,8 @@ internal class ScanPassportViewController: UIViewController {
         let view = CardDetail()
         view.preview.image = UIImage(named: "Front Card Placeholder")
         view.takeButton.setTitle("Take picture", for: .normal)
+        view.takeButton.addTarget(self, action: #selector(takePassportPicture), for: .touchUpInside)
+        view.retakeButton.addTarget(self, action: #selector(takePassportPicture), for: .touchUpInside)
         return view
     }()
     
@@ -71,5 +73,22 @@ internal class ScanPassportViewController: UIViewController {
 
     @objc private func onBack() {
         navigationController?.popViewController(animated: true)
+    }
+
+    @objc private func takePassportPicture() {
+        let vc = CameraViewController()
+        vc.title = "Passport"
+        vc.imageTaken = { [weak self] cgImage in
+            let image = UIImage(cgImage: cgImage)
+            self?.passportPicture.preview.image = image
+            self?.passportPicture.startLoading()
+            if let self = self, let data = image.jpegData(compressionQuality: 0.9) {
+                self.createDocument(data: data)
+            }
+        }
+        navigationController?.pushViewController(vc, animated: true)
+    }
+
+    private func createDocument(data: Data) {
     }
 }
