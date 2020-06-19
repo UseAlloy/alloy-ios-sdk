@@ -55,5 +55,7 @@ internal class PrimaryButton: UIButton {
         setTitle(title, for: .normal)
         setTitleColor(PrimaryButton.foregroundColor, for: .normal)
         titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
+
+        heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
 }

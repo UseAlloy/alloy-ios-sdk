@@ -147,7 +147,6 @@ internal class MainViewController: UIViewController {
         cardsStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -40).isActive = true
 
         sendButton.translatesAutoresizingMaskIntoConstraints = false
-        sendButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         sendButton.topAnchor.constraint(greaterThanOrEqualTo: cardsStack.bottomAnchor, constant: 40).isActive = true
         sendButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 40).isActive = true
         sendButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -40).isActive = true

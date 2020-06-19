@@ -91,7 +91,6 @@ internal class EndViewController: UIViewController {
         subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10).isActive = true
 
         mainButton.translatesAutoresizingMaskIntoConstraints = false
-        mainButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         mainButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
         mainButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40).isActive = true
         mainButton.bottomAnchor.constraint(equalTo: leaveButton.topAnchor, constant: -20).isActive = true

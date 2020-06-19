@@ -112,7 +112,6 @@ internal class GetStartedViewController: UIViewController {
         stack.addArrangedSubview(item3)
 
         getStartedButton.translatesAutoresizingMaskIntoConstraints = false
-        getStartedButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         getStartedButton.leadingAnchor.constraint(equalTo: stack.leadingAnchor).isActive = true
         getStartedButton.trailingAnchor.constraint(equalTo: stack.trailingAnchor).isActive = true
         getStartedButton.bottomAnchor.constraint(equalTo: cancelButton.topAnchor, constant: -20).isActive = true
