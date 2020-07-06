@@ -1,6 +1,6 @@
 import UIKit
 
-internal class ScanPassportViewController: UIViewController {
+internal class ScanPassportViewController: ScanBaseViewController {
     // MARK: Views
 
     private lazy var backButton: UIBarButtonItem = {

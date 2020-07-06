@@ -1,11 +1,6 @@
 import UIKit
 
-internal class ScanIDViewController: UIViewController {
-    private var numberOfAttempts = 0
-    private var evaluationData: AlloyEvaluationData? {
-        return config.evaluationData
-    }
-
+internal class ScanIDViewController: ScanBaseViewController {
     private var frontToken: AlloyDocumentToken? {
         didSet {
             guard frontToken != nil else { return }
@@ -19,11 +14,6 @@ internal class ScanIDViewController: UIViewController {
             retryButton.isHidden = false
         }
     }
-
-    // MARK: Init properties
-
-    var api: API!
-    var config: Alloy!
 
     // MARK: Views
 
@@ -187,14 +177,6 @@ internal class ScanIDViewController: UIViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
 
-    private func showEndScreen(for outcome: EndVariant) {
-        numberOfAttempts += 1
-
-        let vc = EndViewController()
-        vc.noMoreAttempts = numberOfAttempts >= config.maxEvaluationAttempts
-        navigationController?.pushViewController(vc, animated: true)
-    }
-
     // MARK: Alloy Actions
 
     private func createDocument(data: Data, for card: CardDetail) {
@@ -206,7 +188,7 @@ internal class ScanIDViewController: UIViewController {
             case let .failure(error):
                 print("create/upload", error)
             case let .success(response):
-                let evaluation = AlloyCardEvaluationData(evaluationData: evaluationData, evaluationStep: .back(response.token))
+                let evaluation = AlloyCardEvaluationData(evaluationData: evaluationData, evaluationStep: .front(response.token))
                 api.evaluate(document: evaluation) { result in
                     switch result {
                     case let .failure(error):

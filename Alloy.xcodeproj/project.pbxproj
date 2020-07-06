@@ -42,6 +42,7 @@
 		ACEB0F80246570B200759C5A /* EndFailure.json in Resources */ = {isa = PBXBuildFile; fileRef = AC69CBFF2458356B00197A0B /* EndFailure.json */; };
 		ACEB0F81246570B700759C5A /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC22474824485FD300892273 /* API.swift */; };
 		ACEB0F83246570F500759C5A /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = ACEB0F82246570F500759C5A /* Lottie */; };
+		ACFF2FF324A4E4F50003D635 /* ScanBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFF2FF224A4E4F50003D635 /* ScanBaseViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +104,7 @@
 		ACEB0F6024656FB300759C5A /* Alloy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alloy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACEB0F6224656FB300759C5A /* Alloy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Alloy.h; sourceTree = "<group>"; };
 		ACEB0F6324656FB300759C5A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ACFF2FF224A4E4F50003D635 /* ScanBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanBaseViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,6 +231,7 @@
 				AC146C782446F7C200F5EA02 /* AlloyViewController.swift */,
 				AC91C94224483C0100FB8108 /* GetStartedViewController.swift */,
 				AC1FB2C8249CA15F00E9FCC2 /* SelectDocumentViewController.swift */,
+				ACFF2FF224A4E4F50003D635 /* ScanBaseViewController.swift */,
 				AC146CA52447450600F5EA02 /* ScanIDViewController.swift */,
 				AC1FB2CC249CBBA500E9FCC2 /* ScanPassportViewController.swift */,
 				AC146CA72447485000F5EA02 /* CameraViewController.swift */,
@@ -382,6 +385,7 @@
 				ACEB0F6E24656FC300759C5A /* AlloyViewController.swift in Sources */,
 				ACEB0F7D246570A200759C5A /* UIImage.swift in Sources */,
 				AC1FB2CD249CBBA500E9FCC2 /* ScanPassportViewController.swift in Sources */,
+				ACFF2FF324A4E4F50003D635 /* ScanBaseViewController.swift in Sources */,
 				AC1FB2C9249CA15F00E9FCC2 /* SelectDocumentViewController.swift in Sources */,
 				ACEB0F7B2465709700759C5A /* NSBundle.swift in Sources */,
 				ACEB0F6D24656FC300759C5A /* GetStartedViewController.swift in Sources */,
