@@ -11,6 +11,7 @@ class GetStartedItem: UIView {
     private var title: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 15, weight: .semibold)
+        label.textColor = UIColor.Theme.black
         return label
     }()
 

@@ -19,6 +19,7 @@ internal class SelectDocumentViewController: UIViewController {
         view.numberOfLines = 0
         view.text = "You can scan your ID or passport. Keep the document close and make sure it is in good condition."
         view.textAlignment = .center
+        view.textColor = UIColor.Theme.black
         return view
     }()
 

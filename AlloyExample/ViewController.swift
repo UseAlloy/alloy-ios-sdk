@@ -7,6 +7,7 @@ class ViewController: UIViewController {
         view.placeholder = "First name"
         view.text = "John"
         view.textAlignment = .center
+        view.textColor = .black
         view.layer.borderWidth = 1
         return view
     }()
@@ -16,6 +17,7 @@ class ViewController: UIViewController {
         view.placeholder = "Last name"
         view.text = "Doe"
         view.textAlignment = .center
+        view.textColor = .black
         view.layer.borderWidth = 1
         return view
     }()

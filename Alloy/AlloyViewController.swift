@@ -5,6 +5,9 @@ internal class AlloyViewController: UINavigationController {
         let vc = GetStartedViewController()
         vc.config = config
         super.init(rootViewController: vc)
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        }
     }
 
     required init?(coder aDecoder: NSCoder) {

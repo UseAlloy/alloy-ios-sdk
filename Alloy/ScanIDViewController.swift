@@ -36,6 +36,7 @@ internal class ScanIDViewController: ScanBaseViewController {
         view.font = .systemFont(ofSize: 15)
         view.text = "Take a photo of both sides. It may take time to validate your personal information."
         view.textAlignment = .center
+        view.textColor = UIColor.Theme.black
         return view
     }()
     

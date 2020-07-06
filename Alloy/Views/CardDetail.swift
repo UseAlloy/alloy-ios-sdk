@@ -51,6 +51,7 @@ class CardDetail: UIView {
         view.isHidden = true
         view.font = .systemFont(ofSize: 17)
         view.numberOfLines = 0
+        view.textColor = UIColor.Theme.black
         return view
     }()
 

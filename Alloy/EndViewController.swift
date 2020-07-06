@@ -32,6 +32,7 @@ internal class EndViewController: UIViewController {
         view.numberOfLines = 0
         view.font = .systemFont(ofSize: 20, weight: .semibold)
         view.textAlignment = .center
+        view.textColor = UIColor.Theme.black
         return view
     }()
 
@@ -40,6 +41,7 @@ internal class EndViewController: UIViewController {
         view.numberOfLines = 0
         view.font = .systemFont(ofSize: 15)
         view.textAlignment = .center
+        view.textColor = UIColor.Theme.black
         return view
     }()
 

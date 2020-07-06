@@ -24,6 +24,7 @@ internal class GetStartedViewController: UIViewController {
         view.numberOfLines = 0
         view.text = "We have a few tips to make this process easier"
         view.textAlignment = .center
+        view.textColor = UIColor.Theme.black
         return view
     }()
 

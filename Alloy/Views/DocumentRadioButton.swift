@@ -27,6 +27,7 @@ internal class DocumentRadioButton: UIButton {
         let view = UILabel()
         view.font = .systemFont(ofSize: 15, weight: .semibold)
         view.numberOfLines = 0
+        view.textColor = UIColor.Theme.black
         return view
     }()
 

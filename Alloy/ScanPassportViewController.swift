@@ -19,6 +19,7 @@ internal class ScanPassportViewController: ScanBaseViewController {
         view.font = .systemFont(ofSize: 15)
         view.text = "Open your passport and take a picture from inside. It may take a while to validate your personal information."
         view.textAlignment = .center
+        view.textColor = UIColor.Theme.black
         return view
     }()
 
