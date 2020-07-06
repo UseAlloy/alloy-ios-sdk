@@ -1,6 +1,13 @@
 import UIKit
 
 internal class ScanPassportViewController: ScanBaseViewController {
+    private var passportToken: AlloyDocumentToken? {
+        didSet {
+            sendButton.isHidden = false
+            retryButton.isHidden = false
+        }
+    }
+
     // MARK: Views
 
     private lazy var backButton: UIBarButtonItem = {
@@ -31,6 +38,21 @@ internal class ScanPassportViewController: ScanBaseViewController {
         view.retakeButton.addTarget(self, action: #selector(takePassportPicture), for: .touchUpInside)
         return view
     }()
+
+    private lazy var sendButton: UIButton = {
+        let button = PrimaryButton(title: "Send Pictures")
+        button.isHidden = true
+        button.addTarget(self, action: #selector(validatePassport), for: .touchUpInside)
+        return button
+    }()
+
+    private lazy var retryButton: UIButton = {
+        let view = UIButton(type: .system)
+        view.isHidden = true
+        view.setTitle("Retry", for: .normal)
+        view.setTitleColor(UIColor.Theme.blue, for: .normal)
+        return view
+    }()
     
     // MARK: Init
 
@@ -56,6 +78,8 @@ internal class ScanPassportViewController: ScanBaseViewController {
         let safeArea = view.safeAreaLayoutGuide
         view.addSubview(subheadline)
         view.addSubview(passportPicture)
+        view.addSubview(sendButton)
+        view.addSubview(retryButton)
 
         subheadline.translatesAutoresizingMaskIntoConstraints = false
         subheadline.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 40).isActive = true
@@ -68,6 +92,16 @@ internal class ScanPassportViewController: ScanBaseViewController {
         passportPicture.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 40).isActive = true
         passportPicture.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -40).isActive = true
 
+        sendButton.translatesAutoresizingMaskIntoConstraints = false
+        sendButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 40).isActive = true
+        sendButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -40).isActive = true
+        sendButton.bottomAnchor.constraint(equalTo: retryButton.topAnchor, constant: -20).isActive = true
+
+        retryButton.translatesAutoresizingMaskIntoConstraints = false
+        retryButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        retryButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 40).isActive = true
+        retryButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -40).isActive = true
+        retryButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -40).isActive = true
     }
 
     // MARK: Actions
@@ -91,5 +125,32 @@ internal class ScanPassportViewController: ScanBaseViewController {
     }
 
     private func createDocument(data: Data) {
+        guard let api = api, let evaluationData = evaluationData else { return }
+
+        let documentData = AlloyDocumentPayload(name: "passport", extension: .jpg, type: .passport)
+        api.create(document: documentData, andUpload: data) { result in
+            switch result {
+            case let .failure(error):
+                print("create/upload", error)
+            case let .success(response):
+                let evaluation = AlloyCardEvaluationData(evaluationData: evaluationData, evaluationStep: .front(response.token))
+                api.evaluate(document: evaluation) { result in
+                    switch result {
+                    case let .failure(error):
+                        print("evaluate", error)
+                    case let .success(responseE):
+                        DispatchQueue.main.async { [weak self] in
+                            if responseE.summary.outcome == "Approved" {
+                                self?.passportPicture.approved()
+                                self?.passportToken = response.token
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @objc private func validatePassport() {
     }
 }

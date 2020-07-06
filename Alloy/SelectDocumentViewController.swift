@@ -112,6 +112,8 @@ internal class SelectDocumentViewController: UIViewController {
         switch variant {
         case .passport:
             let vc = ScanPassportViewController()
+            vc.api = api
+            vc.config = config
             navigationController?.pushViewController(vc, animated: true)
         case .id:
             let vc = ScanIDViewController()
