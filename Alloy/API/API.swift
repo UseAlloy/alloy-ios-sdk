@@ -147,7 +147,7 @@ private func convertFileData(mimeType: String, fileData: Data, using boundary: S
   let data = NSMutableData()
 
   data.appendString("--\(boundary)\r\n")
-  data.appendString("Content-Disposition: form-data; name=\"blob\"; filename=\"license\"\r\n")
+  data.appendString("Content-Disposition: form-data; name=\"blob\"; filename=\"blob\"\r\n")
   data.appendString("Content-Type: \(mimeType)\r\n\r\n")
   data.append(fileData)
   data.appendString("\r\n")
