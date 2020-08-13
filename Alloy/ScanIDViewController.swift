@@ -111,6 +111,7 @@ internal class ScanIDViewController: ScanBaseViewController {
         cardsStack.addArrangedSubview(frontCard)
         cardsStack.addArrangedSubview(backCard)
         contentView.addSubview(selfiePreview)
+        contentView.addSubview(selfieSwitcher)
         contentView.addSubview(sendButton)
         contentView.addSubview(retryButton)
 
@@ -143,6 +144,11 @@ internal class ScanIDViewController: ScanBaseViewController {
         selfiePreview.leadingAnchor.constraint(equalTo: cardsStack.leadingAnchor).isActive = true
         selfiePreview.trailingAnchor.constraint(equalTo: cardsStack.trailingAnchor).isActive = true
         selfiePreview.bottomAnchor.constraint(equalTo: cardsStack.bottomAnchor).isActive = true
+
+        selfieSwitcher.translatesAutoresizingMaskIntoConstraints = false
+        selfieSwitcher.topAnchor.constraint(equalTo: cardsStack.topAnchor).isActive = true
+        selfieSwitcher.leadingAnchor.constraint(equalTo: cardsStack.leadingAnchor).isActive = true
+        selfieSwitcher.trailingAnchor.constraint(equalTo: cardsStack.trailingAnchor).isActive = true
 
         sendButton.translatesAutoresizingMaskIntoConstraints = false
         sendButton.topAnchor.constraint(greaterThanOrEqualTo: cardsStack.bottomAnchor, constant: 40).isActive = true

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC0C10CF24E529B2008642D0 /* SelfieSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0C10CE24E529B2008642D0 /* SelfieSwitcher.swift */; };
 		AC146C4D2446F4BF00F5EA02 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146C4C2446F4BF00F5EA02 /* AppDelegate.swift */; };
 		AC146C512446F4BF00F5EA02 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC146C502446F4BF00F5EA02 /* ViewController.swift */; };
 		AC146C562446F4C000F5EA02 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC146C552446F4C000F5EA02 /* Assets.xcassets */; };
@@ -71,6 +72,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AC0C10CE24E529B2008642D0 /* SelfieSwitcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfieSwitcher.swift; sourceTree = "<group>"; };
 		AC146C492446F4BF00F5EA02 /* AlloyExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlloyExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC146C4C2446F4BF00F5EA02 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AC146C502446F4BF00F5EA02 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				AC22473B244840F100892273 /* GetStartedItem.swift */,
 				AC146CB124475D3800F5EA02 /* PrimaryButton.swift */,
 				ACCC736324E3FF4400A99932 /* SelfieDetail.swift */,
+				AC0C10CE24E529B2008642D0 /* SelfieSwitcher.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -392,6 +395,7 @@
 				AC1FB2C9249CA15F00E9FCC2 /* SelectDocumentViewController.swift in Sources */,
 				ACEB0F7B2465709700759C5A /* NSBundle.swift in Sources */,
 				ACCC736424E3FF4400A99932 /* SelfieDetail.swift in Sources */,
+				AC0C10CF24E529B2008642D0 /* SelfieSwitcher.swift in Sources */,
 				ACEB0F6D24656FC300759C5A /* GetStartedViewController.swift in Sources */,
 				ACEB0F782465708E00759C5A /* Entity.swift in Sources */,
 				ACEB0F7E246570A500759C5A /* UIView.swift in Sources */,

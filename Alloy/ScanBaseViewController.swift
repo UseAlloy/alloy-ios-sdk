@@ -5,6 +5,7 @@ internal class ScanBaseViewController: UIViewController {
     internal var isSelfieHidden = true {
         didSet {
             selfiePreview.isHidden = isSelfieHidden
+            selfieSwitcher.isSelfieHidden = isSelfieHidden
         }
     }
 
@@ -16,6 +17,12 @@ internal class ScanBaseViewController: UIViewController {
 
     internal lazy var selfiePreview: SelfieDetail = {
         let view = SelfieDetail()
+        view.isHidden = true
+        return view
+    }()
+
+    internal lazy var selfieSwitcher: SelfieSwitcher = {
+        let view = SelfieSwitcher()
         view.isHidden = true
         return view
     }()
