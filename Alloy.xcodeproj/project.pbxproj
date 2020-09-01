@@ -556,6 +556,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.alloy.AlloyExample;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_NAME = AlloyExample;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -576,6 +577,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.alloy.AlloyExample;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_NAME = AlloyExample;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
