@@ -152,5 +152,39 @@ internal class ScanPassportViewController: ScanBaseViewController {
     }
 
     @objc private func validatePassport() {
+        guard let evaluationData = evaluationData, let passportToken = passportToken else {
+            sendButton.isHidden = true
+            retryButton.isHidden = true
+            return
+        }
+
+        let evaluation = AlloyCardEvaluationData(
+            evaluationData: evaluationData,
+            evaluationStep: .front(passportToken)
+        )
+
+        api.evaluate(document: evaluation) { result in
+            switch result {
+            case .failure(let error):
+                print(#function, #line, error.localizedDescription)
+
+            case .success(let response):
+                DispatchQueue.main.async { [weak self] in
+                    if response.summary.outcome == "Approved" {
+                        self?.showEndScreen(for: .success)
+                        return
+                    }
+
+                    if response.summary.outcome == "Denied" {
+                        self?.showEndScreen(for: .failure)
+                        return
+                    }
+
+                    for reason in response.summary.outcomeReasons {
+                        self?.passportPicture.issueAppeared(reason)
+                    }
+                }
+            }
+        }
     }
 }
