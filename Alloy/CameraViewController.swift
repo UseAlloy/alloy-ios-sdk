@@ -178,12 +178,14 @@ internal class CameraViewController: UIViewController {
             return
         }
 
-        AVCaptureDevice.requestAccess(for: .video) { [weak self] granted in
-            guard let self = self else { return }
-            if granted {
-                self.setupCamera(position: self.currentCameraPosition)
-            } else {
-                self.setupNoCamera()
+        AVCaptureDevice.requestAccess(for: .video) { granted in
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                if granted {
+                    self.setupCamera(position: self.currentCameraPosition)
+                } else {
+                    self.setupNoCamera()
+                }
             }
         }
     }
