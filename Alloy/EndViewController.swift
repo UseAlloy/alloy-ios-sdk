@@ -45,7 +45,12 @@ internal class EndViewController: UIViewController {
         return view
     }()
 
-    private lazy var mainButton = PrimaryButton(title: "Continue")
+    private lazy var mainButton: UIButton = {
+        let view = PrimaryButton(title: "Continue")
+        view.addTarget(self, action: #selector(mainAction), for: .touchUpInside)
+        return view
+    }()
+
     private lazy var leaveButton: UIButton = {
         let view = UIButton(type: .system)
         view.addTarget(self, action: #selector(leave), for: .touchUpInside)
@@ -72,6 +77,7 @@ internal class EndViewController: UIViewController {
     private func setup() {
         view.backgroundColor = .white
 
+        let safeArea = view.safeAreaLayoutGuide
         view.addSubview(banner)
         view.addSubview(titleLabel)
         view.addSubview(subtitleLabel)
@@ -79,29 +85,31 @@ internal class EndViewController: UIViewController {
         view.addSubview(leaveButton)
 
         banner.translatesAutoresizingMaskIntoConstraints = false
-        banner.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        banner.bottomAnchor.constraint(equalTo: titleLabel.topAnchor, constant: -40).isActive = true
+        banner.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 40).isActive = true
+        banner.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor).isActive = true
+        banner.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor).isActive = true
 
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.topAnchor.constraint(greaterThanOrEqualTo: banner.bottomAnchor, constant: 40).isActive = true
         titleLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
 
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10).isActive = true
         subtitleLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor).isActive = true
         subtitleLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor).isActive = true
-        subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10).isActive = true
 
         mainButton.translatesAutoresizingMaskIntoConstraints = false
         mainButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
         mainButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40).isActive = true
-        mainButton.bottomAnchor.constraint(equalTo: leaveButton.topAnchor, constant: -20).isActive = true
 
         leaveButton.translatesAutoresizingMaskIntoConstraints = false
         leaveButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        leaveButton.topAnchor.constraint(equalTo: mainButton.bottomAnchor, constant: 20).isActive = true
         leaveButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
         leaveButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40).isActive = true
-        leaveButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40).isActive = true
+        leaveButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -40).isActive = true
     }
 
     // MARK: Configure
@@ -116,11 +124,6 @@ internal class EndViewController: UIViewController {
             : "Your ID has been validated"
         mainButton.setTitle(variant == .failure ? "Retry" : "Continue", for: .normal)
         leaveButton.isHidden = variant == .success
-
-        // Clear previous action and set new
-        mainButton.removeTarget(nil, action: nil, for: .touchUpInside)
-        let action = variant == .failure ? #selector(retry) : #selector(leave)
-        mainButton.addTarget(self, action: action, for: .touchUpInside)
     }
 
     private func configureAlloyRetry() {
@@ -129,11 +132,15 @@ internal class EndViewController: UIViewController {
 
     // MARK: Actions
 
-    @objc private func retry() {
-        navigationController?.popViewController(animated: true)
-    }
-
     @objc private func leave() {
         dismiss(animated: true)
+    }
+
+    @objc private func mainAction() {
+        if variant == .success {
+            dismiss(animated: true)
+        } else {
+            navigationController?.popViewController(animated: true)
+        }
     }
 }

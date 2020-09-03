@@ -1,7 +1,7 @@
 import Lottie
 import UIKit
 
-class EndBanner: UIView {
+internal class EndBanner: UIView {
     public var variant: EndVariant = .success {
         didSet {
             changeVariant()
@@ -31,10 +31,6 @@ class EndBanner: UIView {
 
     private func setup() {
         addSubview(animationView)
-
-        translatesAutoresizingMaskIntoConstraints = false
-        heightAnchor.constraint(equalToConstant: 350).isActive = true
-        widthAnchor.constraint(equalToConstant: 350).isActive = true
 
         animationView.translatesAutoresizingMaskIntoConstraints = false
         animationView.heightAnchor.constraint(equalTo: heightAnchor).isActive = true

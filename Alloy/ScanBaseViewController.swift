@@ -38,6 +38,7 @@ internal class ScanBaseViewController: UIViewController {
         numberOfAttempts += 1
 
         let vc = EndViewController()
+        vc.variant = outcome
         vc.noMoreAttempts = numberOfAttempts >= config.maxEvaluationAttempts
         navigationController?.pushViewController(vc, animated: true)
     }
