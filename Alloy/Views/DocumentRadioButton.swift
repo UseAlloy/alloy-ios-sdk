@@ -9,8 +9,7 @@ internal class DocumentRadioButton: UIButton {
 
     override var isSelected: Bool {
         didSet {
-            check.isHidden = !isSelected
-            layer.borderColor = isSelected ? UIColor.Theme.blue.cgColor : UIColor.Theme.border.cgColor
+            configureIsSelected(isSelected)
         }
     }
 
@@ -34,7 +33,7 @@ internal class DocumentRadioButton: UIButton {
     private let check: UIImageView = {
         let view = UIImageView(image: UIImage(fallbackSystemImage: "checkmark"))
         view.tintColor = UIColor.Theme.blue
-        view.isHidden = true
+        view.alpha = 0
         view.isUserInteractionEnabled = false
         return view
     }()
@@ -89,5 +88,22 @@ internal class DocumentRadioButton: UIButton {
             label.text = "ID card"
             icon.image = UIImage(named: "idcard")
         }
+    }
+
+    private func configureIsSelected(_ isSelected: Bool) {
+        let duration = 0.15
+        let toColor = isSelected ? UIColor.Theme.blue.cgColor : UIColor.Theme.border.cgColor
+
+        UIView.animate(withDuration: duration) { [weak self] in
+            self?.check.alpha = isSelected ? 1 : 0
+        }
+
+        let keyPath = "borderColor"
+        let animation = CABasicAnimation(keyPath: keyPath)
+        animation.fromValue = layer.borderColor
+        animation.toValue = toColor
+        animation.duration = duration
+        layer.add(animation, forKey: keyPath)
+        layer.borderColor = toColor
     }
 }
