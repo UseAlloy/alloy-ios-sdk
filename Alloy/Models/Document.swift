@@ -29,6 +29,7 @@ struct AlloyDocumentPayload: Codable {
 struct AlloyDocumentUpload {
     let token: AlloyDocumentToken
     let `extension`: AlloyDocumentExtension
+    let type: AlloyDocumentType
     let imageData: Data
 }
 

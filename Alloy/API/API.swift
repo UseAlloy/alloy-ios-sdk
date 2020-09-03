@@ -31,10 +31,12 @@ internal class API {
         self.externalEntityToken = config.externalEntityId
     }
 
-    private func createRequest(path: String, method: String) -> URLRequest {
+    private func createRequest(path: String, method: String, extraQueryItems: [URLQueryItem] = []) -> URLRequest {
         var uc = URLComponents(url: apiUrl, resolvingAgainstBaseURL: false)!
         uc.path = path
+        uc.queryItems = uc.queryItems ?? []
         uc.queryItems?.append(URLQueryItem(name: "production", value: "\(production)"))
+        uc.queryItems?.append(contentsOf: extraQueryItems)
 
         var request = URLRequest(url: uc.url!)
         request.httpMethod = method
@@ -86,18 +88,24 @@ internal class API {
                 completion(.failure(ApiError.couldNotParse))
                 return
             }
-            let upload = AlloyDocumentUpload(token: parsed.token, extension: document.extension, imageData: image)
+            let upload = AlloyDocumentUpload(
+                token: parsed.token,
+                extension: document.extension,
+                type: document.type,
+                imageData: image
+            )
             self?.upload(document: upload, completion: completion)
         }.resume()
     }
 
     private func upload(document: AlloyDocumentUpload, completion: @escaping (Result<AlloyDocument, Error>) -> Void) {
-        var path = "/documents/\(document.token)"
+        var path = "/documents/\(document.token)/\(document.type.rawValue)"
         if let entityToken = entityToken {
             path = "/entities/\(entityToken)\(path)"
         }
 
-        var request = createRequest(path: path, method: "POST")
+        let queryItems = [URLQueryItem(name: "documentType", value: document.type.rawValue)]
+        var request = createRequest(path: path, method: "POST", extraQueryItems: queryItems)
         let boundary = "Boundary-\(UUID().uuidString)"
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "content-type")
 
