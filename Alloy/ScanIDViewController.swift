@@ -180,6 +180,7 @@ internal class ScanIDViewController: ScanBaseViewController {
     private func takePicture(for title: String, card: CardDetail) {
         let vc = CameraViewController()
         vc.title = title
+        vc.variant = .id
         vc.imageTaken = { [weak self, weak card] cgImage in
             let image = UIImage(cgImage: cgImage)
             card?.preview.image = image

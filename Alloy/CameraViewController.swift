@@ -2,7 +2,18 @@ import AVFoundation
 import UIKit
 
 internal class CameraViewController: UIViewController {
+    enum Variant {
+        case id, passport, selfie
+
+        var cropHeightRatio: CGFloat {
+            self == .selfie ? 0.5 : 0.2
+        }
+    }
+
+    // MARK: Public Properties
+
     public var imageTaken: ((CGImage) -> Void)?
+    public var variant: Variant = .id
 
     // MARK: Camera Views
 
@@ -39,13 +50,12 @@ internal class CameraViewController: UIViewController {
         let view = UILabel()
         view.font = .systemFont(ofSize: 15)
         view.numberOfLines = 0
-        view.text = "Fit your ID card inside the frame and take the picture."
         view.textAlignment = .center
         view.textColor = UIColor.Theme.white
         return view
     }()
 
-    private lazy var cardFrame: UIView = {
+    private lazy var cropRegion: UIView = {
         let view = UIView()
         view.layer.borderColor = UIColor.Theme.white.cgColor
         view.layer.borderWidth = 1
@@ -108,6 +118,7 @@ internal class CameraViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        setupVariant()
         checkCameraPermissions()
     }
 
@@ -118,7 +129,7 @@ internal class CameraViewController: UIViewController {
 
         view.addSubview(overlay)
         view.addSubview(subheadline)
-        view.addSubview(cardFrame)
+        view.addSubview(cropRegion)
         view.addSubview(cameraAccessIcon)
         view.addSubview(cameraAccessLabel)
         view.addSubview(toggleCameraButton)
@@ -136,20 +147,16 @@ internal class CameraViewController: UIViewController {
         subheadline.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 64).isActive = true
         subheadline.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -64).isActive = true
 
-        cardFrame.translatesAutoresizingMaskIntoConstraints = false
-        cardFrame.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2).isActive = true
-        cardFrame.widthAnchor.constraint(greaterThanOrEqualTo: view.widthAnchor, multiplier: 0.8).isActive = true
-        cardFrame.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        cardFrame.topAnchor.constraint(equalTo: subheadline.bottomAnchor, constant: 72).isActive = true
+        setupCropRegion()
 
         cameraAccessIcon.translatesAutoresizingMaskIntoConstraints = false
         cameraAccessIcon.heightAnchor.constraint(equalToConstant: 52).isActive = true
         cameraAccessIcon.widthAnchor.constraint(equalToConstant: 64).isActive = true
-        cameraAccessIcon.centerXAnchor.constraint(equalTo: cardFrame.centerXAnchor).isActive = true
-        cameraAccessIcon.centerYAnchor.constraint(equalTo: cardFrame.centerYAnchor).isActive = true
+        cameraAccessIcon.centerXAnchor.constraint(equalTo: cropRegion.centerXAnchor).isActive = true
+        cameraAccessIcon.centerYAnchor.constraint(equalTo: cropRegion.centerYAnchor).isActive = true
 
         cameraAccessLabel.translatesAutoresizingMaskIntoConstraints = false
-        cameraAccessLabel.topAnchor.constraint(equalTo: cardFrame.bottomAnchor, constant: 16).isActive = true
+        cameraAccessLabel.topAnchor.constraint(equalTo: cropRegion.bottomAnchor, constant: 16).isActive = true
         cameraAccessLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 66).isActive = true
         cameraAccessLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -66).isActive = true
 
@@ -172,6 +179,21 @@ internal class CameraViewController: UIViewController {
         flashButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -40).isActive = true
     }
 
+    private func setupVariant() {
+        switch variant {
+        case .selfie:
+            title = "Selfie time"
+            subheadline.text = "Fit yourself in the frame and take the picture."
+
+        case .passport:
+            title = "Passport"
+            subheadline.text = "Fit your passport inside the frame and take the picture."
+
+        case .id:
+            subheadline.text = "Fit your ID card inside the frame and take the picture."
+        }
+    }
+
     private func checkCameraPermissions() {
         if AVCaptureDevice.authorizationStatus(for: .video) == .authorized {
             setupCamera(position: currentCameraPosition)
@@ -188,6 +210,17 @@ internal class CameraViewController: UIViewController {
                 }
             }
         }
+    }
+
+    private func setupCropRegion() {
+        cropRegion.translatesAutoresizingMaskIntoConstraints = false
+        cropRegion.heightAnchor.constraint(
+            equalTo: view.heightAnchor,
+            multiplier: variant.cropHeightRatio
+        ).isActive = true
+        cropRegion.widthAnchor.constraint(greaterThanOrEqualTo: view.widthAnchor, multiplier: 0.8).isActive = true
+        cropRegion.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        cropRegion.topAnchor.constraint(equalTo: subheadline.bottomAnchor, constant: 72).isActive = true
     }
 
     private func setupCamera(position: AVCaptureDevice.Position) {
@@ -230,7 +263,7 @@ internal class CameraViewController: UIViewController {
         let buttons = [toggleCameraButton, shutterButton, flashButton]
 
         DispatchQueue.main.async { [weak self] in
-            self?.cardFrame.backgroundColor = .clear
+            self?.cropRegion.backgroundColor = .clear
 
             for view in views {
                 view.isHidden = true
@@ -248,7 +281,7 @@ internal class CameraViewController: UIViewController {
         let buttons = [toggleCameraButton, shutterButton, flashButton]
 
         DispatchQueue.main.async { [weak self] in
-            self?.cardFrame.backgroundColor = UIColor.Theme.white.withAlphaComponent(0.2)
+            self?.cropRegion.backgroundColor = UIColor.Theme.white.withAlphaComponent(0.2)
 
             for view in views {
                 view.isHidden = false
@@ -319,7 +352,7 @@ internal class CameraViewController: UIViewController {
         super.viewDidLayoutSubviews()
 
         // Calculate new overlay mark
-        overlay.maskRemove(cardFrame)
+        overlay.maskRemove(cropRegion)
 
         // Update preview frame and orientation based on device orientation
         self.videoPreviewLayer.frame = self.view.layer.frame
@@ -354,7 +387,7 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
 
         guard let imageData = photo.fileDataRepresentation() else { return }
         guard let image = UIImage(data: imageData)?.rotate(radians: radians, flip: flip) else { return }
-        guard let cropped = crop(image) else { return }
+        guard let cropped = crop(image, for: variant) else { return }
 
         imageTaken?(cropped)
         navigationController?.popViewController(animated: true)
@@ -363,7 +396,7 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
 
 // MARK: Image Cropping
 
-private func crop(_ uiimage: UIImage) -> CGImage? {
+private func crop(_ uiimage: UIImage, for variant: CameraViewController.Variant) -> CGImage? {
     guard let image = uiimage.cgImage else {
         return .none
     }
@@ -375,7 +408,7 @@ private func crop(_ uiimage: UIImage) -> CGImage? {
         x: width * 0.1,
         y: height * 0.2,
         width: width * 0.8,
-        height: height * 0.3
+        height: height * Double(variant.cropHeightRatio)
     )
 
     guard let cropped = image.cropping(to: rect) else {

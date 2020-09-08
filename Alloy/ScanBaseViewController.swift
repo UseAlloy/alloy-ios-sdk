@@ -18,6 +18,7 @@ internal class ScanBaseViewController: UIViewController {
     internal lazy var selfiePreview: SelfieDetail = {
         let view = SelfieDetail()
         view.isHidden = true
+        view.retakeButton.addTarget(self, action: #selector(takeSelfiePicture), for: .touchUpInside)
         return view
     }()
 
@@ -40,6 +41,17 @@ internal class ScanBaseViewController: UIViewController {
         let vc = EndViewController()
         vc.variant = outcome
         vc.noMoreAttempts = numberOfAttempts >= config.maxEvaluationAttempts
+        navigationController?.pushViewController(vc, animated: true)
+    }
+
+    @objc internal func takeSelfiePicture() {
+        let vc = CameraViewController()
+        vc.variant = .selfie
+        vc.imageTaken = { [weak self] cgImage in
+            let image = UIImage(cgImage: cgImage)
+            self?.selfiePreview.preview.image = image
+            self?.selfiePreview.retakeButton.isHidden = false
+        }
         navigationController?.pushViewController(vc, animated: true)
     }
 }

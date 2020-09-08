@@ -112,7 +112,7 @@ internal class ScanPassportViewController: ScanBaseViewController {
 
     @objc private func takePassportPicture() {
         let vc = CameraViewController()
-        vc.title = "Passport"
+        vc.variant = .passport
         vc.imageTaken = { [weak self] cgImage in
             let image = UIImage(cgImage: cgImage)
             self?.passportPicture.preview.image = image
