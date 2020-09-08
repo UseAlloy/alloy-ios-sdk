@@ -99,7 +99,7 @@ internal class API {
     }
 
     private func upload(document: AlloyDocumentUpload, completion: @escaping (Result<AlloyDocument, Error>) -> Void) {
-        var path = "/documents/\(document.token)/\(document.type.rawValue)"
+        var path = "/documents/\(document.token)"
         if let entityToken = entityToken {
             path = "/entities/\(entityToken)\(path)"
         }
