@@ -3,7 +3,7 @@ import UIKit
 internal class ScanPassportViewController: ScanBaseViewController {
     private var passportToken: AlloyDocumentToken? {
         didSet {
-            sendButton.isHidden = false
+            mainButton.isHidden = false
             retryButton.isHidden = false
         }
     }
@@ -39,13 +39,6 @@ internal class ScanPassportViewController: ScanBaseViewController {
         return view
     }()
 
-    private lazy var sendButton: UIButton = {
-        let button = PrimaryButton(title: "Send Pictures")
-        button.isHidden = true
-        button.addTarget(self, action: #selector(validatePassport), for: .touchUpInside)
-        return button
-    }()
-
     private lazy var retryButton: UIButton = {
         let view = UIButton(type: .system)
         view.isHidden = true
@@ -53,36 +46,24 @@ internal class ScanPassportViewController: ScanBaseViewController {
         view.setTitleColor(UIColor.Theme.blue, for: .normal)
         return view
     }()
-    
-    // MARK: Init
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setup()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: false)
-    }
 
     // MARK: Setup
 
-    private func setup() {
+    override func setup() {
+        super.setup()
         title = "Scan your passport"
-        view.backgroundColor = .white
 
         navigationItem.leftBarButtonItem = backButton
         navigationItem.rightBarButtonItem = helpButton
 
         let safeArea = view.safeAreaLayoutGuide
-        view.addSubview(subheadline)
-        view.addSubview(passportPicture)
-        view.addSubview(sendButton)
-        view.addSubview(retryButton)
+        contentView.addSubview(subheadline)
+        contentView.addSubview(passportPicture)
+        contentView.addSubview(mainButton)
+        contentView.addSubview(retryButton)
 
         subheadline.translatesAutoresizingMaskIntoConstraints = false
-        subheadline.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 40).isActive = true
+        subheadline.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 40).isActive = true
         subheadline.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20).isActive = true
         subheadline.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20).isActive = true
 
@@ -92,16 +73,18 @@ internal class ScanPassportViewController: ScanBaseViewController {
         passportPicture.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 40).isActive = true
         passportPicture.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -40).isActive = true
 
-        sendButton.translatesAutoresizingMaskIntoConstraints = false
-        sendButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 40).isActive = true
-        sendButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -40).isActive = true
-        sendButton.bottomAnchor.constraint(equalTo: retryButton.topAnchor, constant: -20).isActive = true
+        mainButton.addTarget(self, action: #selector(validatePassport), for: .touchUpInside)
+        mainButton.translatesAutoresizingMaskIntoConstraints = false
+        mainButton.topAnchor.constraint(greaterThanOrEqualTo: passportPicture.bottomAnchor, constant: 40).isActive = true
+        mainButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 40).isActive = true
+        mainButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -40).isActive = true
+        mainButton.bottomAnchor.constraint(equalTo: retryButton.topAnchor, constant: -20).isActive = true
 
         retryButton.translatesAutoresizingMaskIntoConstraints = false
         retryButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
         retryButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 40).isActive = true
         retryButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -40).isActive = true
-        retryButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -40).isActive = true
+        retryButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -40).isActive = true
     }
 
     // MARK: Actions
@@ -153,7 +136,7 @@ internal class ScanPassportViewController: ScanBaseViewController {
 
     @objc private func validatePassport() {
         guard let evaluationData = evaluationData, let passportToken = passportToken else {
-            sendButton.isHidden = true
+            mainButton.isHidden = true
             retryButton.isHidden = true
             return
         }

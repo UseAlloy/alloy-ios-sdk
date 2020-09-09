@@ -10,7 +10,7 @@ internal class ScanIDViewController: ScanBaseViewController {
     private var backToken: AlloyDocumentToken? {
         didSet {
             guard frontToken != nil, backToken != nil else { return }
-            sendButton.isHidden = false
+            mainButton.isHidden = false
             retryButton.isHidden = false
         }
     }
@@ -26,9 +26,6 @@ internal class ScanIDViewController: ScanBaseViewController {
         let image = UIImage(fallbackSystemImage: "questionmark.circle")
         return UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
     }()
-
-    private lazy var scrollView = UIScrollView()
-    private lazy var contentView = UIView()
 
     private lazy var subheadline: UILabel = {
         let view = UILabel()
@@ -68,13 +65,6 @@ internal class ScanIDViewController: ScanBaseViewController {
         return view
     }()
 
-    private lazy var sendButton: UIButton = {
-        let button = PrimaryButton(title: "Send Pictures")
-        button.isHidden = true
-        button.addTarget(self, action: #selector(validateBothSides), for: .touchUpInside)
-        return button
-    }()
-
     private lazy var retryButton: UIButton = {
         let view = UIButton(type: .system)
         view.isHidden = true
@@ -83,50 +73,23 @@ internal class ScanIDViewController: ScanBaseViewController {
         return view
     }()
 
-    // MARK: Init
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setup()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: false)
-    }
-
     // MARK: Setup
 
-    private func setup() {
+    override func setup() {
+        super.setup()
         title = "Scan your ID"
-        view.backgroundColor = .white
 
         navigationItem.leftBarButtonItem = backButton
         navigationItem.rightBarButtonItem = helpButton
 
-        view.addSubview(scrollView)
-        scrollView.addSubview(contentView)
         contentView.addSubview(subheadline)
         contentView.addSubview(cardsStack)
         cardsStack.addArrangedSubview(frontCard)
         cardsStack.addArrangedSubview(backCard)
         contentView.addSubview(selfiePreview)
         contentView.addSubview(selfieSwitcher)
-        contentView.addSubview(sendButton)
+        contentView.addSubview(mainButton)
         contentView.addSubview(retryButton)
-
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        contentView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
-        contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
-        contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
-        contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
 
         subheadline.translatesAutoresizingMaskIntoConstraints = false
         subheadline.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 40).isActive = true
@@ -150,11 +113,12 @@ internal class ScanIDViewController: ScanBaseViewController {
         selfieSwitcher.leadingAnchor.constraint(equalTo: cardsStack.leadingAnchor).isActive = true
         selfieSwitcher.trailingAnchor.constraint(equalTo: cardsStack.trailingAnchor).isActive = true
 
-        sendButton.translatesAutoresizingMaskIntoConstraints = false
-        sendButton.topAnchor.constraint(greaterThanOrEqualTo: cardsStack.bottomAnchor, constant: 40).isActive = true
-        sendButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 40).isActive = true
-        sendButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -40).isActive = true
-        sendButton.bottomAnchor.constraint(equalTo: retryButton.topAnchor, constant: -20).isActive = true
+        mainButton.addTarget(self, action: #selector(validateBothSides), for: .touchUpInside)
+        mainButton.translatesAutoresizingMaskIntoConstraints = false
+        mainButton.topAnchor.constraint(greaterThanOrEqualTo: cardsStack.bottomAnchor, constant: 40).isActive = true
+        mainButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 40).isActive = true
+        mainButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -40).isActive = true
+        mainButton.bottomAnchor.constraint(equalTo: retryButton.topAnchor, constant: -20).isActive = true
 
         retryButton.translatesAutoresizingMaskIntoConstraints = false
         retryButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
@@ -228,7 +192,7 @@ internal class ScanIDViewController: ScanBaseViewController {
 
     @objc private func validateBothSides() {
         guard let evaluationData = evaluationData, let frontToken = frontToken, let backToken = backToken else {
-            sendButton.isHidden = true
+            mainButton.isHidden = true
             retryButton.isHidden = true
             return
         }
