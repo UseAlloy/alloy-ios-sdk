@@ -121,6 +121,9 @@ internal class CameraViewController: UIViewController {
 
     // MARK: Init
 
+    override var shouldAutorotate: Bool { false }
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask { .portrait }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -133,6 +136,7 @@ internal class CameraViewController: UIViewController {
 
         navigationItem.leftBarButtonItem = backButton
 
+        let safeArea = view.safeAreaLayoutGuide
         view.addSubview(overlay)
         view.addSubview(subheadline)
         view.addSubview(cropRegion)
@@ -149,9 +153,9 @@ internal class CameraViewController: UIViewController {
         overlay.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
 
         subheadline.translatesAutoresizingMaskIntoConstraints = false
-        subheadline.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 64).isActive = true
-        subheadline.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 64).isActive = true
-        subheadline.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -64).isActive = true
+        subheadline.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 64).isActive = true
+        subheadline.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 64).isActive = true
+        subheadline.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -64).isActive = true
 
         setupCropRegion()
 
@@ -163,26 +167,26 @@ internal class CameraViewController: UIViewController {
 
         cameraAccessLabel.translatesAutoresizingMaskIntoConstraints = false
         cameraAccessLabel.topAnchor.constraint(equalTo: cropRegion.bottomAnchor, constant: 16).isActive = true
-        cameraAccessLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 66).isActive = true
-        cameraAccessLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -66).isActive = true
+        cameraAccessLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 66).isActive = true
+        cameraAccessLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -66).isActive = true
 
         toggleCameraButton.translatesAutoresizingMaskIntoConstraints = false
         toggleCameraButton.heightAnchor.constraint(equalToConstant: 26).isActive = true
         toggleCameraButton.widthAnchor.constraint(equalToConstant: 26).isActive = true
         toggleCameraButton.centerYAnchor.constraint(equalTo: shutterButton.centerYAnchor).isActive = true
-        toggleCameraButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 40).isActive = true
+        toggleCameraButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 40).isActive = true
 
         shutterButton.translatesAutoresizingMaskIntoConstraints = false
         shutterButton.heightAnchor.constraint(equalToConstant: 66).isActive = true
         shutterButton.widthAnchor.constraint(equalToConstant: 66).isActive = true
         shutterButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        shutterButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40).isActive = true
+        shutterButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -40).isActive = true
 
         flashButton.translatesAutoresizingMaskIntoConstraints = false
         flashButton.heightAnchor.constraint(equalToConstant: 26).isActive = true
         flashButton.widthAnchor.constraint(equalToConstant: 26).isActive = true
         flashButton.centerYAnchor.constraint(equalTo: shutterButton.centerYAnchor).isActive = true
-        flashButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -40).isActive = true
+        flashButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -40).isActive = true
     }
 
     private func setupVariant() {
