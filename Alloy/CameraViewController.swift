@@ -6,7 +6,13 @@ internal class CameraViewController: UIViewController {
         case id, passport, selfie
 
         var cropHeightRatio: CGFloat {
-            self == .selfie ? 0.5 : 0.2
+            switch self {
+            case .id, .passport:
+                return 0.618
+
+            case .selfie:
+                return 1.2
+            }
         }
     }
 
@@ -27,7 +33,7 @@ internal class CameraViewController: UIViewController {
     private var photoOutput = AVCapturePhotoOutput()
     private lazy var videoPreviewLayer: AVCaptureVideoPreviewLayer = {
         let layer = AVCaptureVideoPreviewLayer(session: session)
-        layer.videoGravity = .resizeAspectFill
+        layer.videoGravity = .resizeAspect
         layer.connection?.videoOrientation = .portrait
         return layer
     }()
@@ -213,14 +219,20 @@ internal class CameraViewController: UIViewController {
     }
 
     private func setupCropRegion() {
+        let cropWidthRatio: CGFloat = 0.8
+        let cropHeightRatio = cropWidthRatio * variant.cropHeightRatio
+
         cropRegion.translatesAutoresizingMaskIntoConstraints = false
         cropRegion.heightAnchor.constraint(
-            equalTo: view.heightAnchor,
-            multiplier: variant.cropHeightRatio
+            equalTo: view.widthAnchor,
+            multiplier: cropHeightRatio
         ).isActive = true
-        cropRegion.widthAnchor.constraint(greaterThanOrEqualTo: view.widthAnchor, multiplier: 0.8).isActive = true
+        cropRegion.widthAnchor.constraint(
+            greaterThanOrEqualTo: view.widthAnchor,
+            multiplier: cropWidthRatio
+        ).isActive = true
         cropRegion.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        cropRegion.topAnchor.constraint(equalTo: subheadline.bottomAnchor, constant: 72).isActive = true
+        cropRegion.topAnchor.constraint(equalTo: subheadline.bottomAnchor, constant: 40).isActive = true
     }
 
     private func setupCamera(position: AVCaptureDevice.Position) {
@@ -406,9 +418,9 @@ private func crop(_ uiimage: UIImage, for variant: CameraViewController.Variant)
 
     let rect = CGRect(
         x: width * 0.1,
-        y: height * 0.2,
+        y: height * 0.3,
         width: width * 0.8,
-        height: height * Double(variant.cropHeightRatio)
+        height: (width * 0.8) * Double(variant.cropHeightRatio)
     )
 
     guard let cropped = image.cropping(to: rect) else {
