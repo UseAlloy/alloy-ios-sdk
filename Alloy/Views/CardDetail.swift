@@ -138,6 +138,18 @@ class CardDetail: UIView {
 
     // MARK: Configure
 
+    public func restore(with name: String) {
+        preview.image = UIImage(named: name)
+        bottomSheet.isHidden = false
+        takeButton.isHidden = false
+        problemLabel.isHidden = true
+        problemIcon.isHidden = true
+        retakeButton.isHidden = true
+        statusContainer.isHidden = true
+        statusIcon.isHidden = true
+        layer.borderColor = UIColor.Theme.border.cgColor
+    }
+
     public func startLoading() {
         bottomSheet.isHidden = true
         takeButton.isHidden = true
@@ -145,6 +157,7 @@ class CardDetail: UIView {
         problemIcon.isHidden = true
         retakeButton.isHidden = true
         statusContainer.isHidden = false
+        statusContainer.backgroundColor = UIColor.Theme.blue
         statusIcon.isHidden = false
         statusIcon.image = UIImage(fallbackSystemImage: "arrow.2.circlepath")
         UIView.animate(withDuration: 1.5, delay: 0, options: [.repeat, .curveLinear], animations: { [weak self] in

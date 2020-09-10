@@ -3,8 +3,9 @@ import UIKit
 internal class ScanPassportViewController: ScanBaseViewController {
     private var passportToken: AlloyDocumentToken? {
         didSet {
-            mainButton.isHidden = false
-            retryButton.isHidden = false
+            let isHidden = passportToken == nil
+            mainButton.isHidden = isHidden
+            retryButton.isHidden = isHidden
         }
     }
 
@@ -32,7 +33,7 @@ internal class ScanPassportViewController: ScanBaseViewController {
 
     private lazy var passportPicture: CardDetail = {
         let view = CardDetail()
-        view.preview.image = UIImage(named: "Front Card Placeholder")
+        view.restore(with: "Front Card Placeholder")
         view.takeButton.setTitle("Take picture", for: .normal)
         view.takeButton.addTarget(self, action: #selector(takePassportPicture), for: .touchUpInside)
         view.retakeButton.addTarget(self, action: #selector(takePassportPicture), for: .touchUpInside)
@@ -44,6 +45,7 @@ internal class ScanPassportViewController: ScanBaseViewController {
         view.isHidden = true
         view.setTitle("Retry", for: .normal)
         view.setTitleColor(UIColor.Theme.blue, for: .normal)
+        view.addTarget(self, action: #selector(onRetry), for: .touchUpInside)
         return view
     }()
 
@@ -105,6 +107,11 @@ internal class ScanPassportViewController: ScanBaseViewController {
             }
         }
         navigationController?.pushViewController(vc, animated: true)
+    }
+
+    @objc private func onRetry() {
+        passportToken = nil
+        passportPicture.restore(with: "Front Card Placeholder")
     }
 
     private func createDocument(data: Data) {

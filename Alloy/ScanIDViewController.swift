@@ -3,15 +3,14 @@ import UIKit
 internal class ScanIDViewController: ScanBaseViewController {
     private var frontToken: AlloyDocumentToken? {
         didSet {
-            guard frontToken != nil else { return }
-            backCard.takeButton.isEnabled = true
+            backCard.takeButton.isEnabled = frontToken != nil
         }
     }
     private var backToken: AlloyDocumentToken? {
         didSet {
-            guard frontToken != nil, backToken != nil else { return }
-            mainButton.isHidden = false
-            retryButton.isHidden = false
+            let isHidden = frontToken == nil || backToken == nil
+            mainButton.isHidden = isHidden
+            retryButton.isHidden = isHidden
         }
     }
 
@@ -39,7 +38,7 @@ internal class ScanIDViewController: ScanBaseViewController {
     
     private lazy var frontCard: CardDetail = {
         let view = CardDetail()
-        view.preview.image = UIImage(named: "Front Card Placeholder")
+        view.restore(with: "Front Card Placeholder")
         view.takeButton.setTitle("Take front", for: .normal)
         view.takeButton.addTarget(self, action: #selector(takeFrontPicture), for: .touchUpInside)
         view.retakeButton.addTarget(self, action: #selector(takeFrontPicture), for: .touchUpInside)
@@ -48,7 +47,7 @@ internal class ScanIDViewController: ScanBaseViewController {
 
     private lazy var backCard: CardDetail = {
         let view = CardDetail()
-        view.preview.image = UIImage(named: "Back Card Placeholder")
+        view.restore(with: "Back Card Placeholder")
         view.takeButton.setTitle("Take back", for: .normal)
         view.takeButton.addTarget(self, action: #selector(takeBackPicture), for: .touchUpInside)
         view.takeButton.isEnabled = false
@@ -70,6 +69,7 @@ internal class ScanIDViewController: ScanBaseViewController {
         view.isHidden = true
         view.setTitle("Retry", for: .normal)
         view.setTitleColor(UIColor.Theme.blue, for: .normal)
+        view.addTarget(self, action: #selector(onRetry), for: .touchUpInside)
         return view
     }()
 
@@ -139,6 +139,13 @@ internal class ScanIDViewController: ScanBaseViewController {
 
     @objc private func takeBackPicture() {
         self.takePicture(for: "Back side", card: backCard)
+    }
+
+    @objc private func onRetry() {
+        frontToken = nil
+        frontCard.restore(with: "Front Card Placeholder")
+        backToken = nil
+        backCard.restore(with: "Back Card Placeholder")
     }
 
     private func takePicture(for title: String, card: CardDetail) {
