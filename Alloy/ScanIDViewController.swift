@@ -217,12 +217,12 @@ internal class ScanIDViewController: ScanBaseViewController {
             case .success(let response):
                 DispatchQueue.main.async { [weak self] in
                     if response.summary.outcome == "Approved" {
-                        self?.showEndScreen(for: .success)
+                        self?.showEndScreen(for: .success, onRetry: self?.onRetry)
                         return
                     }
 
                     if response.summary.outcome == "Denied" {
-                        self?.showEndScreen(for: .failure)
+                        self?.showEndScreen(for: .failure, onRetry: self?.onRetry)
                         return
                     }
 

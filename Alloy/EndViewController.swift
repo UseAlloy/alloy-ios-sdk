@@ -6,6 +6,10 @@ internal enum EndVariant {
 }
 
 internal class EndViewController: UIViewController {
+    // MARK: Init properties
+
+    public var onRetry: (() -> Void)?
+
     public var noMoreAttempts: Bool = false {
         didSet {
             configureAlloyRetry()
@@ -141,6 +145,7 @@ internal class EndViewController: UIViewController {
             dismiss(animated: true)
         } else {
             navigationController?.popViewController(animated: true)
+            onRetry?()
         }
     }
 }

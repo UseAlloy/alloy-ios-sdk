@@ -80,10 +80,11 @@ internal class ScanBaseViewController: UIViewController {
 
     // MARK: Actions
 
-    internal func showEndScreen(for outcome: EndVariant) {
+    internal func showEndScreen(for outcome: EndVariant, onRetry: (() -> Void)?) {
         numberOfAttempts += 1
 
         let vc = EndViewController()
+        vc.onRetry = onRetry
         vc.variant = outcome
         vc.noMoreAttempts = numberOfAttempts >= config.maxEvaluationAttempts
         navigationController?.pushViewController(vc, animated: true)
