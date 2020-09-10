@@ -18,6 +18,9 @@ internal class GetStartedViewController: UIViewController {
 
     // MARK: Views
 
+    internal lazy var scrollView = UIScrollView()
+    internal lazy var contentView = UIView()
+
     private lazy var titleLabel: UILabel = {
         let view = UILabel()
         view.font = .systemFont(ofSize: 22, weight: .bold)
@@ -33,12 +36,13 @@ internal class GetStartedViewController: UIViewController {
         view.axis = .vertical
         view.alignment = .fill
         view.distribution = .fillEqually
-        view.spacing = 23
+        view.spacing = 24
         return view
     }()
 
     private lazy var getStartedButton: PrimaryButton = {
         let view = PrimaryButton(title: "Get Started")
+        view.isLoading = true
         view.addTarget(self, action: #selector(getStarted), for: .touchUpInside)
         return view
     }()
@@ -73,20 +77,37 @@ internal class GetStartedViewController: UIViewController {
     private func setup() {
         view.backgroundColor = UIColor.Theme.white
 
-        view.addSubview(titleLabel)
-        view.addSubview(stack)
-        view.addSubview(getStartedButton)
-        view.addSubview(cancelButton)
+        let safeArea = view.safeAreaLayoutGuide
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(stack)
+        contentView.addSubview(getStartedButton)
+        contentView.addSubview(cancelButton)
+
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.heightAnchor.constraint(greaterThanOrEqualTo: safeArea.heightAnchor).isActive = true
+        contentView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        contentView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+        contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
+        contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
+        contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
 
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
-        titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 50).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 50).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 50).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -50).isActive = true
 
         stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 50).isActive = true
-        stack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 40).isActive = true
-        stack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -40).isActive = true
+        stack.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 60).isActive = true
+        stack.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 40).isActive = true
+        stack.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -40).isActive = true
 
         let item1 = GetStartedItem()
         item1.configure(
@@ -121,16 +142,16 @@ internal class GetStartedViewController: UIViewController {
         stack.addArrangedSubview(item4)
 
         getStartedButton.translatesAutoresizingMaskIntoConstraints = false
+        getStartedButton.topAnchor.constraint(greaterThanOrEqualTo: stack.bottomAnchor, constant: 40).isActive = true
         getStartedButton.leadingAnchor.constraint(equalTo: stack.leadingAnchor).isActive = true
         getStartedButton.trailingAnchor.constraint(equalTo: stack.trailingAnchor).isActive = true
-        getStartedButton.bottomAnchor.constraint(equalTo: cancelButton.topAnchor, constant: -20).isActive = true
-        getStartedButton.isLoading = true
 
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
+        cancelButton.topAnchor.constraint(equalTo: getStartedButton.bottomAnchor, constant: 20).isActive = true
         cancelButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
         cancelButton.leadingAnchor.constraint(equalTo: stack.leadingAnchor).isActive = true
         cancelButton.trailingAnchor.constraint(equalTo: stack.trailingAnchor).isActive = true
-        cancelButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40).isActive = true
+        cancelButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -40).isActive = true
     }
 
     // MARK: Data
