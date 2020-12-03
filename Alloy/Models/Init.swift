@@ -14,6 +14,9 @@ internal struct AlloyInitResponse: Codable {
     }
 }
 
+public typealias AlloyResult = Result<AlloyCardEvaluationResponse, Error>
+public typealias AlloyResultCallback = (AlloyResult) -> Void
+
 public struct Alloy {
     let key: String
     let evaluationData: AlloyEvaluationData
@@ -21,13 +24,15 @@ public struct Alloy {
     public var externalEntityId: AlloyEntityToken? = nil
     public var maxEvaluationAttempts: Int = 2
     public var production: Bool = false
+    private(set) public var completion: AlloyResultCallback?
 
     public init(key: String, for evaluationData: AlloyEvaluationData) {
         self.key = key
         self.evaluationData = evaluationData
     }
 
-    public func open(in parent: UIViewController) {
+    public mutating func open(in parent: UIViewController, completion: AlloyResultCallback? = nil) {
+        self.completion = completion
         let vc = AlloyViewController(with: self)
         parent.present(vc, animated: true)
     }

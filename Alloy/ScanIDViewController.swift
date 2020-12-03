@@ -209,20 +209,16 @@ internal class ScanIDViewController: ScanBaseViewController {
             evaluationStep: .both(frontToken, backToken)
         )
 
-        api.evaluate(document: evaluation) { result in
+        api.evaluate(document: evaluation) { [weak self] result in
             switch result {
             case .failure(let error):
-                print(#function, #line, error.localizedDescription)
+                self?.showEndScreen(for: .failure(error), onRetry: self?.onRetry)
 
             case .success(let response):
-                DispatchQueue.main.async { [weak self] in
-                    if response.summary.outcome == "Approved" {
-                        self?.showEndScreen(for: .success, onRetry: self?.onRetry)
-                        return
-                    }
-
-                    if response.summary.outcome == "Denied" {
-                        self?.showEndScreen(for: .failure, onRetry: self?.onRetry)
+                DispatchQueue.main.async {
+                    let outcome = response.summary.outcome
+                    if outcome == "Approved" || outcome == "Denied" {
+                        self?.showEndScreen(for: .success(response), onRetry: self?.onRetry)
                         return
                     }
 

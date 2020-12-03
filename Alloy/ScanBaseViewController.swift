@@ -32,7 +32,7 @@ internal class ScanBaseViewController: UIViewController {
     }()
 
     internal lazy var mainButton: UIButton = {
-        let button = PrimaryButton(title: "Selfie verification")
+        let button = PrimaryButton(title: "Send pictures")
         button.isHidden = true
         return button
     }()
@@ -80,12 +80,13 @@ internal class ScanBaseViewController: UIViewController {
 
     // MARK: Actions
 
-    internal func showEndScreen(for outcome: EndVariant, onRetry: (() -> Void)?) {
+    internal func showEndScreen(for response: AlloyResult, onRetry: (() -> Void)?) {
         numberOfAttempts += 1
 
         let vc = EndViewController()
         vc.onRetry = onRetry
-        vc.variant = outcome
+        vc.response = response
+        vc.onCompletion = config.completion
         vc.noMoreAttempts = numberOfAttempts >= config.maxEvaluationAttempts
         navigationController?.pushViewController(vc, animated: true)
     }

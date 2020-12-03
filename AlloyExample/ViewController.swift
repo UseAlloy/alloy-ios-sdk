@@ -54,7 +54,7 @@ class ViewController: UIViewController {
     }
 
     @objc private func openAlloy() {
-        let alloy = Alloy(
+        var alloy = Alloy(
             key: "028d85e0-aa24-4ca1-99f2-90e3ee3f4e6b",
             for: AlloyEvaluationData(
                 nameFirst: nameFirstField.text ?? "",
@@ -62,6 +62,10 @@ class ViewController: UIViewController {
             )
         )
 
-        alloy.open(in: self)
+        alloy.open(in: self, completion: onAlloyResult(result:))
+    }
+
+    private func onAlloyResult(result: AlloyResult) {
+        print("result", result)
     }
 }

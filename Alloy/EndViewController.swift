@@ -8,15 +8,21 @@ internal enum EndVariant {
 internal class EndViewController: UIViewController {
     // MARK: Init properties
 
-    public var onRetry: (() -> Void)?
+    internal var onRetry: (() -> Void)?
+    internal var onCompletion: AlloyResultCallback?
+    internal var response: AlloyResult? {
+        didSet {
+            configureRespone()
+        }
+    }
 
-    public var noMoreAttempts: Bool = false {
+    internal var noMoreAttempts: Bool = false {
         didSet {
             configureAlloyRetry()
         }
     }
 
-    public var variant: EndVariant = .success {
+    private var variant: EndVariant = .success {
         didSet {
             configureVariant()
             configureAlloyRetry()
@@ -118,6 +124,23 @@ internal class EndViewController: UIViewController {
 
     // MARK: Configure
 
+    private func configureRespone() {
+        switch response {
+        case .none:
+            break
+
+        case .failure:
+            variant = .failure
+
+        case let .success(response):
+            if response.summary.outcome == "Approved" {
+                variant = .success
+            } else if response.summary.outcome == "Denied" {
+                variant = .failure
+            }
+        }
+    }
+
     private func configureVariant() {
         banner.variant = variant
         titleLabel.text = variant == .failure
@@ -137,12 +160,16 @@ internal class EndViewController: UIViewController {
     // MARK: Actions
 
     @objc private func leave() {
-        dismiss(animated: true)
+        dismiss(animated: true) { [weak self] in
+            guard let response = self?.response else { return }
+            self?.onCompletion?(response)
+        }
     }
 
     @objc private func mainAction() {
         if variant == .success {
-            dismiss(animated: true)
+            leave()
+
         } else {
             navigationController?.popViewController(animated: true)
             onRetry?()

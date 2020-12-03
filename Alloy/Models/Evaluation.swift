@@ -91,7 +91,7 @@ internal enum AlloyCardEvaluationStep {
     case both(AlloyDocumentToken, AlloyDocumentToken)
 }
 
-internal struct AlloyCardEvaluationResponse: Codable {
+public struct AlloyCardEvaluationResponse: Codable {
     let entityToken: AlloyEntityToken
     let summary: Summary
 
