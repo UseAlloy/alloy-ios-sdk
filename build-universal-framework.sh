@@ -9,6 +9,7 @@ xcodebuild clean build \
   -scheme Alloy \
   -configuration Release \
   -sdk iphonesimulator \
+  EXCLUDED_ARCHS="arm64" \
   -derivedDataPath derived_data
 
 # Create folder to store compiled framework for simulator
