@@ -9,9 +9,7 @@ internal class API {
         return URLSession.shared
     }()
 
-    var apiUrl: URL {
-        return URL(string: "https://alloy-test-api.z1.digital")!
-    }
+    let apiUrl = URL(string: "https://docv.alloy.co")!
 
     var authString: String? {
         return accessToken.map { token in "Bearer \(token)" }
