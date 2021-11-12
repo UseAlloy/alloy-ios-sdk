@@ -92,12 +92,12 @@ internal enum AlloyCardEvaluationStep {
 }
 
 public struct AlloyCardEvaluationResponse: Codable {
-    let entityToken: AlloyEntityToken
-    let summary: Summary
+    public let entityToken: AlloyEntityToken
+    public let summary: Summary
 
-    internal struct Summary: Codable {
-        let outcome: String
-        let outcomeReasons: [String]
+    public struct Summary: Codable {
+        public let outcome: String
+        public let outcomeReasons: [String]
 
         private enum CodingKeys: String, CodingKey {
             case outcome = "outcome",
