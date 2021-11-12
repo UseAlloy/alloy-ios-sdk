@@ -12,7 +12,7 @@ Currently the only package manager we support is [CocoaPods][cocoapods].
 To integrate Alloy into your XCode project, simply add this line in your `Podfile`:
 
 ```ruby
-pod 'AlloyTest'
+pod 'AlloyTest', '~> 0.0.4'
 ```
 
 Then, run the following command:
@@ -26,12 +26,16 @@ Until we decide a better name `AlloyTest` is used as a placeholder.
 
 ## Usage
 
+### Launching Alloy
+
 ```swift
 import Alloy
 import UIKit
 
 class ViewController: UIViewController {
     // ...
+
+    override func viewDidAppear
 
     func openAlloy() {
         var alloy = Alloy(
@@ -42,29 +46,46 @@ class ViewController: UIViewController {
             )
         )
 
-        alloy.open(in: self) { result in
-            print("result", result)
-        }
+        alloy.open(in: self, completion: onAlloyResult(result:))
+    }
+
+    private func onAlloyResult(result: AlloyResult) {
+        // Handle the result
     }
 }
 ```
 
-To add more data or edit options:
+### Handling the result
+
+```switf
+private func onAlloyResult(result: AlloyResult) {
+    switch result {
+    case .success(let response):
+        print("outcome: \(response.summary.outcome)")
+        print("outcome reasons: \(response.summary.outcomeReasons.joined(separator: ", "))")
+    case .failure(let error):
+        print("error: \(error.localizedDescription)")
+    }
+}
+```
+
+### Customizing options or passing more data
 
 ```swift
 func openAlloy() {
     var data = AlloyEvaluationData(nameFirst: "John", nameLast: "Doe")
     data.addressLine1 = "123 Fake Street"
+    data.addressLine2 = "1st 2nd"
+    data.addressCity = "New York"
+    data.addressPostalCode = "12345"
+    data.addressCountryCode = "US"
+    data.birthDate = "2000/01/01"
 
     var alloy = Alloy(key: "your-alloy-key", for: data)
-    alloy.maxEvaluationAttempts = 5
+    alloy.externalEntityId = "my-external-entity-id"
+    alloy.entityToken = "my-entity-token"
     alloy.production = true
-
-    alloy.open(in: self, completion: onAlloyResult(result:))
-}
-
-private func onAlloyResult(result: AlloyResult) {
-    print("result", result)
+    alloy.maxEvaluationAttempts = 3
 }
 ```
 
