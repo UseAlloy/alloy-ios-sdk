@@ -88,5 +88,3 @@ func openAlloy() {
     alloy.maxEvaluationAttempts = 3
 }
 ```
-
-[cocoapods]: http://cocoapods.org/
