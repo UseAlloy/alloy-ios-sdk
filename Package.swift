@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
     name: "Alloy",
     platforms: [
-        .iOS(.v11),
+        .iOS(.v12),
     ],
     products: [
         .library(
@@ -13,7 +13,7 @@ let package = Package(
             targets: ["Alloy"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/airbnb/lottie-ios.git", from: "3.1.8"),
+        .package(url: "https://github.com/airbnb/lottie-ios.git", from: "3.2.3"),
     ],
     targets: [
         .target(
