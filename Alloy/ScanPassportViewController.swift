@@ -98,11 +98,10 @@ internal class ScanPassportViewController: ScanBaseViewController {
     @objc private func takePassportPicture() {
         let vc = CameraViewController()
         vc.variant = .passport
-        vc.imageTaken = { [weak self] cgImage in
-            let image = UIImage(cgImage: cgImage)
-            self?.passportPicture.preview.image = image
+        vc.imageTaken = { [weak self] uiImage in
+            self?.passportPicture.preview.image = uiImage
             self?.passportPicture.startLoading()
-            if let self = self, let data = image.jpegData(compressionQuality: 0.9) {
+            if let self = self, let data = uiImage.jpegData(compressionQuality: 0.9) {
                 self.createDocument(data: data)
             }
         }

@@ -152,11 +152,10 @@ internal class ScanIDViewController: ScanBaseViewController {
         let vc = CameraViewController()
         vc.title = title
         vc.variant = .id
-        vc.imageTaken = { [weak self, weak card] cgImage in
-            let image = UIImage(cgImage: cgImage)
-            card?.preview.image = image
+        vc.imageTaken = { [weak self, weak card] uiImage in
+            card?.preview.image = uiImage
             card?.startLoading()
-            if let self = self, let card = card, let data = image.jpegData(compressionQuality: 0.9) {
+            if let self = self, let card = card, let data = uiImage.jpegData(compressionQuality: 0.9) {
                 self.createDocument(data: data, for: card)
             }
         }

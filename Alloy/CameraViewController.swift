@@ -18,7 +18,7 @@ internal class CameraViewController: UIViewController {
 
     // MARK: Public Properties
 
-    public var imageTaken: ((CGImage) -> Void)?
+    public var imageTaken: ((UIImage) -> Void)?
     public var variant: Variant = .id
 
     // MARK: Camera Views
@@ -408,28 +408,32 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
         imageTaken?(cropped)
         navigationController?.popViewController(animated: true)
     }
+
+        // MARK: Image Cropping
+
+    private func crop(_ uiimage: UIImage, for variant: CameraViewController.Variant) -> UIImage? {
+        guard let image = uiimage.cgImage else {
+            return .none
+        }
+
+        let height = Double(image.height)
+        let width = Double(image.width)
+
+        let cropRegionRect = cropRegion.frame
+        let previewLayerRect = videoPreviewLayer.metadataOutputRectConverted(fromLayerRect: cropRegionRect)
+        let rect = CGRect(
+            x: previewLayerRect.origin.x * width,
+            y: previewLayerRect.origin.y * height,
+            width: width * 0.8,
+            height: (width * 0.8) * Double(variant.cropHeightRatio)
+        )
+
+        guard let cropped = image.cropping(to: rect) else {
+            return nil
+        }
+
+        return UIImage(cgImage: cropped, scale: 1.0, orientation: uiimage.imageOrientation)
+    }
 }
 
-// MARK: Image Cropping
 
-private func crop(_ uiimage: UIImage, for variant: CameraViewController.Variant) -> CGImage? {
-    guard let image = uiimage.cgImage else {
-        return .none
-    }
-
-    let height = Double(image.height)
-    let width = Double(image.width)
-
-    let rect = CGRect(
-        x: width * 0.1,
-        y: height * 0.3,
-        width: width * 0.8,
-        height: (width * 0.8) * Double(variant.cropHeightRatio)
-    )
-
-    guard let cropped = image.cropping(to: rect) else {
-        return nil
-    }
-
-    return cropped
-}
