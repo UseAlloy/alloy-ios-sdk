@@ -411,29 +411,34 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
 
         // MARK: Image Cropping
 
-    private func crop(_ uiimage: UIImage, for variant: CameraViewController.Variant) -> UIImage? {
-        guard let image = uiimage.cgImage else {
+    private func crop(_ image: UIImage, for variant: CameraViewController.Variant) -> UIImage? {
+        guard let cgImage = image.cgImage else {
             return .none
         }
 
-        let height = Double(image.height)
-        let width = Double(image.width)
+        let previewLayer = videoPreviewLayer
+        let rectOfInterest = cropRegion.frame
 
-        let cropRegionRect = cropRegion.frame
-        let previewLayerRect = videoPreviewLayer.metadataOutputRectConverted(fromLayerRect: cropRegionRect)
-        let rect = CGRect(
-            x: previewLayerRect.origin.x * width,
-            y: previewLayerRect.origin.y * height,
-            width: width * 0.8,
-            height: (width * 0.8) * Double(variant.cropHeightRatio)
-        )
+        let metadataOutputRect = CGRect(x: 0, y: 0, width: 1, height: 1)
+        let outputRect = previewLayer.layerRectConverted(fromMetadataOutputRect: metadataOutputRect)
 
-        guard let cropped = image.cropping(to: rect) else {
+        let width = image.size.width
+        let height = image.size.height
+
+        let factorX = width / outputRect.width
+        let factorY = height / outputRect.height
+        let factor = max(factorX, factorY)
+
+        let cropRect = CGRect(x: (rectOfInterest.origin.x - outputRect.origin.x) * factor,
+                              y: (rectOfInterest.origin.y - outputRect.origin.y) * factor,
+                              width: rectOfInterest.size.width * factor,
+                              height: rectOfInterest.size.height * factor)
+
+
+        guard let cropped = cgImage.cropping(to: cropRect) else {
             return nil
         }
 
-        return UIImage(cgImage: cropped, scale: 1.0, orientation: uiimage.imageOrientation)
+        return UIImage(cgImage: cropped, scale: image.scale, orientation: image.imageOrientation)
     }
 }
-
-
