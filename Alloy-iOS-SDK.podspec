@@ -4,7 +4,7 @@
 #
 
 Pod::Spec.new do |s|
-  s.name             = 'AlloyTest'
+  s.name             = 'Alloy-iOS-SDK'
   s.version          = '0.0.4'
   s.summary          = 'Alloy helps top banks and fintechs make better decisions using a single API and dashboard to manage KYC/AML, fraud, and more.'
   s.homepage         = 'https://alloy.co'

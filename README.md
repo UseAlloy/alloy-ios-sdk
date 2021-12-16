@@ -9,10 +9,10 @@ You can view the source code in the folder with the same name.
 
 Currently the only package manager we support is [CocoaPods][cocoapods].
 
-To integrate Alloy into your XCode project, simply add this line in your `Podfile`:
+To integrate Alloy into your Xcode project, simply add this line in your `Podfile`:
 
 ```ruby
-pod 'AlloyTest', '~> 0.0.4'
+pod 'Alloy-iOS-SDK', '~> 0.0.4'
 ```
 
 Then, run the following command:
@@ -20,9 +20,6 @@ Then, run the following command:
 ```sh
 pod install
 ```
-
-**Note**: The `Alloy` pod was already taken.
-Until we decide a better name `AlloyTest` is used as a placeholder.
 
 ## Usage
 
