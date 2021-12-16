@@ -26,7 +26,7 @@ pod install
 ### Launching Alloy
 
 ```swift
-import Alloy
+import Alloy_iOS_SDK
 import UIKit
 
 class ViewController: UIViewController {
