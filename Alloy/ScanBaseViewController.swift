@@ -94,10 +94,9 @@ internal class ScanBaseViewController: UIViewController {
     @objc internal func takeSelfiePicture() {
         let vc = CameraViewController()
         vc.variant = .selfie
-        vc.imageTaken = { [weak self] cgImage in
-            let image = UIImage(cgImage: cgImage)
+        vc.imageTaken = { [weak self] uiImage in
             self?.mainButton.setTitle("Send pictures", for: .normal)
-            self?.selfiePreview.preview.image = image
+            self?.selfiePreview.preview.image = uiImage
             self?.selfiePreview.retakeButton.isHidden = false
         }
         navigationController?.pushViewController(vc, animated: true)

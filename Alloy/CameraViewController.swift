@@ -18,7 +18,7 @@ internal class CameraViewController: UIViewController {
 
     // MARK: Public Properties
 
-    public var imageTaken: ((CGImage) -> Void)?
+    public var imageTaken: ((UIImage) -> Void)?
     public var variant: Variant = .id
 
     // MARK: Camera Views
@@ -408,28 +408,37 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
         imageTaken?(cropped)
         navigationController?.popViewController(animated: true)
     }
-}
 
-// MARK: Image Cropping
+        // MARK: Image Cropping
 
-private func crop(_ uiimage: UIImage, for variant: CameraViewController.Variant) -> CGImage? {
-    guard let image = uiimage.cgImage else {
-        return .none
+    private func crop(_ image: UIImage, for variant: CameraViewController.Variant) -> UIImage? {
+        guard let cgImage = image.cgImage else {
+            return .none
+        }
+
+        let previewLayer = videoPreviewLayer
+        let rectOfInterest = cropRegion.frame
+
+        let metadataOutputRect = CGRect(x: 0, y: 0, width: 1, height: 1)
+        let outputRect = previewLayer.layerRectConverted(fromMetadataOutputRect: metadataOutputRect)
+
+        let width = image.size.width
+        let height = image.size.height
+
+        let factorX = width / outputRect.width
+        let factorY = height / outputRect.height
+        let factor = max(factorX, factorY)
+
+        let cropRect = CGRect(x: (rectOfInterest.origin.x - outputRect.origin.x) * factor,
+                              y: (rectOfInterest.origin.y - outputRect.origin.y) * factor,
+                              width: rectOfInterest.size.width * factor,
+                              height: rectOfInterest.size.height * factor)
+
+
+        guard let cropped = cgImage.cropping(to: cropRect) else {
+            return nil
+        }
+
+        return UIImage(cgImage: cropped, scale: image.scale, orientation: image.imageOrientation)
     }
-
-    let height = Double(image.height)
-    let width = Double(image.width)
-
-    let rect = CGRect(
-        x: width * 0.1,
-        y: height * 0.3,
-        width: width * 0.8,
-        height: (width * 0.8) * Double(variant.cropHeightRatio)
-    )
-
-    guard let cropped = image.cropping(to: rect) else {
-        return nil
-    }
-
-    return cropped
 }
