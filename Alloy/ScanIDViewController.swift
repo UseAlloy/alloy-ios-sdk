@@ -174,7 +174,7 @@ internal class ScanIDViewController: ScanBaseViewController {
             case let .failure(error):
                 print("create/upload", error)
             case let .success(response):
-                guard self.needsValidationPrecheck else {
+                guard self.needsPreChecks else {
                     self.assignToken(forCard: card, token: response.token)
                     return
                 }

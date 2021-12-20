@@ -13,8 +13,8 @@ internal class ScanBaseViewController: UIViewController {
         return config.evaluationData
     }
 
-    internal var needsValidationPrecheck: Bool {
-        config.validationPrecheck
+    internal var needsPreChecks: Bool {
+        config.validationPreChecks
     }
 
     // MARK: Views
