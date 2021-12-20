@@ -96,7 +96,6 @@ public struct AlloyCardEvaluationResponse: Codable {
     public let summary: Summary
 
     public struct Summary: Codable {
-        let aprovedOutcome = "Approved"
         public let outcome: String
         public let outcomeReasons: [String]
 
