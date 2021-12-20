@@ -32,8 +32,6 @@ import UIKit
 class ViewController: UIViewController {
     // ...
 
-    override func viewDidAppear
-
     func openAlloy() {
         var alloy = Alloy(
             key: "your-alloy-key",
@@ -55,7 +53,7 @@ class ViewController: UIViewController {
 ### Handling the result
 
 ```switf
-private func onAlloyResult(result: AlloyResult) {
+func onAlloyResult(result: AlloyResult) {
     switch result {
     case .success(let response):
         print("outcome: \(response.summary.outcome)")
