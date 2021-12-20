@@ -96,8 +96,13 @@ public struct AlloyCardEvaluationResponse: Codable {
     public let summary: Summary
 
     public struct Summary: Codable {
+        let aprovedOutcome = "Approved"
         public let outcome: String
         public let outcomeReasons: [String]
+
+        var isApproved: Bool {
+            outcome == Constants.approvedOutcome
+        }
 
         private enum CodingKeys: String, CodingKey {
             case outcome = "outcome",
@@ -109,4 +114,8 @@ public struct AlloyCardEvaluationResponse: Codable {
         case entityToken = "entity_token",
              summary
     }
+}
+
+private enum Constants {
+    static let approvedOutcome = "Approved"
 }

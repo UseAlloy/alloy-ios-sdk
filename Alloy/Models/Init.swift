@@ -24,6 +24,7 @@ public struct Alloy {
     public var externalEntityId: AlloyEntityToken? = nil
     public var maxEvaluationAttempts: Int = 2
     public var production: Bool = false
+    public var validationPrecheck: Bool = true
     private(set) public var completion: AlloyResultCallback?
 
     public init(key: String, for evaluationData: AlloyEvaluationData) {

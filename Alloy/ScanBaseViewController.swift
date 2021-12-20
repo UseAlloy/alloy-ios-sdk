@@ -13,6 +13,10 @@ internal class ScanBaseViewController: UIViewController {
         return config.evaluationData
     }
 
+    internal var needsValidationPrecheck: Bool {
+        config.validationPrecheck
+    }
+
     // MARK: Views
 
     internal lazy var scrollView = UIScrollView()

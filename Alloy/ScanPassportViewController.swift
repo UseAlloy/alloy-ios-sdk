@@ -129,7 +129,7 @@ internal class ScanPassportViewController: ScanBaseViewController {
                         print("evaluate", error)
                     case let .success(responseE):
                         DispatchQueue.main.async { [weak self] in
-                            guard responseE.summary.outcome == "Approved" else {
+                            guard responseE.summary.isApproved else {
                                 self?.passportPicture.issueAppeared(responseE.summary.outcome)
                                 return
                             }

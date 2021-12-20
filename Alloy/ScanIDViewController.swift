@@ -168,30 +168,57 @@ internal class ScanIDViewController: ScanBaseViewController {
         guard let api = api, let evaluationData = evaluationData else { return }
 
         let documentData = AlloyDocumentPayload(name: "license", extension: .jpg, type: .license)
-        api.create(document: documentData, andUpload: data) { result in
+        api.create(document: documentData, andUpload: data) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case let .failure(error):
                 print("create/upload", error)
             case let .success(response):
+                guard self.needsValidationPrecheck else {
+                    self.assignToken(forCard: card, token: response.token)
+                    return
+                }
+
                 let evaluation = AlloyCardEvaluationData(evaluationData: evaluationData, evaluationStep: .front(response.token))
                 api.evaluate(document: evaluation) { result in
                     switch result {
                     case let .failure(error):
                         print("evaluate", error)
                     case let .success(responseE):
-                        DispatchQueue.main.async { [weak self] in
-                            guard let self = self else { return }
-                            if responseE.summary.outcome == "Approved" {
-                                card.approved()
-                                if card == self.frontCard {
-                                    self.frontToken = response.token
-                                } else {
-                                    self.backToken = response.token
-                                }
-                            }
+                        self.handleIssue(forCard: card, issue: "Some issue")
+                        guard responseE.summary.isApproved else {
+                            self.handleIssue(forCard: card, issue: responseE.summary.outcome)
+                            return
                         }
+                        self.assignToken(forCard: card, token: response.token)
                     }
                 }
+            }
+        }
+    }
+
+    private func assignToken(forCard card: CardDetail, token: String) {
+        DispatchQueue.main.async {
+            card.approved()
+
+            if card == self.frontCard {
+                self.frontToken = token
+            }
+
+            if card == self.backCard {
+                self.backToken = token
+            }
+        }
+    }
+
+    private func handleIssue(forCard card: CardDetail, issue: String) {
+        DispatchQueue.main.async {
+            if card == self.frontCard {
+                self.frontCard.issueAppeared(issue)
+            }
+
+            if card == self.backCard {
+                self.backCard.issueAppeared(issue)
             }
         }
     }
