@@ -52,7 +52,7 @@ class ViewController: UIViewController {
 
 ### Handling the result
 
-```switf
+```swift
 func onAlloyResult(result: AlloyResult) {
     switch result {
     case .success(let response):
