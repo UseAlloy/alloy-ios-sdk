@@ -33,7 +33,9 @@ internal class API {
         var uc = URLComponents(url: apiUrl, resolvingAgainstBaseURL: false)!
         uc.path = path
         uc.queryItems = uc.queryItems ?? []
-        uc.queryItems?.append(URLQueryItem(name: "production", value: "\(production)"))
+        if production {
+            uc.queryItems?.append(URLQueryItem(name: "production", value: "\(production)"))
+        }
         uc.queryItems?.append(contentsOf: extraQueryItems)
 
         var request = URLRequest(url: uc.url!)
