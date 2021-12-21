@@ -205,7 +205,7 @@ internal class ScanIDViewController: ScanBaseViewController {
 
         let evaluation = AlloyCardEvaluationData(
             evaluationData: evaluationData,
-            evaluationStep: .both(frontToken, backToken)
+            evaluationStep: .finalID(frontToken, backToken)
         )
 
         api.evaluate(document: evaluation) { [weak self] result in
