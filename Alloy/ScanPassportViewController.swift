@@ -114,30 +114,49 @@ internal class ScanPassportViewController: ScanBaseViewController {
     }
 
     private func createDocument(data: Data) {
-        guard let api = api, let evaluationData = evaluationData else { return }
+        guard let api = api else { return }
 
         let documentData = AlloyDocumentPayload(name: "passport", extension: .jpg, type: .passport)
-        api.create(document: documentData, andUpload: data) { result in
+
+        api.create(document: documentData, andUpload: data) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case let .failure(error):
                 print("create/upload", error)
             case let .success(response):
-                let evaluation = AlloyCardEvaluationData(evaluationData: evaluationData, evaluationStep: .front(response.token))
-                api.evaluate(document: evaluation) { result in
-                    switch result {
-                    case let .failure(error):
-                        print("evaluate", error)
-                    case let .success(responseE):
-                        DispatchQueue.main.async { [weak self] in
-                            guard responseE.summary.outcome == "Approved" else {
-                                self?.passportPicture.issueAppeared(responseE.summary.outcome)
-                                return
-                            }
+                self.assignToken(token: response.token)
+                self.doPreCheckIfNecessary(token: response.token)
+            }
+        }
+    }
 
-                            self?.passportPicture.approved()
-                            self?.passportToken = response.token
-                        }
-                    }
+    private func assignToken(token: String) {
+        DispatchQueue.main.async {
+            self.passportPicture.approved()
+            self.passportToken = token
+        }
+    }
+
+    private func handleIssue(issue: String) {
+        DispatchQueue.main.async {
+            self.passportPicture.issueAppeared(issue)
+        }
+    }
+
+
+    private func doPreCheckIfNecessary(token: String) {
+        guard needsPreChecks,
+              let evaluationData = evaluationData
+        else { return }
+
+        let evaluation = AlloyCardEvaluationData(evaluationData: evaluationData, evaluationStep: .front(token))
+        api.evaluate(document: evaluation) { [weak self] result in
+            switch result {
+            case let .failure(error):
+                print("evaluate", error)
+            case let .success(responseE):
+                if !responseE.summary.isApproved {
+                    self?.handleIssue(issue: responseE.summary.outcome)
                 }
             }
         }
