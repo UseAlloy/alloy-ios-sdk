@@ -152,7 +152,7 @@ internal class ScanPassportViewController: ScanBaseViewController {
 
         let evaluation = AlloyCardEvaluationData(
             evaluationData: evaluationData,
-            evaluationStep: .front(passportToken)
+            evaluationStep: .finalPassport(passportToken)
         )
 
         api.evaluate(document: evaluation) { [weak self] result in

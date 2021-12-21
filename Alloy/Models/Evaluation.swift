@@ -77,10 +77,13 @@ internal struct AlloyCardEvaluationData: Encodable {
         case let .back(token):
             try container.encode("back", forKey: .document_step)
             try container.encode(token, forKey: .document_token_back)
-        case let .both(tokenFront, tokenBack):
-            try container.encode("both", forKey: .document_step)
+        case let .finalID(tokenFront, tokenBack):
+            try container.encode("final", forKey: .document_step)
             try container.encode(tokenFront, forKey: .document_token_front)
             try container.encode(tokenBack, forKey: .document_token_back)
+        case let .finalPassport(passportToken):
+            try container.encode("final", forKey: .document_step)
+            try container.encode(passportToken, forKey: .document_token_front)
         }
     }
 }
@@ -88,7 +91,8 @@ internal struct AlloyCardEvaluationData: Encodable {
 internal enum AlloyCardEvaluationStep {
     case front(AlloyDocumentToken)
     case back(AlloyDocumentToken)
-    case both(AlloyDocumentToken, AlloyDocumentToken)
+    case finalID(AlloyDocumentToken, AlloyDocumentToken)
+    case finalPassport(AlloyDocumentToken)
 }
 
 public struct AlloyCardEvaluationResponse: Codable {
