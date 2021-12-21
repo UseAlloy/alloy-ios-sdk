@@ -174,24 +174,8 @@ internal class ScanIDViewController: ScanBaseViewController {
             case let .failure(error):
                 print("create/upload", error)
             case let .success(response):
-                guard self.needsPreChecks else {
-                    self.assignToken(forCard: card, token: response.token)
-                    return
-                }
-
-                let evaluation = AlloyCardEvaluationData(evaluationData: evaluationData, evaluationStep: .front(response.token))
-                api.evaluate(document: evaluation) { result in
-                    switch result {
-                    case let .failure(error):
-                        print("evaluate", error)
-                    case let .success(responseE):
-                        guard responseE.summary.isApproved else {
-                            self.handleIssue(forCard: card, issue: responseE.summary.outcome)
-                            return
-                        }
-                        self.assignToken(forCard: card, token: response.token)
-                    }
-                }
+                self.assignToken(forCard: card, token: response.token)
+                self.doPreCheckIfNecessary(forCard: card, token: response.token)
             }
         }
     }
@@ -218,6 +202,24 @@ internal class ScanIDViewController: ScanBaseViewController {
 
             if card == self.backCard {
                 self.backCard.issueAppeared(issue)
+            }
+        }
+    }
+
+    private func doPreCheckIfNecessary(forCard card: CardDetail, token: String) {
+        guard needsPreChecks,
+              let evaluationData = evaluationData
+        else { return }
+
+        let evaluation = AlloyCardEvaluationData(evaluationData: evaluationData, evaluationStep: .front(token))
+        api.evaluate(document: evaluation) { [weak self] result in
+            switch result {
+            case let .failure(error):
+                print("evaluate", error)
+            case let .success(responseE):
+                if !responseE.summary.isApproved {
+                    self?.handleIssue(forCard: card, issue: responseE.summary.outcome)
+                }
             }
         }
     }
