@@ -117,29 +117,45 @@ internal class ScanPassportViewController: ScanBaseViewController {
         guard let api = api, let evaluationData = evaluationData else { return }
 
         let documentData = AlloyDocumentPayload(name: "passport", extension: .jpg, type: .passport)
-        api.create(document: documentData, andUpload: data) { result in
+        api.create(document: documentData, andUpload: data) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case let .failure(error):
                 print("create/upload", error)
             case let .success(response):
+                guard self.needsPreChecks else {
+                    self.assignToken(token: response.token)
+                    return
+                }
+
                 let evaluation = AlloyCardEvaluationData(evaluationData: evaluationData, evaluationStep: .front(response.token))
                 api.evaluate(document: evaluation) { result in
                     switch result {
                     case let .failure(error):
                         print("evaluate", error)
                     case let .success(responseE):
-                        DispatchQueue.main.async { [weak self] in
-                            guard responseE.summary.isApproved else {
-                                self?.passportPicture.issueAppeared(responseE.summary.outcome)
-                                return
-                            }
-
-                            self?.passportPicture.approved()
-                            self?.passportToken = response.token
+                        guard responseE.summary.isApproved else {
+                            self.handleIssue(issue: responseE.summary.outcome)
+                            return
                         }
+                        
+                        self.assignToken(token: response.token)
                     }
                 }
             }
+        }
+    }
+
+    private func assignToken(token: String) {
+        DispatchQueue.main.async {
+            self.passportPicture.approved()
+            self.passportToken = token
+        }
+    }
+
+    private func handleIssue(issue: String) {
+        DispatchQueue.main.async {
+            self.passportPicture.issueAppeared(issue)
         }
     }
 
