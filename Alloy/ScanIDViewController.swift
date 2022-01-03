@@ -211,7 +211,9 @@ internal class ScanIDViewController: ScanBaseViewController {
               let evaluationData = evaluationData
         else { return }
 
-        let evaluation = AlloyCardEvaluationData(evaluationData: evaluationData, evaluationStep: .front(token))
+        let evaluationStep: AlloyCardEvaluationStep = card == frontCard ? .front(token) : .back(token)
+
+        let evaluation = AlloyCardEvaluationData(evaluationData: evaluationData, evaluationStep: evaluationStep)
         api.evaluate(document: evaluation) { [weak self] result in
             switch result {
             case let .failure(error):
