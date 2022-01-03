@@ -12,7 +12,7 @@ internal class EndViewController: UIViewController {
     internal var onCompletion: AlloyResultCallback?
     internal var response: AlloyResult? {
         didSet {
-            configureRespone()
+            configureResponse()
         }
     }
 
@@ -124,7 +124,7 @@ internal class EndViewController: UIViewController {
 
     // MARK: Configure
 
-    private func configureRespone() {
+    private func configureResponse() {
         switch response {
         case .none:
             break
