@@ -15,16 +15,26 @@ public struct AlloyEvaluationData: Codable {
     public var addressCountryCode: String?
     public var birthDate: String?
 
-    public init(nameFirst: String, nameLast: String) {
+    public init(
+        nameFirst: String,
+        nameLast: String,
+        addressLine1: String? = nil,
+        addressLine2: String? = nil,
+        addressCity: String? = nil,
+        addressState: String? = nil,
+        addressPostalCode: String? = nil,
+        addressCountryCode: String? = nil,
+        birthDate: String? = nil
+    ) {
         self.nameFirst = nameFirst
         self.nameLast = nameLast
-        self.addressLine1 = nil
-        self.addressLine2 = nil
-        self.addressCity = nil
-        self.addressState = nil
-        self.addressPostalCode = nil
-        self.addressCountryCode = nil
-        self.birthDate = nil
+        self.addressLine1 = addressLine1
+        self.addressLine2 = addressLine2
+        self.addressCity = addressCity
+        self.addressState = addressState
+        self.addressPostalCode = addressPostalCode
+        self.addressCountryCode = addressCountryCode
+        self.birthDate = birthDate
     }
 
     private enum CodingKeys: String, CodingKey {
