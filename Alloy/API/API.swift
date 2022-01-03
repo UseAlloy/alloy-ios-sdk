@@ -67,12 +67,23 @@ internal class API {
         }.resume()
     }
 
-    func evaluate(_ data: AlloyEvaluationData, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
+    func evaluate(document: AlloyCardEvaluationData, completion: @escaping (Result<AlloyCardEvaluationResponse, Error>) -> Void) {
         let request = createRequest(path: "/evaluations", method: "POST")
+        let jsonData = try! JSONEncoder().encode(document)
+        client.uploadTask(with: request, from: jsonData) { [weak self] data, _, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
 
-        let jsonData = try! JSONEncoder().encode(data)
-        let task = client.uploadTask(with: request, from: jsonData, completionHandler: completion)
-        task.resume()
+            if let data = data, let parsed = try? JSONDecoder().decode(AlloyCardEvaluationResponse.self, from: data) {
+                self?.entityToken = parsed.entityToken
+                completion(.success(parsed))
+                return
+            }
+
+            completion(.failure(ApiError.couldNotParse))
+        }.resume()
     }
 
     func create(document: AlloyDocumentPayload, andUpload image: Data, completion: @escaping (Result<AlloyDocument, Error>) -> Void) {
@@ -124,24 +135,6 @@ internal class API {
             }
 
             if let data = data, let parsed = try? JSONDecoder().decode(AlloyDocument.self, from: data) {
-                completion(.success(parsed))
-                return
-            }
-
-            completion(.failure(ApiError.couldNotParse))
-        }.resume()
-    }
-
-    func evaluate(document: AlloyCardEvaluationData, completion: @escaping (Result<AlloyCardEvaluationResponse, Error>) -> Void) {
-        let request = createRequest(path: "/evaluations", method: "POST")
-        let jsonData = try! JSONEncoder().encode(document)
-        client.uploadTask(with: request, from: jsonData) { data, _, error in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-
-            if let data = data, let parsed = try? JSONDecoder().decode(AlloyCardEvaluationResponse.self, from: data) {
                 completion(.success(parsed))
                 return
             }

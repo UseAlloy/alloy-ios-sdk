@@ -163,27 +163,8 @@ internal class GetStartedViewController: UIViewController {
                 self?.closeModal()
                 return
             }
-            self?.loadData()
+            self?.enableGetStarted()
         }
-    }
-
-    private func loadData() {
-        guard let data = evaluationData else {
-            closeModal()
-            return
-        }
-
-        api.evaluate(data, completion: evaluationCompletion)
-    }
-
-    private func evaluationCompletion(_ data: Data?, _ response: URLResponse?, _ error: Error?) {
-        guard let data = data, let parsed = try? JSONDecoder().decode(AlloyEvaluationResponse.self, from: data) else {
-            closeModal()
-            return
-        }
-
-        self.api.entityToken = parsed.entityToken
-        enableGetStarted()
     }
 
     // MARK: Actions
