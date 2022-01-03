@@ -165,7 +165,7 @@ internal class ScanIDViewController: ScanBaseViewController {
     // MARK: Alloy Actions
 
     private func createDocument(data: Data, for card: CardDetail) {
-        guard let api = api, let evaluationData = evaluationData else { return }
+        guard let api = api else { return }
 
         let documentData = AlloyDocumentPayload(name: "license", extension: .jpg, type: .license)
         api.create(document: documentData, andUpload: data) { [weak self] result in
