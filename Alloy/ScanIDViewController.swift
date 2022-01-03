@@ -165,7 +165,7 @@ internal class ScanIDViewController: ScanBaseViewController {
     // MARK: Alloy Actions
 
     private func createDocument(data: Data, for card: CardDetail) {
-        guard let api = api, let evaluationData = evaluationData else { return }
+        guard let api = api else { return }
 
         let documentData = AlloyDocumentPayload(name: "license", extension: .jpg, type: .license)
         api.create(document: documentData, andUpload: data) { [weak self] result in
@@ -211,7 +211,9 @@ internal class ScanIDViewController: ScanBaseViewController {
               let evaluationData = evaluationData
         else { return }
 
-        let evaluation = AlloyCardEvaluationData(evaluationData: evaluationData, evaluationStep: .front(token))
+        let evaluationStep: AlloyCardEvaluationStep = card == frontCard ? .front(token) : .back(token)
+
+        let evaluation = AlloyCardEvaluationData(evaluationData: evaluationData, evaluationStep: evaluationStep)
         api.evaluate(document: evaluation) { [weak self] result in
             switch result {
             case let .failure(error):
