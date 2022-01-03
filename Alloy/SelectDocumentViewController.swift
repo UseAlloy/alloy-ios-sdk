@@ -108,7 +108,10 @@ internal class SelectDocumentViewController: UIViewController {
     }
 
     @objc private func onContinue() {
-        let variant = buttons.first(where: \.isSelected).map(\.variant)
+        guard let selected = buttons.first(where: \.isSelected),
+              let variant = selected.variant
+        else { return }
+
         switch variant {
         case .passport:
             let vc = ScanPassportViewController()
@@ -120,8 +123,6 @@ internal class SelectDocumentViewController: UIViewController {
             vc.api = api
             vc.config = config
             navigationController?.pushViewController(vc, animated: true)
-        default:
-            break
         }
     }
 }
