@@ -37,7 +37,7 @@ public struct AlloyEvaluationData: Codable {
         self.birthDate = birthDate
     }
 
-    private enum CodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKey {
         case nameFirst = "name_first",
              nameLast = "name_last",
              addressLine1 = "address_line_1",
@@ -67,33 +67,39 @@ internal struct AlloyCardEvaluationData: Encodable {
     let evaluationStep: AlloyCardEvaluationStep
 
     private enum CodingKeys: String, CodingKey {
-        case name_first,
-             name_last,
-             document_step,
+        case document_step,
              document_token_front,
              document_token_back
     }
 
     func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
+        var cardContainer = encoder.container(keyedBy: CodingKeys.self)
+        var evaluationContainer = encoder.container(keyedBy: AlloyEvaluationData.CodingKeys.self)
 
-        try container.encode(evaluationData.nameFirst, forKey: .name_first)
-        try container.encode(evaluationData.nameLast, forKey: .name_last)
+        try evaluationContainer.encode(evaluationData.nameFirst, forKey: .nameFirst)
+        try evaluationContainer.encode(evaluationData.nameLast, forKey: .nameLast)
+        try evaluationContainer.encode(evaluationData.addressCity, forKey: .addressCity)
+        try evaluationContainer.encode(evaluationData.addressCountryCode, forKey: .addressCountryCode)
+        try evaluationContainer.encode(evaluationData.addressLine1, forKey: .addressLine1)
+        try evaluationContainer.encode(evaluationData.addressLine2, forKey: .addressLine2)
+        try evaluationContainer.encode(evaluationData.addressPostalCode, forKey: .addressPostalCode)
+        try evaluationContainer.encode(evaluationData.addressState, forKey: .addressState)
+        try evaluationContainer.encode(evaluationData.birthDate, forKey: .birthDate)
 
         switch evaluationStep {
         case let .front(token):
-            try container.encode("front", forKey: .document_step)
-            try container.encode(token, forKey: .document_token_front)
+            try cardContainer.encode("front", forKey: .document_step)
+            try cardContainer.encode(token, forKey: .document_token_front)
         case let .back(token):
-            try container.encode("back", forKey: .document_step)
-            try container.encode(token, forKey: .document_token_back)
+            try cardContainer.encode("back", forKey: .document_step)
+            try cardContainer.encode(token, forKey: .document_token_back)
         case let .finalID(tokenFront, tokenBack):
-            try container.encode("final", forKey: .document_step)
-            try container.encode(tokenFront, forKey: .document_token_front)
-            try container.encode(tokenBack, forKey: .document_token_back)
+            try cardContainer.encode("final", forKey: .document_step)
+            try cardContainer.encode(tokenFront, forKey: .document_token_front)
+            try cardContainer.encode(tokenBack, forKey: .document_token_back)
         case let .finalPassport(passportToken):
-            try container.encode("final", forKey: .document_step)
-            try container.encode(passportToken, forKey: .document_token_front)
+            try cardContainer.encode("final", forKey: .document_step)
+            try cardContainer.encode(passportToken, forKey: .document_token_front)
         }
     }
 }
