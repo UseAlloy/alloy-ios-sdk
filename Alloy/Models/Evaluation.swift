@@ -74,17 +74,6 @@ internal struct AlloyCardEvaluationData: Encodable {
 
     func encode(to encoder: Encoder) throws {
         var cardContainer = encoder.container(keyedBy: CodingKeys.self)
-        var evaluationContainer = encoder.container(keyedBy: AlloyEvaluationData.CodingKeys.self)
-
-        try evaluationContainer.encode(evaluationData.nameFirst, forKey: .nameFirst)
-        try evaluationContainer.encode(evaluationData.nameLast, forKey: .nameLast)
-        try evaluationContainer.encode(evaluationData.addressCity, forKey: .addressCity)
-        try evaluationContainer.encode(evaluationData.addressCountryCode, forKey: .addressCountryCode)
-        try evaluationContainer.encode(evaluationData.addressLine1, forKey: .addressLine1)
-        try evaluationContainer.encode(evaluationData.addressLine2, forKey: .addressLine2)
-        try evaluationContainer.encode(evaluationData.addressPostalCode, forKey: .addressPostalCode)
-        try evaluationContainer.encode(evaluationData.addressState, forKey: .addressState)
-        try evaluationContainer.encode(evaluationData.birthDate, forKey: .birthDate)
 
         switch evaluationStep {
         case let .front(token):
@@ -100,6 +89,39 @@ internal struct AlloyCardEvaluationData: Encodable {
         case let .finalPassport(passportToken):
             try cardContainer.encode("final", forKey: .document_step)
             try cardContainer.encode(passportToken, forKey: .document_token_front)
+        }
+
+        var evaluationContainer = encoder.container(keyedBy: AlloyEvaluationData.CodingKeys.self)
+
+        try evaluationContainer.encode(evaluationData.nameFirst, forKey: .nameFirst)
+        try evaluationContainer.encode(evaluationData.nameLast, forKey: .nameLast)
+
+        if let addressLine1 = evaluationData.addressLine1 {
+            try evaluationContainer.encode(addressLine1, forKey: .addressLine1)
+        }
+
+        if let addressLine2 = evaluationData.addressLine2 {
+            try evaluationContainer.encode(addressLine2, forKey: .addressLine2)
+        }
+
+        if let addressCity = evaluationData.addressCity {
+            try evaluationContainer.encode(addressCity, forKey: .addressCity)
+        }
+
+        if let addressCountryCode = evaluationData.addressCountryCode {
+            try evaluationContainer.encode(addressCountryCode, forKey: .addressCountryCode)
+        }
+
+        if let addressPostalCode = evaluationData.addressPostalCode {
+            try evaluationContainer.encode(addressPostalCode, forKey: .addressPostalCode)
+        }
+
+        if let addressState = evaluationData.addressState {
+            try evaluationContainer.encode(addressState, forKey: .addressState)
+        }
+
+        if let birthDate = evaluationData.birthDate {
+            try evaluationContainer.encode(birthDate, forKey: .birthDate)
         }
     }
 }
