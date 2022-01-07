@@ -1,8 +1,11 @@
 import UIKit
+import CoreMedia
 
-internal enum EndVariant {
-    case success
-    case failure
+internal enum EndVariant: String {
+    case success = "Approved"
+    case retakeImages = "Retake Images"
+    case manualReview = "Manual Review"
+    case failure = "Denied"
 }
 
 internal class EndViewController: UIViewController {
@@ -125,32 +128,20 @@ internal class EndViewController: UIViewController {
     // MARK: Configure
 
     private func configureResponse() {
-        switch response {
-        case .none:
-            break
-
-        case .failure:
+        if case .failure = response {
             variant = .failure
+        }
 
-        case let .success(response):
-            if response.summary.outcome == "Approved" {
-                variant = .success
-            } else if response.summary.outcome == "Denied" {
-                variant = .failure
-            }
+        if case let .success(alloyResponse) = response {
+            variant = alloyResponse.endOutcome ?? .failure
         }
     }
 
     private func configureVariant() {
         banner.variant = variant
-        titleLabel.text = variant == .failure
-            ? "Denied"
-            : "Success!"
-        subtitleLabel.text = variant == .failure
-            ? "We’re sorry, your ID cant’t be validated"
-            : "Your ID has been validated"
-        mainButton.setTitle(variant == .failure ? "Retry" : "Continue", for: .normal)
-        leaveButton.isHidden = variant == .success
+        titleLabel.text = variant.modalTitle
+        subtitleLabel.text = variant.message
+        mainButton.setTitle(variant.buttonTitle, for: .normal)
     }
 
     private func configureAlloyRetry() {
@@ -176,3 +167,36 @@ internal class EndViewController: UIViewController {
         }
     }
 }
+
+private extension AlloyCardEvaluationResponse {
+    var endOutcome: EndVariant? {
+        EndVariant(rawValue: summary.outcome)
+    }
+}
+
+private extension EndVariant {
+    var modalTitle: String {
+        switch self {
+        case .failure: return "Denied"
+        case .success, .manualReview: return "Success"
+        case .retakeImages: return "Images need to be retaken"
+        }
+    }
+
+    var message: String {
+        switch self {
+        case .failure: return "We’re sorry, your ID cant’t be validated"
+        case .success: return "Your ID has been validated"
+        case .manualReview: return "Thank you! We're reviewing your images and will get back to you soon"
+        case .retakeImages: return "Please, go back and try again"
+        }
+    }
+
+    var buttonTitle: String {
+        switch self {
+        case .failure, .retakeImages: return "Retry"
+        case .success, .manualReview: return "Finish"
+        }
+    }
+}
+

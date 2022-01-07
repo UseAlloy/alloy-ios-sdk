@@ -159,4 +159,7 @@ public struct AlloyCardEvaluationResponse: Codable {
 
 private enum Constants {
     static let approvedOutcome = "Approved"
+    static let deniedOutcome = "Denied"
+    static let manualReviewOutcome = "Manual Review"
+    static let retakeImagesOutcome = "Retake Images"
 }

@@ -245,8 +245,7 @@ internal class ScanIDViewController: ScanBaseViewController {
 
             case .success(let response):
                 DispatchQueue.main.async {
-                    let outcome = response.summary.outcome
-                    if outcome == "Approved" || outcome == "Denied" {
+                    if response.summary.canShowEndModal {
                         self?.showEndScreen(for: .success(response), onRetry: self?.onRetry)
                         return
                     }
