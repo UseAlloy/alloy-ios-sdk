@@ -219,7 +219,7 @@ internal class ScanIDViewController: ScanBaseViewController {
             case let .failure(error):
                 print("evaluate", error)
             case let .success(responseE):
-                if !responseE.summary.isApproved {
+                if responseE.summary.hasCardIssue {
                     self?.handleIssue(forCard: card, issue: responseE.summary.outcome)
                 }
             }

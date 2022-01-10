@@ -145,6 +145,13 @@ public struct AlloyCardEvaluationResponse: Codable {
             outcome == Constants.approvedOutcome
         }
 
+        var hasCardIssue: Bool {
+            [Constants.approvedOutcome, Constants.deniedOutcome, Constants.manualReviewOutcome]
+                .filter { $0 == outcome }
+                .isEmpty
+                
+        }
+
         private enum CodingKeys: String, CodingKey {
             case outcome = "outcome",
                  outcomeReasons = "outcome_reasons"

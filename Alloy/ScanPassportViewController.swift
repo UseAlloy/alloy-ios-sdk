@@ -155,7 +155,7 @@ internal class ScanPassportViewController: ScanBaseViewController {
             case let .failure(error):
                 print("evaluate", error)
             case let .success(responseE):
-                if !responseE.summary.isApproved {
+                if responseE.summary.hasCardIssue {
                     self?.handleIssue(issue: responseE.summary.outcome)
                 }
             }
