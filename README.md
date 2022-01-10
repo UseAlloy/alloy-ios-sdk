@@ -12,7 +12,7 @@ Currently the only package manager we support is [CocoaPods][cocoapods].
 To integrate Alloy into your Xcode project, simply add this line in your `Podfile`:
 
 ```ruby
-pod 'Alloy-iOS-SDK', '~> 0.0.4'
+pod 'Alloy-iOS-SDK', '~> 0.0.5'
 ```
 
 Then, run the following command:
