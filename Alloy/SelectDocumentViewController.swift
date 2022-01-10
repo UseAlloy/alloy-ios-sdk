@@ -126,10 +126,3 @@ internal class SelectDocumentViewController: UIViewController {
         }
     }
 }
-
-internal extension AlloyCardEvaluationResponse.Summary {
-    var canShowEndModal: Bool {
-        guard let _ = EndVariant(rawValue: outcome) else { return false }
-        return true
-    }
-}

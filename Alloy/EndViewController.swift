@@ -169,8 +169,8 @@ internal class EndViewController: UIViewController {
 }
 
 private extension AlloyCardEvaluationResponse {
-    var endOutcome: EndVariant? {
-        EndVariant(rawValue: summary.outcome)
+    var endOutcome: EndVariant {
+        EndVariant(rawValue: summary.outcome) ?? .manualReview
     }
 }
 

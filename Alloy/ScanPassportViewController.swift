@@ -178,18 +178,8 @@ internal class ScanPassportViewController: ScanBaseViewController {
             switch result {
             case .failure(let error):
                 self?.showEndScreen(for: .failure(error), onRetry: self?.onRetry)
-
             case .success(let response):
-                DispatchQueue.main.async {
-                    if response.summary.canShowEndModal {
-                        self?.showEndScreen(for: .success(response), onRetry: self?.onRetry)
-                        return
-                    }
-
-                    for reason in response.summary.outcomeReasons {
-                        self?.passportPicture.issueAppeared(reason)
-                    }
-                }
+                self?.showEndScreen(for: .success(response), onRetry: self?.onRetry)
             }
         }
     }

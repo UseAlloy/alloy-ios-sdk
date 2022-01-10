@@ -87,12 +87,14 @@ internal class ScanBaseViewController: UIViewController {
     internal func showEndScreen(for response: AlloyResult, onRetry: (() -> Void)?) {
         numberOfAttempts += 1
 
-        let vc = EndViewController()
-        vc.onRetry = onRetry
-        vc.response = response
-        vc.onCompletion = config.completion
-        vc.noMoreAttempts = numberOfAttempts >= config.maxEvaluationAttempts
-        navigationController?.pushViewController(vc, animated: true)
+        DispatchQueue.main.async {
+            let vc = EndViewController()
+            vc.onRetry = onRetry
+            vc.response = response
+            vc.onCompletion = self.config.completion
+            vc.noMoreAttempts = self.numberOfAttempts >= self.config.maxEvaluationAttempts
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
 
     @objc internal func takeSelfiePicture() {

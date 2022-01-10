@@ -242,22 +242,8 @@ internal class ScanIDViewController: ScanBaseViewController {
             switch result {
             case .failure(let error):
                 self?.showEndScreen(for: .failure(error), onRetry: self?.onRetry)
-
             case .success(let response):
-                DispatchQueue.main.async {
-                    if response.summary.canShowEndModal {
-                        self?.showEndScreen(for: .success(response), onRetry: self?.onRetry)
-                        return
-                    }
-
-                    for reason in response.summary.outcomeReasons {
-                        if reason.starts(with: "Back") {
-                            self?.backCard.issueAppeared(reason)
-                        } else if reason.starts(with: "Front") {
-                            self?.frontCard.issueAppeared(reason)
-                        }
-                    }
-                }
+                self?.showEndScreen(for: .success(response), onRetry: self?.onRetry)
             }
         }
     }
