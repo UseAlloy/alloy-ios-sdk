@@ -219,7 +219,7 @@ internal class ScanIDViewController: ScanBaseViewController {
             case let .failure(error):
                 print("evaluate", error)
             case let .success(responseE):
-                if !responseE.summary.isApproved {
+                if responseE.summary.hasCardIssue {
                     self?.handleIssue(forCard: card, issue: responseE.summary.outcome)
                 }
             }
@@ -242,23 +242,8 @@ internal class ScanIDViewController: ScanBaseViewController {
             switch result {
             case .failure(let error):
                 self?.showEndScreen(for: .failure(error), onRetry: self?.onRetry)
-
             case .success(let response):
-                DispatchQueue.main.async {
-                    let outcome = response.summary.outcome
-                    if outcome == "Approved" || outcome == "Denied" {
-                        self?.showEndScreen(for: .success(response), onRetry: self?.onRetry)
-                        return
-                    }
-
-                    for reason in response.summary.outcomeReasons {
-                        if reason.starts(with: "Back") {
-                            self?.backCard.issueAppeared(reason)
-                        } else if reason.starts(with: "Front") {
-                            self?.frontCard.issueAppeared(reason)
-                        }
-                    }
-                }
+                self?.showEndScreen(for: .success(response), onRetry: self?.onRetry)
             }
         }
     }

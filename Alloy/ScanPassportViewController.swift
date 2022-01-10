@@ -155,7 +155,7 @@ internal class ScanPassportViewController: ScanBaseViewController {
             case let .failure(error):
                 print("evaluate", error)
             case let .success(responseE):
-                if !responseE.summary.isApproved {
+                if responseE.summary.hasCardIssue {
                     self?.handleIssue(issue: responseE.summary.outcome)
                 }
             }
@@ -178,19 +178,8 @@ internal class ScanPassportViewController: ScanBaseViewController {
             switch result {
             case .failure(let error):
                 self?.showEndScreen(for: .failure(error), onRetry: self?.onRetry)
-
             case .success(let response):
-                DispatchQueue.main.async {
-                    let outcome = response.summary.outcome
-                    if outcome == "Approved" || outcome == "Denied" {
-                        self?.showEndScreen(for: .success(response), onRetry: self?.onRetry)
-                        return
-                    }
-
-                    for reason in response.summary.outcomeReasons {
-                        self?.passportPicture.issueAppeared(reason)
-                    }
-                }
+                self?.showEndScreen(for: .success(response), onRetry: self?.onRetry)
             }
         }
     }
