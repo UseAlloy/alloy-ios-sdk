@@ -133,7 +133,7 @@ internal class EndViewController: UIViewController {
         }
 
         if case let .success(alloyResponse) = response {
-            variant = alloyResponse.endOutcome ?? .failure
+            variant = alloyResponse.endOutcome
         }
     }
 
@@ -158,9 +158,8 @@ internal class EndViewController: UIViewController {
     }
 
     @objc private func mainAction() {
-        if variant == .success {
+        if variant == .success || variant == .manualReview {
             leave()
-
         } else {
             navigationController?.popViewController(animated: true)
             onRetry?()
