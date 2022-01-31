@@ -95,6 +95,10 @@ internal class SelectDocumentViewController: UIViewController {
     // MARK: Actions
 
     @objc private func close() {
+        if let completion = config.completion {
+            completion(.success(AlloyCardEvaluationResult(status: .closed)))
+        }
+
         dismiss(animated: true)
     }
 

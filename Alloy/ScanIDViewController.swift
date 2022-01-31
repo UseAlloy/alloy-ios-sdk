@@ -243,7 +243,7 @@ internal class ScanIDViewController: ScanBaseViewController {
             case .failure(let error):
                 self?.showEndScreen(for: .failure(error), onRetry: self?.onRetry)
             case .success(let response):
-                self?.showEndScreen(for: .success(response), onRetry: self?.onRetry)
+                self?.showEndScreen(for: .success(response.toResult(.completed)), onRetry: self?.onRetry)
             }
         }
     }

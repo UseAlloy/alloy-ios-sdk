@@ -152,7 +152,15 @@ internal class EndViewController: UIViewController {
 
     @objc private func leave() {
         dismiss(animated: true) { [weak self] in
-            guard let response = self?.response else { return }
+            guard var response = self?.response else { return }
+
+            switch response {
+            case .success(let result):
+                response = .success(result.closedResult())
+            default:
+                break
+            }
+
             self?.onCompletion?(response)
         }
     }
@@ -167,9 +175,13 @@ internal class EndViewController: UIViewController {
     }
 }
 
-private extension AlloyCardEvaluationResponse {
+extension AlloyCardEvaluationResult {
     var endOutcome: EndVariant {
-        EndVariant(rawValue: summary.outcome) ?? .manualReview
+        guard let outcome = summary?.outcome else {
+            return .manualReview
+        }
+
+        return EndVariant(rawValue: outcome) ?? .manualReview
     }
 }
 

@@ -14,7 +14,7 @@ internal struct AlloyInitResponse: Codable {
     }
 }
 
-public typealias AlloyResult = Result<AlloyCardEvaluationResponse, Error>
+public typealias AlloyResult = Result<AlloyCardEvaluationResult, Error>
 public typealias AlloyResultCallback = (AlloyResult) -> Void
 
 public struct Alloy {
@@ -35,6 +35,10 @@ public struct Alloy {
     public mutating func open(in parent: UIViewController, completion: AlloyResultCallback? = nil) {
         self.completion = completion
         let vc = AlloyViewController(with: self)
+        
+        if #available(iOS 13.0, *) {
+            vc.isModalInPresentation = true
+        }
         parent.present(vc, animated: true)
     }
 }

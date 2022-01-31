@@ -55,12 +55,15 @@ class ViewController: UIViewController {
 ```swift
 func onAlloyResult(result: AlloyResult) {
     switch result {
-    case .success(let response):
-        print("outcome: \(response.summary.outcome)")
-        print("outcome reasons: \(response.summary.outcomeReasons.joined(separator: ", "))")
-    case .failure(let error):
-        print("error: \(error.localizedDescription)")
-    }
+        case .success(let response):
+            print("status: \(response.status)")
+
+            guard let summary = response.summary else { return }
+            print("outcome: \(summary.outcome)")
+            print("outcome reasons: \(summary.outcomeReasons.joined(separator: ", "))")
+        case .failure(let error):
+            print("error: \(error.localizedDescription)")
+        }
 }
 ```
 
