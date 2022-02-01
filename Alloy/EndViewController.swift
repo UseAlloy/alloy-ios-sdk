@@ -66,7 +66,7 @@ internal class EndViewController: UIViewController {
 
     private lazy var leaveButton: UIButton = {
         let view = UIButton(type: .system)
-        view.addTarget(self, action: #selector(leave), for: .touchUpInside)
+        view.addTarget(self, action: #selector(tryLaterAction), for: .touchUpInside)
         view.setTitle("Leave, I'll try later", for: .normal)
         view.setTitleColor(UIColor.Theme.blue, for: .normal)
         return view
@@ -150,13 +150,19 @@ internal class EndViewController: UIViewController {
 
     // MARK: Actions
 
-    @objc private func leave() {
+    @objc private func tryLaterAction() {
+        leave(processCompleted: false)
+    }
+
+    private func leave(processCompleted: Bool) {
         dismiss(animated: true) { [weak self] in
             guard var response = self?.response else { return }
 
             switch response {
             case .success(let result):
-                response = .success(result.closedResult())
+                if !processCompleted {
+                    response = .success(result.closedResult())
+                }
             default:
                 break
             }
@@ -167,7 +173,7 @@ internal class EndViewController: UIViewController {
 
     @objc private func mainAction() {
         if variant == .success || variant == .manualReview {
-            leave()
+            leave(processCompleted: true)
         } else {
             navigationController?.popViewController(animated: true)
             onRetry?()
