@@ -162,6 +162,27 @@ public struct AlloyCardEvaluationResult {
     }
 }
 
+extension AlloyCardEvaluationResult: CustomStringConvertible {
+    public var description: String {
+        let noValue = "<no value>"
+
+        var result = """
+                    evaluation_token: \(evaluationToken ?? noValue)
+                    entity_token: \(entityToken ?? noValue)
+                    status: \(status)
+                    """
+
+        if let summary = summary {
+            result = """
+                    \(summary)
+                    \(result)
+                    """
+        }
+
+        return result
+    }
+}
+
 public struct CardEvaluationCustomFields: Codable {
     public let documentTokenFront: String?
     public let documentTokenBack: String?
@@ -193,6 +214,20 @@ public struct CardEvaluationSummary: Codable {
         case outcome = "outcome"
         case outcomeReasons = "outcome_reasons"
         case customFields = "custom_fields"
+    }
+}
+
+extension CardEvaluationSummary: CustomStringConvertible {
+    public var description: String {
+        let noValue = "<no value>"
+
+        return """
+                document_token_front: \(customFields.documentTokenFront ?? noValue)
+                document_token_back: \(customFields.documentTokenBack ?? noValue)
+                document_token_selfie: \(customFields.documentTokenSelfie ?? noValue)
+                outcome: \(outcome)
+                outcome reasons: \(outcomeReasons.joined(separator: ", "))
+                """
     }
 }
 
