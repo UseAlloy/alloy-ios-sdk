@@ -183,11 +183,12 @@ internal class EndViewController: UIViewController {
 
 extension AlloyCardEvaluationResult {
     var endOutcome: EndVariant {
-        guard let outcome = summary?.outcome else {
+        guard let outcome = summary?.outcome,
+                let variant = EndVariant(rawValue: outcome) else {
             return .manualReview
         }
 
-        return EndVariant(rawValue: outcome) ?? .manualReview
+        return variant
     }
 }
 
