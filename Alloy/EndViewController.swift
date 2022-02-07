@@ -66,7 +66,7 @@ internal class EndViewController: UIViewController {
 
     private lazy var leaveButton: UIButton = {
         let view = UIButton(type: .system)
-        view.addTarget(self, action: #selector(leave), for: .touchUpInside)
+        view.addTarget(self, action: #selector(tryLaterAction), for: .touchUpInside)
         view.setTitle("Leave, I'll try later", for: .normal)
         view.setTitleColor(UIColor.Theme.blue, for: .normal)
         return view
@@ -150,16 +150,30 @@ internal class EndViewController: UIViewController {
 
     // MARK: Actions
 
-    @objc private func leave() {
+    @objc private func tryLaterAction() {
+        leave(processCompleted: false)
+    }
+
+    private func leave(processCompleted: Bool) {
         dismiss(animated: true) { [weak self] in
-            guard let response = self?.response else { return }
+            guard var response = self?.response else { return }
+
+            switch response {
+            case .success(let result):
+                if !processCompleted {
+                    response = .success(result.closedResult())
+                }
+            default:
+                break
+            }
+
             self?.onCompletion?(response)
         }
     }
 
     @objc private func mainAction() {
         if variant == .success || variant == .manualReview {
-            leave()
+            leave(processCompleted: true)
         } else {
             navigationController?.popViewController(animated: true)
             onRetry?()
@@ -167,9 +181,14 @@ internal class EndViewController: UIViewController {
     }
 }
 
-private extension AlloyCardEvaluationResponse {
+extension AlloyCardEvaluationResult {
     var endOutcome: EndVariant {
-        EndVariant(rawValue: summary.outcome) ?? .manualReview
+        guard let outcome = summary?.outcome,
+                let variant = EndVariant(rawValue: outcome) else {
+            return .manualReview
+        }
+
+        return variant
     }
 }
 

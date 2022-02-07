@@ -171,6 +171,10 @@ internal class GetStartedViewController: UIViewController {
 
     @objc private func closeModal() {
         DispatchQueue.main.async { [weak self] in
+            if let completion = self?.config.completion {
+                completion(.success(AlloyCardEvaluationResult(status: .closed)))
+            }
+
             self?.dismiss(animated: true)
         }
     }

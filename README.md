@@ -56,8 +56,7 @@ class ViewController: UIViewController {
 func onAlloyResult(result: AlloyResult) {
     switch result {
     case .success(let response):
-        print("outcome: \(response.summary.outcome)")
-        print("outcome reasons: \(response.summary.outcomeReasons.joined(separator: ", "))")
+        print(response)
     case .failure(let error):
         print("error: \(error.localizedDescription)")
     }

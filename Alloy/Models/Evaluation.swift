@@ -133,34 +133,120 @@ internal enum AlloyCardEvaluationStep {
     case finalPassport(AlloyDocumentToken)
 }
 
-public struct AlloyCardEvaluationResponse: Codable {
-    public let entityToken: AlloyEntityToken
-    public let summary: Summary
+public enum CardEvaluationStatus {
+    case completed
+    case closed
+}
 
-    public struct Summary: Codable {
-        public let outcome: String
-        public let outcomeReasons: [String]
+public struct AlloyCardEvaluationResult {
+    public let status: CardEvaluationStatus
+    public let evaluationToken: String?
+    public let entityToken: String?
+    public let summary: CardEvaluationSummary?
 
-        var isApproved: Bool {
-            outcome == Constants.approvedOutcome
+    init(status: CardEvaluationStatus,
+         evaluationToken: String? = nil,
+         entityToken: String? = nil,
+         summary: CardEvaluationSummary? = nil) {
+        self.status = status
+        self.evaluationToken = evaluationToken
+        self.entityToken = entityToken
+        self.summary = summary
+    }
+
+    func closedResult() -> Self {
+        AlloyCardEvaluationResult(status: .closed,
+                                  evaluationToken: evaluationToken,
+                                  entityToken: entityToken,
+                                  summary: summary)
+    }
+}
+
+extension AlloyCardEvaluationResult: CustomStringConvertible {
+    public var description: String {
+        let noValue = "<no value>"
+
+        var result = """
+                    evaluation_token: \(evaluationToken ?? noValue)
+                    entity_token: \(entityToken ?? noValue)
+                    status: \(status)
+                    """
+
+        if let summary = summary {
+            result = """
+                    \(summary)
+                    \(result)
+                    """
         }
 
-        var hasCardIssue: Bool {
-            [Constants.approvedOutcome, Constants.deniedOutcome, Constants.manualReviewOutcome]
-                .filter { $0 == outcome }
-                .isEmpty
-                
-        }
+        return result
+    }
+}
 
-        private enum CodingKeys: String, CodingKey {
-            case outcome = "outcome",
-                 outcomeReasons = "outcome_reasons"
-        }
+public struct CardEvaluationCustomFields: Codable {
+    public let documentTokenFront: String?
+    public let documentTokenBack: String?
+    public let documentTokenSelfie: String?
+
+    private enum CodingKeys: String, CodingKey {
+        case documentTokenFront = "document_token_front"
+        case documentTokenBack = "document_token_back"
+        case documentTokenSelfie = "document_token_selfie"
+    }
+}
+
+public struct CardEvaluationSummary: Codable {
+    public let outcome: String
+    public let outcomeReasons: [String]
+    public let customFields: CardEvaluationCustomFields
+
+    var isApproved: Bool {
+        outcome == Constants.approvedOutcome
+    }
+
+    var hasCardIssue: Bool {
+        [Constants.approvedOutcome, Constants.deniedOutcome, Constants.manualReviewOutcome]
+            .filter { $0 == outcome }
+            .isEmpty
     }
 
     private enum CodingKeys: String, CodingKey {
-        case entityToken = "entity_token",
-             summary
+        case outcome = "outcome"
+        case outcomeReasons = "outcome_reasons"
+        case customFields = "custom_fields"
+    }
+}
+
+extension CardEvaluationSummary: CustomStringConvertible {
+    public var description: String {
+        let noValue = "<no value>"
+
+        return """
+                document_token_front: \(customFields.documentTokenFront ?? noValue)
+                document_token_back: \(customFields.documentTokenBack ?? noValue)
+                document_token_selfie: \(customFields.documentTokenSelfie ?? noValue)
+                outcome: \(outcome)
+                outcome reasons: \(outcomeReasons.joined(separator: ", "))
+                """
+    }
+}
+
+struct AlloyCardEvaluationResponse: Codable {
+    public let entityToken: AlloyEntityToken
+    public let summary: CardEvaluationSummary
+    public let evaluationToken: String
+
+    private enum CodingKeys: String, CodingKey {
+        case entityToken = "entity_token"
+        case summary
+        case evaluationToken = "evaluation_token"
+    }
+
+    func toResult(_ status: CardEvaluationStatus) -> AlloyCardEvaluationResult {
+        AlloyCardEvaluationResult(status: status,
+                                  evaluationToken: evaluationToken,
+                                  entityToken: entityToken,
+                                  summary: summary)
     }
 }
 
@@ -170,3 +256,4 @@ private enum Constants {
     static let manualReviewOutcome = "Manual Review"
     static let retakeImagesOutcome = "Retake Images"
 }
+
