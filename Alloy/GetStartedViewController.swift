@@ -112,8 +112,8 @@ internal class GetStartedViewController: UIViewController {
         let item1 = GetStartedItem()
         item1.configure(
             image: "checkid",
-            title: "Check your ID",
-            description: "Keep your ID close and make sure it is in good condition."
+            title: "Check your documents",
+            description: "Keep it close and make sure it is in good condition."
         )
         stack.addArrangedSubview(item1)
 
