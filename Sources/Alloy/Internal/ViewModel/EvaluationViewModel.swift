@@ -7,14 +7,39 @@
 
 import Foundation
 
+internal enum ResultType {
+    
+    case success
+    case pendingReview
+    case denied
+    case error
+    
+}
+
+@MainActor
 class EvaluationViewModel: ObservableObject {
     
     // MARK: - Properties
+    @Published var isLoading = false
+    @Published var evaluatingProgress = 0.0
+    
     let evaluationData: EvaluationData
-    var allApproved: Bool {
-        return evaluations.allSatisfy({ $0.evaluation.summary.outcome == .approved })
+    var resultType: ResultType {
+        if evaluations.contains(where: { $0.evaluation.summary.outcome == .denied }) {
+            return .denied
+        } else if evaluations.contains(where: { $0.evaluation.summary.outcome == .manualReview }) {
+            return .pendingReview
+        } else if evaluations.allSatisfy({ $0.evaluation.summary.outcome == .approved }) {
+            return .success
+        } else {
+            return .error
+        }
+    }
+    var anyPendingEvaluation: Bool {
+        !documentUploads.isEmpty
     }
     
+    private var documentUploads = [DocumentCreateUploadResponse]()
     private var evaluations = Set<Evaluation>()
     
     // MARK: - Init
@@ -50,6 +75,18 @@ class EvaluationViewModel: ObservableObject {
     func addEvaluation(evaluation: Evaluation) {
         
         evaluations.insert(evaluation)
+        
+    }
+    
+    func addPendingDocument(upload: DocumentCreateUploadResponse) {
+        
+        documentUploads.append(upload)
+        
+    }
+    
+    func evaluatePendingDocuments() async throws {
+        
+        // Get ID
         
     }
     

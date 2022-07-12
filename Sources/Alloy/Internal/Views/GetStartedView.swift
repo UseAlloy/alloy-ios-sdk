@@ -203,8 +203,15 @@ private struct Bottom: View {
 struct GetStartedView_Previews: PreviewProvider {
     static var previews: some View {
         
-        AlloySettings.configure.apiKey = "test"
+        AlloySettings.configure.apiKey = "028d85e0-aa24-4ca1-99f2-90e3ee3f4e6b"
+        AlloySettings.configure.production = false
+        AlloySettings.configure.evaluateOnUpload = false
+        
         return GetStartedView()
+            .environmentObject(EvaluationViewModel(data: .init(nameFirst: "", nameLast: "")))
+            .environmentObject(ViewRouter())
+            .environmentObject(InitializationViewModel())
             .environmentObject(ConfigViewModel())
+        
     }
 }

@@ -12,7 +12,6 @@ internal class DocumentViewModel: ObservableObject {
     
     // MARK: - Properties
     @Published var isLoading = false
-    @Published var createUpload: DocumentCreateUploadResponse?
     @Published var evaluation: DocumentEvaluationResponse?
     @Published var outcome: DocumentEvaluationResponse.EvaluationSummary.Outcome?
     
@@ -34,7 +33,7 @@ internal class DocumentViewModel: ObservableObject {
     }
 
     // MARK: - Public
-    func create(document: DocumentPayload, andUploadData: Data?) async throws {
+    func create(document: DocumentPayload, andUploadData: Data?) async throws -> DocumentCreateUploadResponse {
         
         guard let data = andUploadData else { throw "Invalid image data" }
         
@@ -45,7 +44,7 @@ internal class DocumentViewModel: ObservableObject {
         let createResult = try await create(document: document)
         
         // Upload
-        createUpload = try await upload(document: data, createResponse: createResult)
+        return try await upload(document: data, createResponse: createResult)
         
     }
     
@@ -63,7 +62,6 @@ internal class DocumentViewModel: ObservableObject {
     
     func restart() {
         
-        createUpload = nil
         evaluation = nil
         outcome = nil
         

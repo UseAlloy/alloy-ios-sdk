@@ -33,11 +33,14 @@ public class AlloySettings {
     /// Journey token
     public var journeyToken: String? = nil
     
+    /// Evaluate document on upload image/file
+    public var evaluateOnUpload = false
+    
     /// Maximum evaluation attemps (retries(
     public var maxEvaluationAttempts: Int = 2
     
     /// Configure SDK with production environment (default is false)
-    public var production: Bool = false
+    public var production = false
     
 }
 

@@ -7,30 +7,40 @@
 
 import SwiftUI
 
-internal enum ResultType {
-    
-    case success
-    case pendingReview
-    
-}
-
 internal extension ResultType {
     
     var animation: Image.Identifier {
-        .resultSuccess
+        switch self {
+        case .success:
+            return .resultSuccess
+        case .pendingReview, .denied, .error:
+            return .resultFailure
+        }
     }
     
     var title: LocalizedStringKey {
-        "result_success"
+        switch self {
+        case .success:
+            return LocalizedStringKey("result_success")
+        case .pendingReview:
+            return LocalizedStringKey("result_pending")
+        case .denied:
+            return LocalizedStringKey("result_denied")
+        case .error:
+            return LocalizedStringKey("result_error")
+        }
     }
     
     var subtitle: LocalizedStringKey {
         switch self {
         case .success:
-            return "result_validated"
+            return LocalizedStringKey("result_validated")
         case .pendingReview:
-            return "result_manual_review"
-            
+            return LocalizedStringKey("result_manual_review")
+        case .denied:
+            return LocalizedStringKey("result_cannot_validated")
+        case .error:
+            return LocalizedStringKey("result_error_process")
         }
     }
     
@@ -40,26 +50,59 @@ struct ValidationResultView: View {
     
     // MARK: - Properties
     @EnvironmentObject private var evaluationViewModel: EvaluationViewModel
+    @EnvironmentObject private var configViewModel: ConfigViewModel
+    
+    @State private var animate = false
     
     // MARK: - Main
     var body: some View {
         
-        VStack(spacing: 0) {
+        if !AlloySettings.configure.evaluateOnUpload && evaluationViewModel.anyPendingEvaluation {
             
-            Animation(
-                animationID: .resultSuccess,
-                title: "result_success",
-                subtitle: evaluationViewModel.allApproved ? "result_validated" : "result_manual_review"
-            )
+            VStack(spacing: 20) {
+                
+                Image(.logo)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 50)
+                    .foregroundColor(configViewModel.theme.icon)
+                    .colorMultiply(configViewModel.theme.icon.opacity(animate ? 0.2 : 1.0))
+                    .onAppear {
+                        withAnimation(.easeInOut(duration: 1.5).repeatForever(autoreverses: true)) {
+                            animate = true
+                        }
+                    }
+                
+                Text("result_evaluating", bundle: .module)
+                    .font(.headline)
+                    .foregroundColor(configViewModel.theme.title)
+                
+                ProgressView(value: evaluationViewModel.evaluatingProgress)
+                    .progressViewStyle(LinearProgressViewStyle(tint: configViewModel.theme.icon))
+                    .padding(.horizontal, 75)
+                
+            }
             
-            Spacer()
-            
-            Footer()
-                .adjustBottomPadding()
+        } else {
+        
+            VStack(spacing: 0) {
+                
+                Animation(
+                    animationID: evaluationViewModel.resultType.animation,
+                    title: evaluationViewModel.resultType.title,
+                    subtitle: evaluationViewModel.resultType.subtitle
+                )
+                
+                Spacer()
+                
+                Footer(resultType: evaluationViewModel.resultType)
+                    .adjustBottomPadding()
+                
+            }
+            .navigationBarBackButtonHidden(true)
             
         }
-        .navigationBarBackButtonHidden(true)
-        
+
     }
     
 }
@@ -107,8 +150,7 @@ private struct Animation: View {
 private struct Footer: View {
     
     // MARK: - Properties
-    @EnvironmentObject private var configViewModel: ConfigViewModel
-    @EnvironmentObject private var viewRouter: ViewRouter
+    let resultType: ResultType
     
     // MARK: - Main
     var body: some View {
@@ -136,7 +178,17 @@ private struct Footer: View {
 
 struct ResultView_Previews: PreviewProvider {
     static var previews: some View {
-        ValidationResultView()
+        
+        AlloySettings.configure.apiKey = "028d85e0-aa24-4ca1-99f2-90e3ee3f4e6b"
+        AlloySettings.configure.production = false
+        AlloySettings.configure.evaluateOnUpload = false
+        
+        let model = EvaluationViewModel(data: .init(nameFirst: "John", nameLast: "Who"))
+        model.addPendingDocument(upload: .init(documentToken: "", type: .bankStatement, name: "", extension: .jpeg, uploaded: true, timestamp: Date()))
+        
+        return ValidationResultView()
+            .environmentObject(model)
             .environmentObject(ConfigViewModel())
+        
     }
 }

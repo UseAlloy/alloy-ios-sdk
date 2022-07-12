@@ -90,7 +90,7 @@ struct TakeSelfieView: View {
                 Spacer()
          
                 switch documentViewModel.outcome {
-                case .approved, .manualReview:
+                case .approved, .manualReview, .pendingEvaluation:
                     ScanFooter { restart() }
                     
                 case .denied:
@@ -118,13 +118,13 @@ struct TakeSelfieView: View {
                             
                             // Create/upload document
                             let payload = DocumentPayload(type: .selfie)
-                            try await documentViewModel
+                            let createUpload = try await documentViewModel
                                 .create(
                                     document: payload,
                                     andUploadData: data
                                 )
                             
-                            if let createUpload = documentViewModel.createUpload {
+                            if AlloySettings.configure.evaluateOnUpload {
                                 
                                 // Evaluate
                                 try await documentViewModel
@@ -136,9 +136,15 @@ struct TakeSelfieView: View {
                                 
                                 // Save evaluation
                                 evaluationViewModel.addEvaluation(
-                                    from: documentViewModel.createUpload,
+                                    from: createUpload,
                                     and: documentViewModel.evaluation
                                 )
+                                
+                            } else {
+                                
+                                // Next document (evaluation at finish)
+                                evaluationViewModel.addPendingDocument(upload: createUpload)
+                                documentViewModel.outcome = .pendingEvaluation
                                 
                             }
                             

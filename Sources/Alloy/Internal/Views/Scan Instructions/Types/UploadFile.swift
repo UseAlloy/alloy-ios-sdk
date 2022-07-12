@@ -83,7 +83,7 @@ internal struct UploadFile: View {
             Spacer()
             
             switch documentViewModel.outcome {
-            case .approved, .manualReview:
+            case .approved, .manualReview, .pendingEvaluation:
                 ScanFooter { restart() }
                 
             case .denied:
@@ -113,13 +113,13 @@ internal struct UploadFile: View {
                         
                         // Create document
                         let payload = DocumentPayload(type: documentType)
-                        try await documentViewModel
+                        let createUpload = try await documentViewModel
                             .create(
                                 document: payload,
                                 andUploadData: data
                             )
                         
-                        if let createUpload = documentViewModel.createUpload {
+                        if AlloySettings.configure.evaluateOnUpload {
                         
                             // Evaluate
                             try await documentViewModel
@@ -131,9 +131,15 @@ internal struct UploadFile: View {
                             
                             // Save evaluation
                             evaluationViewModel.addEvaluation(
-                                from: documentViewModel.createUpload,
+                                from: createUpload,
                                 and: documentViewModel.evaluation
                             )
+                            
+                        } else {
+                            
+                            // Next document (evaluation at finish)
+                            evaluationViewModel.addPendingDocument(upload: createUpload)
+                            documentViewModel.outcome = .pendingEvaluation
                             
                         }
                         
@@ -164,7 +170,6 @@ internal struct UploadFile: View {
 
 struct UploadFile_Previews: PreviewProvider {
     static var previews: some View {
-        UploadFile(documentType: .doc1065
-        )
+        UploadFile(documentType: .doc1065)
     }
 }

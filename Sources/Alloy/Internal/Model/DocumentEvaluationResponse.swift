@@ -21,6 +21,7 @@ internal struct DocumentEvaluationResponse: Codable {
             case denied = "Denied"
             case manualReview = "Manual Review"
             case retakeImages = "Retake Images"
+            case pendingEvaluation = "Pending Evaluation"
         }
         
         let outcome: Outcome

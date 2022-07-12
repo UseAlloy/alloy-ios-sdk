@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-private typealias CreateResponses = (front: DocumentCreateUploadResponse?, back: DocumentCreateUploadResponse?)
-
 internal struct ScanInstructionsView: View {
     
     // MARK: - Properties
@@ -239,6 +237,13 @@ internal struct DeniedFooter: View {
 
 struct ScanInstructionsView_Previews: PreviewProvider {
     static var previews: some View {
-        ScanInstructionsView(documentType: .license)
+        
+        AlloySettings.configure.apiKey = "028d85e0-aa24-4ca1-99f2-90e3ee3f4e6b"
+        AlloySettings.configure.production = false
+        AlloySettings.configure.evaluateOnUpload = false
+        
+        return ScanInstructionsView(documentType: .license)
+            .environmentObject(ConfigViewModel())
+            .environmentObject(EvaluationViewModel(data: .init(nameFirst: "", nameLast: "")))
     }
 }

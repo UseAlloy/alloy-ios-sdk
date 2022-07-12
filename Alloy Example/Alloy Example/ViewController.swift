@@ -17,6 +17,7 @@ class ViewController: UIViewController {
         
         AlloySettings.configure.apiKey = "028d85e0-aa24-4ca1-99f2-90e3ee3f4e6b"
         AlloySettings.configure.production = false
+        AlloySettings.configure.evaluateOnUpload = true
         
         AlloySettings.configure.steps = [
             .init(orDocumentTypes: [.license, .passport]),
