@@ -20,10 +20,11 @@ internal struct Evaluation: Identifiable {
     let creation: DocumentCreateUploadResponse
     let evaluation: DocumentEvaluationResponse
     
-    enum Variant: String {
+    enum Variant: String, Codable {
         case front
         case back
         case selfie
+        case final
     }
     
 }

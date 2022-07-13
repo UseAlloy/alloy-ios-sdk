@@ -113,11 +113,12 @@ internal struct UploadFile: View {
                         
                         // Create document
                         let payload = DocumentPayload(type: documentType)
-                        let createUpload = try await documentViewModel
+                        var createUpload = try await documentViewModel
                             .create(
                                 document: payload,
                                 andUploadData: data
                             )
+                        createUpload.step = .front
                         
                         if AlloySettings.configure.evaluateOnUpload {
                         

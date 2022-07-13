@@ -16,8 +16,8 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         AlloySettings.configure.apiKey = "028d85e0-aa24-4ca1-99f2-90e3ee3f4e6b"
-        AlloySettings.configure.production = false
-        AlloySettings.configure.evaluateOnUpload = true
+        AlloySettings.configure.production = true
+        AlloySettings.configure.evaluateOnUpload = false
         
         AlloySettings.configure.steps = [
             .init(orDocumentTypes: [.license, .passport]),
@@ -38,7 +38,7 @@ class ViewController: UIViewController {
     
     @IBAction func openAlloyApproved(_ sender: UIButton) {
         
-        let data = EvaluationData(nameFirst: "John", nameLast: "Approved")
+        let data = EvaluationData(nameFirst: "John", nameLast: "approved")
         let alloy = AlloyController(evaluationData: data)
         
         present(alloy, animated: true)
@@ -47,7 +47,7 @@ class ViewController: UIViewController {
     
     @IBAction func openAlloyDenied(_ sender: UIButton) {
         
-        let data = EvaluationData(nameFirst: "John", nameLast: "Denied")
+        let data = EvaluationData(nameFirst: "John", nameLast: "denied")
         let alloy = AlloyController(evaluationData: data)
         
         present(alloy, animated: true)
@@ -56,7 +56,7 @@ class ViewController: UIViewController {
     
     @IBAction func openAlloyManual(_ sender: UIButton) {
         
-        let data = EvaluationData(nameFirst: "John", nameLast: "Manual Review")
+        let data = EvaluationData(nameFirst: "John", nameLast: "manual Review")
         let alloy = AlloyController(evaluationData: data)
         
         present(alloy, animated: true)

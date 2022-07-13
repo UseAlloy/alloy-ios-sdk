@@ -216,11 +216,12 @@ internal struct FrontBackTakePicture: View {
             
             // Create/upload document
             let payload = DocumentPayload(type: documentType)
-            let createUpload = try await documentViewModel
+            var createUpload = try await documentViewModel
                 .create(
                     document: payload,
                     andUploadData: data
                 )
+            createUpload.step = variant
             
             if AlloySettings.configure.evaluateOnUpload {
                 

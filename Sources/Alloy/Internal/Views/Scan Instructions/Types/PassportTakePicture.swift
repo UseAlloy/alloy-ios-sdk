@@ -112,11 +112,12 @@ internal struct PassportTakePicture: View {
                         
                         // Create/upload document
                         let payload = DocumentPayload(type: documentType)
-                        let createUpload = try await documentViewModel
+                        var createUpload = try await documentViewModel
                             .create(
                                 document: payload,
                                 andUploadData: data
                             )
+                        createUpload.step = .front
                         
                         if AlloySettings.configure.evaluateOnUpload {
                             
@@ -144,6 +145,7 @@ internal struct PassportTakePicture: View {
                         
                     } catch {
                         
+                        print(error)
                         restart()
                         operationError = .unknown
                         

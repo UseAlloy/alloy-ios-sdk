@@ -10,6 +10,7 @@ import Foundation
 internal enum EvaluationEndpoint {
 
     case evaluate(step: Evaluation.Variant, data: EvaluationData, createUploadResponse: DocumentCreateUploadResponse)
+    case evaluateFinal(data: EvaluationData, front: DocumentCreateUploadResponse, back: DocumentCreateUploadResponse? = nil, selfie: DocumentCreateUploadResponse)
     
 }
 
@@ -73,7 +74,21 @@ extension EvaluationEndpoint: Endpoint {
             case .selfie:
                 customerData?["document_token_selfie"] = createUploadResponse.documentToken
                 
+            case .final:
+                break
+                
             }
+            
+        case .evaluateFinal(let data, let front, let back, let selfie):
+            customerData = data.json
+            customerData?["document_step"] = Evaluation.Variant.final.rawValue
+            customerData?["document_type"] = front.type.rawValue
+            customerData?["journey_application_token"] = AlloySettings.configure.journeyApplicationToken
+            customerData?["journey_token"] = AlloySettings.configure.journeyToken
+            
+            customerData?["document_token_front"] = front.documentToken
+            customerData?["document_token_back"] = back?.documentToken
+            customerData?["document_token_selfie"] = selfie.documentToken
             
         }
         

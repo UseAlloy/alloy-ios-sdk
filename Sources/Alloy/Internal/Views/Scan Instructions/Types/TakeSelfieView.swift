@@ -118,11 +118,12 @@ struct TakeSelfieView: View {
                             
                             // Create/upload document
                             let payload = DocumentPayload(type: .selfie)
-                            let createUpload = try await documentViewModel
+                            var createUpload = try await documentViewModel
                                 .create(
                                     document: payload,
                                     andUploadData: data
                                 )
+                            createUpload.step = .selfie
                             
                             if AlloySettings.configure.evaluateOnUpload {
                                 

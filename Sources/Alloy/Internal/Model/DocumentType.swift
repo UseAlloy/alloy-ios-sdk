@@ -43,4 +43,16 @@ internal extension DocumentType {
         
     }
     
+    static var idTypes: [DocumentType] {
+        
+        [.selfie, .passport, .license, .canadaProvincialID, .indigenousCard]
+        
+    }
+    
+    static var documentTypes: [DocumentType] {
+        
+        Array(Set(DocumentType.allCases).symmetricDifference(Set(idTypes)))
+        
+    }
+    
 }

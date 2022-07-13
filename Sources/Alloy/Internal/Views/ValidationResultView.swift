@@ -82,6 +82,16 @@ struct ValidationResultView: View {
                     .padding(.horizontal, 75)
                 
             }
+            .navigationBarBackButtonHidden(true)
+            .onAppear {
+                
+                Task {
+                    
+                    try await evaluationViewModel.evaluatePendingIDDocuments()
+
+                }
+                
+            }
             
         } else {
         
@@ -184,7 +194,7 @@ struct ResultView_Previews: PreviewProvider {
         AlloySettings.configure.evaluateOnUpload = false
         
         let model = EvaluationViewModel(data: .init(nameFirst: "John", nameLast: "Who"))
-        model.addPendingDocument(upload: .init(documentToken: "", type: .bankStatement, name: "", extension: .jpeg, uploaded: true, timestamp: Date()))
+        model.addPendingDocument(upload: .init(step: .front, documentToken: "", type: .bankStatement, name: "", extension: .jpeg, uploaded: true, timestamp: Date()))
         
         return ValidationResultView()
             .environmentObject(model)

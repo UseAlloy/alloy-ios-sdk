@@ -38,8 +38,13 @@ class EvaluationViewModel: ObservableObject {
     var anyPendingEvaluation: Bool {
         !documentUploads.isEmpty
     }
+    var pendingOtherDocuments: Set<DocumentCreateUploadResponse> {
+        documentUploads.filter { createUpload in
+            DocumentType.documentTypes.contains(createUpload.type)
+        }
+    }
     
-    private var documentUploads = [DocumentCreateUploadResponse]()
+    private var documentUploads = Set<DocumentCreateUploadResponse>()
     private var evaluations = Set<Evaluation>()
     
     // MARK: - Init
@@ -52,6 +57,7 @@ class EvaluationViewModel: ObservableObject {
     // MARK: - Custom
     func restart() {
         
+        documentUploads.removeAll()
         evaluations.removeAll()
         
     }
@@ -80,13 +86,97 @@ class EvaluationViewModel: ObservableObject {
     
     func addPendingDocument(upload: DocumentCreateUploadResponse) {
         
-        documentUploads.append(upload)
+        documentUploads.insert(upload)
         
     }
     
-    func evaluatePendingDocuments() async throws {
+    func evaluatePendingIDDocuments() async throws {
         
-        // Get ID
+        isLoading = true
+        defer { isLoading = false }
+        
+        evaluations.removeAll()
+        
+        // Get parts
+        let frontID = documentUploads.first(where: {
+            $0.step == .front && ($0.type == .license || $0.type == .canadaProvincialID || $0.type == .indigenousCard)
+        })
+        let backID = documentUploads.first(where: {
+            $0.step == .back && ($0.type == .license || $0.type == .canadaProvincialID || $0.type == .indigenousCard)
+        })
+        let passport = documentUploads.first(where: {
+            $0.step == .front && $0.type == .passport
+        })
+        let selfie = documentUploads.first(where: {
+            $0.step == .selfie && $0.type == .selfie
+        })
+        
+        evaluatingProgress = 0.0
+        
+        // ID type
+        if let front = frontID, let back = backID, let selfie = selfie {
+                        
+            let evaluation = try await EvaluationEndpoint
+                .evaluateFinal(
+                    data: evaluationData,
+                    front: front,
+                    back: back,
+                    selfie: selfie
+                )
+                .request(type: DocumentEvaluationResponse.self)
+            
+            let result = Evaluation(creation: front, evaluation: evaluation)
+            addEvaluation(evaluation: result)
+            
+            documentUploads.remove(front)
+            documentUploads.remove(back)
+            documentUploads.remove(selfie)
+                        
+        }
+        
+        // Passport type
+        if let passport = passport, let selfie = selfie {
+
+            let evaluation = try await EvaluationEndpoint
+                .evaluateFinal(
+                    data: evaluationData,
+                    front: passport,
+                    selfie: selfie
+                )
+                .request(type: DocumentEvaluationResponse.self)
+            
+            let result = Evaluation(creation: passport, evaluation: evaluation)
+            addEvaluation(evaluation: result)
+                        
+            documentUploads.remove(passport)
+            documentUploads.remove(selfie)
+            
+        }
+        
+        // Other documents
+        evaluatingProgress = 0.25
+        let step = 0.75 / Double(pendingOtherDocuments.count)
+        
+        for document in pendingOtherDocuments {
+
+            let evaluation = try await EvaluationEndpoint
+                .evaluate(
+                    step: .front,
+                    data: evaluationData,
+                    createUploadResponse: document
+                )
+                .request(type: DocumentEvaluationResponse.self)
+            
+            let result = Evaluation(creation: document, evaluation: evaluation)
+            addEvaluation(evaluation: result)
+            
+            documentUploads.remove(document)
+            
+            evaluatingProgress += step
+            
+        }
+        
+        evaluatingProgress = 1.0
         
     }
     

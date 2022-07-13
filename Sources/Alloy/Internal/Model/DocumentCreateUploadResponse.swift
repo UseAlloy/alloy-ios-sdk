@@ -9,6 +9,7 @@ import Foundation
 
 internal struct DocumentCreateUploadResponse: Codable {
     
+    var step: Evaluation.Variant?
     let documentToken: String
     let type: DocumentType
     let name: String
@@ -17,3 +18,21 @@ internal struct DocumentCreateUploadResponse: Codable {
     let timestamp: Date
     
 }
+
+extension DocumentCreateUploadResponse: Equatable, Hashable {
+
+    static func == (lhs: DocumentCreateUploadResponse, rhs: DocumentCreateUploadResponse) -> Bool {
+        
+        lhs.documentToken == rhs.documentToken
+        
+    }
+
+    func hash(into hasher: inout Hasher) {
+        
+        hasher.combine(documentToken)
+        hasher.combine(timestamp)
+        
+    }
+
+}
+
