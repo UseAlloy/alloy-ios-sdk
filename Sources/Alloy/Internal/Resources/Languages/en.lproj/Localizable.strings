@@ -1,0 +1,88 @@
+
+/*
+  Localizable.strings
+  Alloy
+
+  Created by Marc Hervera on 09/05/2022.
+*/
+
+// General
+"ok" = "Ok";
+"cancel" = "Cancel";
+"continue" = "Continue";
+
+// Get started
+"get_started_title" = "Hi! We have a few tips to make this process easier";
+"get_started_check_title" = "Check your documents";
+"get_started_check_subtitle" = "Keep it close and make sure it is in good condition.";
+"get_started_daylight_title" = "Daylight works best";
+"get_started_daylight_subtitle" = "Choose a room with good (indirect) lighting.";
+"get_started_surroundings_title" = "Mind your surroundings";
+"get_started_surroundings_subtitle" = "The clearer the background of the picture is, the better.";
+"get_started_selfie_title" = "Be prepared for a selfie";
+"get_started_selfie_subtitle" = "This helps us match your face with your photo ID.";
+"get_starter_action" = "Get Started";
+
+// Select document
+"select_title" = "Select document";
+"select_scan_document" = "You can scan your ID, passport, license or upload documents. Keep the document close and make sure it is in good condition.";
+"select_document_type_passport" = "Passport";
+"select_document_type_license" = "License";
+"select_document_type_canada_provincial_id" = "Canada Provincial ID";
+"select_document_type_indigenous_card" = "Canada Indigenous Card";
+"select_document_type_paystub" = "Paystub";
+"select_document_type_bank_statement" = "Bank Statement";
+"select_document_type_w2" = "W-2";
+"select_document_type_1099" = "1099";
+"select_document_type_1120" = "1120";
+"select_document_type_1065" = "1065";
+"select_document_type_t1" = "T1";
+"select_document_type_t4" = "T4";
+
+// Scan instructions
+"scan_instructions_passport_title" = "Scan your passport";
+"scan_instructions_passport_subtitle" = "Open your passport and take a picture from inside. It may take a while to validate your personal information.";
+"scan_instructions_front_back_subtitle" = "Take a picture from both sides. It may take a while to validate your personal information.";
+"scan_instructions_license_title" = "Scan your license";
+"scan_instructions_canadaProvincialID_title" = "Scan your Canada Provincial ID";
+"scan_instructions_indigenousCard_title" = "Scan your Canada Indigenous Card";
+"scan_instructions_bank_statement_title" = "Upload your Bank Statement";
+"scan_instructions_bank_statement_subtitle" = "Select a PDF file from your mobile device.";
+"scan_instructions_take_picture" = "Take picture";
+"scan_instructions_take_front" = "Take front";
+"scan_instructions_take_back" = "Take back";
+"scan_instructions_upload" = "Upload";
+"scan_instructions_next" = "Next";
+"scan_instructions_retry" = "Retry";
+"scan_instructions_retake_images" = "Retake images";
+"scan_instructions_retake" = "Retake";
+"scan_instructions_denied" = "Denied";
+"scan_instructions_cannot_validated" = "We're sorry, your documents can't be validated";
+"scan_instructions_leave" = "Leave, I'll try later";
+
+// Scan document
+"scan_document_passport_instructions" = "Fit your passport inside the frame and take the picture.";
+"scan_document_card_instructions" = "Fit one of the sides inside the frame and make the photo.";
+"scan_document_selfie_instructions" = "Fit your face inside the frame and make the photo.";
+
+// Take selfie
+"take_selfie_title" = "Take a selfie";
+"take_selfie_subtitle" = "It is necessary to validate your documents.";
+"take_selfie_send" = "Send selfie";
+
+// Result
+"result_success" = "Success";
+"result_pending" = "Pending review";
+"result_denied" = "Denied";
+"result_error" = "Ups!";
+"result_validated" = "Your documents have been validated";
+"result_manual_review" = "Thank you! We're reviewing your images and will get back to you soon";
+"result_cannot_validated" = "We're sorry, your documents can't be validated";
+"result_error_process" = "Were sorry, there has been an error during documents validation";
+"result_finish" = "Finish";
+"result_evaluating" = "Verifying documents...";
+
+
+// Errors
+"error_title" = "Oops!";
+"error_unknown" = "Something went wrong. Please try again later.";
