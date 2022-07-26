@@ -16,8 +16,7 @@ internal class ConfigViewModel: ObservableObject {
     var needsSelfie: Bool {
         steps
             .flatMap({ $0.orDocumentTypes })
-            .compactMap({ $0 })
-            .contains(.selfie)
+            .contains(where: { $0.isKYC })
     }
     
     // MARK: - Init
