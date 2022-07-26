@@ -20,7 +20,7 @@ internal enum ResultType {
 class EvaluationViewModel: ObservableObject {
     
     // MARK: - Properties
-    @Published var isLoading = false
+    private var isLoading = false
     @Published var evaluatingProgress = 0.0
     
     let evaluationData: EvaluationData
@@ -91,7 +91,9 @@ class EvaluationViewModel: ObservableObject {
     }
     
     func evaluatePendingIDDocuments() async throws {
-        
+        guard !isLoading else {
+            return
+        }
         isLoading = true
         defer { isLoading = false }
         

@@ -49,6 +49,7 @@ internal extension ResultType {
 struct ValidationResultView: View {
     
     // MARK: - Properties
+    let finalValidation: Bool
     @EnvironmentObject private var evaluationViewModel: EvaluationViewModel
     @EnvironmentObject private var configViewModel: ConfigViewModel
     
@@ -105,12 +106,13 @@ struct ValidationResultView: View {
                 
                 Spacer()
                 
-                Footer(resultType: evaluationViewModel.resultType)
+                Footer(resultType: evaluationViewModel.resultType,
+                       finalValidation: finalValidation)
                     .adjustBottomPadding()
                 
             }
             .navigationBarBackButtonHidden(true)
-            
+
         }
 
     }
@@ -152,7 +154,7 @@ private struct Animation: View {
             
         }
         .fixedSize(horizontal: false, vertical: true)
-        
+
     }
     
 }
@@ -161,27 +163,56 @@ private struct Footer: View {
     
     // MARK: - Properties
     let resultType: ResultType
-    
+    @State var showNext: Bool = false
+    let finalValidation: Bool
+
+    @EnvironmentObject private var configViewModel: ConfigViewModel
+
     // MARK: - Main
     var body: some View {
         
         VStack(spacing: 20) {
-            
-            Button {
-                
-                dismiss()
-                
+            NavigationLink(isActive: $showNext) {
+
+                configViewModel.nextStepView
+
             } label: {
-                
-                Text("result_finish", bundle: .module)
-                
+
+                Button {
+
+                    if finalValidation {
+
+                        dismiss()
+
+                    } else {
+
+                        if resultType == .success {
+                            configViewModel.markCurrentStepCompleted(documentSelected: nil)
+                        }
+                        showNext.toggle()
+
+                    }
+
+                } label: {
+
+                    if finalValidation {
+
+                        Text("result_finish", bundle: .module)
+
+                    } else {
+
+                        Text("continue", bundle: .module)
+
+                    }
+
+                }
+                .buttonStyle(DefaultButtonStyle())
             }
-            .buttonStyle(DefaultButtonStyle())
-            
+            .frame(maxWidth: .infinity, alignment: .center)
+            .padding(.horizontal, 40)
+
         }
-        .frame(maxWidth: .infinity, alignment: .center)
-        .padding(.horizontal, 40)
-        
+
     }
     
 }
@@ -196,7 +227,7 @@ struct ResultView_Previews: PreviewProvider {
         let model = EvaluationViewModel(data: .init(nameFirst: "John", nameLast: "Who"))
         model.addPendingDocument(upload: .init(step: .front, documentToken: "", type: .bankStatement, name: "", extension: .jpeg, uploaded: true, timestamp: Date()))
         
-        return ValidationResultView()
+        return ValidationResultView(finalValidation: true)
             .environmentObject(model)
             .environmentObject(ConfigViewModel())
         

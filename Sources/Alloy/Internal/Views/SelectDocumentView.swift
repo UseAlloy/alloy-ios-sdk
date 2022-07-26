@@ -205,7 +205,7 @@ private struct Footer: View {
 
 struct SelectDocument_Previews: PreviewProvider {
     static var previews: some View {
-        SelectDocumentView(step: .init(orDocumentTypes: [.passport]))
+        SelectDocumentView(step: .init(orDocumentTypes: [AllowedDocumentType.passport]))
             .environmentObject(ConfigViewModel())
     }
 }

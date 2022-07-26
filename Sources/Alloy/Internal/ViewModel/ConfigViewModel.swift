@@ -43,16 +43,20 @@ internal extension ConfigViewModel {
                         
         guard let step = steps.first(where: { $0.completed == false }) else {
 
-            return AnyView(ValidationResultView())
+            return AnyView(ValidationResultView(finalValidation: true))
             
         }
         
-        if step.onlySelfie {
+        if step.isSelfie {
         
             return AnyView(TakeSelfieView())
             
+        } else if step.isValidation {
+
+            return AnyView(ValidationResultView(finalValidation: false))
+
         } else {
-        
+
             return AnyView(SelectDocumentView(step: step))
             
         }
@@ -91,8 +95,9 @@ private extension ConfigViewModel {
     func insertSelfie(for documentSelected: DocumentType?, afterIndex currentStepIndex: Int ) {
         if let documentSelected = documentSelected,
            documentSelected.isKYC,
-           !steps.contains(where: { $0.onlySelfie }) {
+           !steps.contains(where: { $0.isSelfie }) {
             steps.insert(Step.selfie, at: currentStepIndex + 1)
+            steps.insert(Step.validation, at: currentStepIndex + 2)
         }
     }
 }
