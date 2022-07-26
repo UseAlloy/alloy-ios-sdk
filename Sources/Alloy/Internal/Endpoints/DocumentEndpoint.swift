@@ -49,12 +49,12 @@ extension DocumentEndpoint: Endpoint {
         switch self {
         case .create:
             return [
-                .init(name: "production", value: "\(AlloySettings.configure.production)")
+                .init(name: "production", value: "\(AlloySettings.configure.realProduction)")
             ]
             
         case .upload(_, _, let createUploadResponse):
             return [
-                .init(name: "production", value: "\(AlloySettings.configure.production)"),
+                .init(name: "production", value: "\(AlloySettings.configure.realProduction)"),
                 .init(name: "documentType", value: createUploadResponse.type.rawValue)
             ]
             

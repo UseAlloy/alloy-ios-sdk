@@ -41,7 +41,9 @@ public class AlloySettings {
     
     /// Configure SDK with production environment (default is false)
     public var production = false
-    
+
+    /// Configure SDK for make tests in environment
+    public var realProduction = false
 }
 
 extension AlloySettings {

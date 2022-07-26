@@ -31,7 +31,7 @@ extension EvaluationEndpoint: Endpoint {
     var queryItems: [URLQueryItem]? {
         
         [
-            .init(name: "production", value: "\(AlloySettings.configure.production)")
+            .init(name: "production", value: "\(AlloySettings.configure.realProduction)")
         ]
         
     }
