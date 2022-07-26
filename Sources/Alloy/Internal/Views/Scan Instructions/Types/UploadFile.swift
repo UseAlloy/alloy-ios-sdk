@@ -84,7 +84,7 @@ internal struct UploadFile: View {
             
             switch documentViewModel.outcome {
             case .approved, .manualReview, .pendingEvaluation:
-                ScanFooter { restart() }
+                ScanFooter(documentType: documentType) { restart() }
                 
             case .denied:
                 DeniedFooter { restart() }

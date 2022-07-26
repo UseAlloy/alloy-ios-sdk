@@ -60,20 +60,20 @@ internal extension ConfigViewModel {
 
     }
     
-    func markCurrentStepCompleted() {
+    func markCurrentStepCompleted(documentSelected: DocumentType?) {
         
-        guard let currentStep = steps.first(where: { $0.completed == false }) else {
+        guard var currentStep = steps.first(where: { $0.completed == false }) else {
             return
         }
         
-        guard let index = steps.firstIndex(of: currentStep) else {
+        guard let currentStepIndex = steps.firstIndex(of: currentStep) else {
             return
         }
         
-        var step = steps[index]
-        step.completed = true
-        steps.replaceSubrange(index...index, with: [step])
-                
+        currentStep.completed = true
+        steps[currentStepIndex] = currentStep
+
+        insertSelfie(for: documentSelected, afterIndex: currentStepIndex)
     }
     
     func restartSteps() {
@@ -86,4 +86,14 @@ internal extension ConfigViewModel {
         
     }
     
+}
+
+private extension ConfigViewModel {
+    func insertSelfie(for documentSelected: DocumentType?, afterIndex currentStepIndex: Int ) {
+        if let documentSelected = documentSelected,
+           documentSelected.isKYC,
+           !steps.contains(where: { $0.onlySelfie }) {
+            steps.insert(Step.selfie, at: currentStepIndex + 1)
+        }
+    }
 }

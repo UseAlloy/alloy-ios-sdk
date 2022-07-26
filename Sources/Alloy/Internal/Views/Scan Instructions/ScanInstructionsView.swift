@@ -125,6 +125,7 @@ internal struct ScanInstructionsView: View {
 internal struct ScanFooter: View {
     
     // MARK: - Properties
+    var documentType: DocumentType?
     var retry: () -> Void
 
     @EnvironmentObject private var configViewModel: ConfigViewModel
@@ -137,7 +138,7 @@ internal struct ScanFooter: View {
             
             Button {
                 
-                configViewModel.markCurrentStepCompleted()
+                configViewModel.markCurrentStepCompleted(documentSelected: documentType)
                 showNext = true
 
             } label: {

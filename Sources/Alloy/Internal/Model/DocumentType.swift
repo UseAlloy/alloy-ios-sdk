@@ -27,6 +27,17 @@ public enum DocumentType: String, CaseIterable, Codable {
 }
 
 internal extension DocumentType {
+    var isKYC: Bool {
+        switch self {
+        case .license, .passport, .canadaProvincialID, .indigenousCard:
+            return true
+        default:
+            return false
+        }
+    }
+}
+
+internal extension DocumentType {
 
     var icon: Image {
         
