@@ -74,6 +74,7 @@
 "result_success" = "Success";
 "result_pending" = "Pending review";
 "result_denied" = "Denied";
+"result_retake_images" = "Images need to be retaken";
 "result_error" = "Ups!";
 "result_validated" = "Your documents have been validated";
 "result_manual_review" = "Thank you! We're reviewing your images and will get back to you soon";
@@ -81,6 +82,8 @@
 "result_error_process" = "Were sorry, there has been an error during documents validation";
 "result_finish" = "Finish";
 "result_evaluating" = "Verifying documents...";
+"result_go_back" = "Please, go back and try again";
+"result_unable_verify" = "Sorry, we are unable to verify your document at this time";
 
 
 // Errors

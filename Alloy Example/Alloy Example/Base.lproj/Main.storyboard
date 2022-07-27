@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Wsj-MB-3NE">
-                                <rect key="frame" x="20" y="64" width="374" height="494"/>
+                                <rect key="frame" x="20" y="64" width="374" height="625"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="jrq-5k-PT4">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="101"/>
@@ -181,6 +181,47 @@
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="yxc-yB-Fli" secondAttribute="trailing" id="K2s-2h-HVi"/>
                                             <constraint firstItem="yxc-yB-Fli" firstAttribute="leading" secondItem="KgV-SO-dlb" secondAttribute="leading" id="vka-ge-6Tz"/>
+                                        </constraints>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="z6o-bf-nII">
+                                        <rect key="frame" x="0.0" y="524" width="374" height="101"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="rmY-Ot-2fn">
+                                                <rect key="frame" x="0.0" y="0.0" width="374" height="46"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name: John" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fxK-rU-GBh">
+                                                        <rect key="frame" x="0.0" y="0.0" width="91.5" height="20.5"/>
+                                                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lastname: Retake Images" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BpX-O1-cnt">
+                                                        <rect key="frame" x="0.0" y="25.5" width="195" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PeG-oQ-0yN">
+                                                <rect key="frame" x="0.0" y="56" width="374" height="45"/>
+                                                <color key="backgroundColor" name="Blue"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="45" id="J0n-SF-6kx"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Open Alloy">
+                                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="15"/>
+                                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="openAlloyRetake:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HAf-BQ-PGO"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="PeG-oQ-0yN" firstAttribute="leading" secondItem="z6o-bf-nII" secondAttribute="leading" id="1jk-LN-Hf3"/>
+                                            <constraint firstAttribute="trailing" secondItem="PeG-oQ-0yN" secondAttribute="trailing" id="Rpc-Bg-L3A"/>
                                         </constraints>
                                     </stackView>
                                 </subviews>

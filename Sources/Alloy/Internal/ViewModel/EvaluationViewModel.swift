@@ -12,6 +12,8 @@ internal enum ResultType {
     case success
     case pendingReview
     case denied
+    case retakeImages
+    case maxEvaluationAttempsExceded
     case error
     
 }
@@ -31,6 +33,8 @@ class EvaluationViewModel: ObservableObject {
             return .pendingReview
         } else if evaluations.allSatisfy({ $0.evaluation.summary.outcome == .approved }) {
             return .success
+        } else if evaluations.allSatisfy({ $0.evaluation.summary.outcome == .retakeImages }) {
+            return .retakeImages
         } else {
             return .error
         }

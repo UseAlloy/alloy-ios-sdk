@@ -15,6 +15,9 @@ internal extension ResultType {
             return .resultSuccess
         case .pendingReview, .denied, .error:
             return .resultFailure
+        case .retakeImages, .maxEvaluationAttempsExceded:
+            // TODO: cambiar animacion
+            return .resultFailure
         }
     }
     
@@ -26,6 +29,10 @@ internal extension ResultType {
             return LocalizedStringKey("result_pending")
         case .denied:
             return LocalizedStringKey("result_denied")
+        case .retakeImages:
+            return LocalizedStringKey("result_retake_images")
+        case .maxEvaluationAttempsExceded:
+            return LocalizedStringKey("result_unable_verify")
         case .error:
             return LocalizedStringKey("result_error")
         }
@@ -39,11 +46,14 @@ internal extension ResultType {
             return LocalizedStringKey("result_manual_review")
         case .denied:
             return LocalizedStringKey("result_cannot_validated")
+        case .retakeImages:
+            return LocalizedStringKey("result_go_back")
+        case .maxEvaluationAttempsExceded:
+            return ""
         case .error:
             return LocalizedStringKey("result_error_process")
         }
     }
-    
 }
 
 struct ValidationResultView: View {

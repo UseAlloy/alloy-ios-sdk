@@ -61,5 +61,14 @@ class ViewController: UIViewController {
         present(alloy, animated: true)
         
     }
+
+    @IBAction func openAlloyRetake(_ sender: UIButton) {
+
+        let data = EvaluationData(nameFirst: "John", nameLast: "Retake Images")
+        let alloy = AlloyController(evaluationData: data)
+
+        present(alloy, animated: true)
+
+    }
     
 }
