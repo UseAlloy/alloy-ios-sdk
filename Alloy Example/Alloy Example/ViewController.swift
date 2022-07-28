@@ -37,7 +37,7 @@ class ViewController: UIViewController {
     
     @IBAction func openAlloyApproved(_ sender: UIButton) {
         
-        let data = EvaluationData(nameFirst: "John", nameLast: "approved")
+        let data = EvaluationData(nameFirst: "John", nameLast: "Approved")
         let alloy = AlloyController(evaluationData: data)
         
         present(alloy, animated: true)
@@ -46,7 +46,7 @@ class ViewController: UIViewController {
     
     @IBAction func openAlloyDenied(_ sender: UIButton) {
         
-        let data = EvaluationData(nameFirst: "John", nameLast: "denied")
+        let data = EvaluationData(nameFirst: "John", nameLast: "Denied")
         let alloy = AlloyController(evaluationData: data)
         
         present(alloy, animated: true)
@@ -55,7 +55,7 @@ class ViewController: UIViewController {
     
     @IBAction func openAlloyManual(_ sender: UIButton) {
         
-        let data = EvaluationData(nameFirst: "John", nameLast: "manual Review")
+        let data = EvaluationData(nameFirst: "John", nameLast: "Manual Review")
         let alloy = AlloyController(evaluationData: data)
         
         present(alloy, animated: true)
