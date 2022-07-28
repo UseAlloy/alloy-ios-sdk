@@ -21,11 +21,11 @@ internal enum ResultType {
 @MainActor
 class EvaluationViewModel: ObservableObject {
     
-    // MARK: - Properties
-    private var isLoading = false
-    @Published var evaluatingProgress = 0.0
-    
     let evaluationData: EvaluationData
+
+    // MARK: - Published
+    @Published var evaluatingProgress = 0.0
+
     var resultType: ResultType {
         if evaluations.contains(where: { $0.evaluation.summary.outcome == .denied }) {
             return .denied
@@ -34,7 +34,7 @@ class EvaluationViewModel: ObservableObject {
         } else if evaluations.allSatisfy({ $0.evaluation.summary.outcome == .approved }) {
             return .success
         } else if evaluations.allSatisfy({ $0.evaluation.summary.outcome == .retakeImages }) {
-            return .retakeImages
+            return evaluationAttemptIsAllowed() ? .retakeImages : .maxEvaluationAttempsExceded
         } else {
             return .error
         }
@@ -47,7 +47,10 @@ class EvaluationViewModel: ObservableObject {
             DocumentType.documentTypes.contains(createUpload.type)
         }
     }
-    
+
+    // MARK: - Private
+    private var isLoading = false
+    private var evaluationAttemps = 0
     private var documentUploads = Set<DocumentCreateUploadResponse>()
     private var evaluations = Set<Evaluation>()
     
@@ -100,7 +103,8 @@ class EvaluationViewModel: ObservableObject {
         }
         isLoading = true
         defer { isLoading = false }
-        
+        increaseEvaluationAttempts()
+
         evaluations.removeAll()
         
         // Get parts
@@ -186,4 +190,14 @@ class EvaluationViewModel: ObservableObject {
         
     }
     
+}
+
+extension EvaluationViewModel {
+    func increaseEvaluationAttempts() {
+        evaluationAttemps += 1
+    }
+
+    func evaluationAttemptIsAllowed() -> Bool {
+        evaluationAttemps < AlloySettings.configure.maxEvaluationAttempts
+    }
 }

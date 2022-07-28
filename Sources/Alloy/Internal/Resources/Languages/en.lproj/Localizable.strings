@@ -84,7 +84,7 @@
 "result_evaluating" = "Verifying documents...";
 "result_go_back" = "Please, go back and try again";
 "result_unable_verify" = "Sorry, we are unable to verify your document at this time";
-
+"result_retry" = "Retry";
 
 // Errors
 "error_title" = "Oops!";

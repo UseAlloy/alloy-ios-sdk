@@ -153,6 +153,7 @@ private struct Animation: View {
                     .font(.subheadline)
                     .bold()
                     .foregroundColor(configViewModel.theme.title)
+                    .multilineTextAlignment(.center)
                 
                 Text(subtitle, bundle: .module)
                     .font(.subheadline)
@@ -177,6 +178,7 @@ private struct Footer: View {
     let finalValidation: Bool
 
     @EnvironmentObject private var configViewModel: ConfigViewModel
+    @EnvironmentObject private var evaluationViewModel: EvaluationViewModel
 
     // MARK: - Main
     var body: some View {
@@ -196,11 +198,26 @@ private struct Footer: View {
 
                     } else {
 
-                        if resultType == .success {
+                        switch resultType {
+                        case .success:
                             configViewModel.markCurrentStepCompleted(documentSelected: nil)
-                        }
-                        showNext.toggle()
+                            showNext.toggle()
 
+                        case .pendingReview,
+                                .denied,
+                                .maxEvaluationAttempsExceded,
+                                .error:
+                            dismiss()
+
+                        case .retakeImages:
+                            guard evaluationViewModel.evaluationAttemptIsAllowed() else {
+                                dismiss()
+                                return
+                            }
+                            evaluationViewModel.restart()
+                            configViewModel.restartSteps()
+
+                        }
                     }
 
                 } label: {
@@ -210,11 +227,22 @@ private struct Footer: View {
                         Text("result_finish", bundle: .module)
 
                     } else {
+                        switch resultType {
 
-                        Text("continue", bundle: .module)
+                        case .success:
+                            Text("continue", bundle: .module)
 
+                        case .pendingReview,
+                                .denied,
+                                .maxEvaluationAttempsExceded,
+                                .error:
+                            Text("result_finish", bundle: .module)
+
+                        case .retakeImages:
+                            Text("result_retry", bundle: .module)
+
+                        }
                     }
-
                 }
                 .buttonStyle(DefaultButtonStyle())
             }

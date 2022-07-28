@@ -8,16 +8,20 @@
 import SwiftUI
 
 internal class ConfigViewModel: ObservableObject {
-    
-    // MARK: - Properties
-    let apiKey: String
-    let theme: Theme
+
+    // MARK: - Published
     @Published var steps: [Step]
+
+    // MARK: - Properties
+    let theme: Theme
     var needsSelfie: Bool {
         steps
             .flatMap({ $0.orDocumentTypes })
             .contains(where: { $0.isKYC })
     }
+
+    // MARK: - Private
+    private let apiKey: String
     
     // MARK: - Init
     init() {
@@ -40,7 +44,7 @@ internal class ConfigViewModel: ObservableObject {
 internal extension ConfigViewModel {
 
     var nextStepView: some View {
-                        
+
         guard let step = steps.first(where: { $0.completed == false }) else {
 
             return AnyView(ValidationResultView(finalValidation: true))
@@ -88,7 +92,7 @@ internal extension ConfigViewModel {
         })
         
     }
-    
+
 }
 
 private extension ConfigViewModel {
