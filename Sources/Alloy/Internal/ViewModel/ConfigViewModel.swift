@@ -19,6 +19,7 @@ internal class ConfigViewModel: ObservableObject {
             .flatMap({ $0.orDocumentTypes })
             .contains(where: { $0.isKYC })
     }
+    var lastAttemptSelectedDocument: DocumentType?
 
     // MARK: - Private
     private let apiKey: String
@@ -61,13 +62,14 @@ internal extension ConfigViewModel {
 
         } else {
 
-            return AnyView(SelectDocumentView(step: step))
-            
+            return AnyView(SelectDocumentView(step: step,
+                                              automaticSelectionType: lastAttemptSelectedDocument ?? .none))
+
         }
 
     }
     
-    func markCurrentStepCompleted(documentSelected: DocumentType?) {
+    func markCurrentStepCompleted(documentSelected: DocumentType? = nil) {
         
         guard var currentStep = steps.first(where: { $0.completed == false }) else {
             return

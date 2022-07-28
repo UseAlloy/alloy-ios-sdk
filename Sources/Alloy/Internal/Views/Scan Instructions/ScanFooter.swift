@@ -41,7 +41,6 @@ internal struct ScanFooter: View {
 
             NavigationLink(isActive: $showNext) {
 
-                // si el siguiente paso es validation, tengo que pasarle otherRouter.showValidationResult
                 configViewModel.nextStepView
 
             } label: {

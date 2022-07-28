@@ -11,13 +11,17 @@ internal struct SelectDocumentView: View {
     
     // MARK: - Properties
     var step: Step
-    
+    @State var automaticSelectionType: DocumentType
+
+    // MARK: - Private
     @EnvironmentObject private var configViewModel: ConfigViewModel
     @State private var selectedType: DocumentType = .none
-    
+
     // MARK: - Main
     var body: some View {
-        
+
+        AutomaticNavigationLink(automaticSelectionType: automaticSelectionType)
+
         VStack(alignment: .center, spacing: 20) {
             
             Text("select_scan_document", bundle: .module)
@@ -133,7 +137,8 @@ private struct DocumentTypesList: View {
     // MARK: - Properties
     var step: Step
     @Binding var selectedType: DocumentType
-    
+    @EnvironmentObject private var configViewModel: ConfigViewModel
+
     // MARK: - Main
     var body: some View {
         
@@ -145,6 +150,7 @@ private struct DocumentTypesList: View {
                     
                     Button {
                         
+                        configViewModel.lastAttemptSelectedDocument = type
                         selectedType = type
                         
                     } label: {
@@ -177,7 +183,7 @@ private struct Footer: View {
     
     // MARK: - Main
     var body: some View {
-        
+
         NavigationLink(isActive: $showNext) {
             
             ScanInstructionsView(documentType: selectedType)
@@ -203,9 +209,34 @@ private struct Footer: View {
     
 }
 
+private struct AutomaticNavigationLink: View {
+
+    @State var automaticSelectionType: DocumentType
+
+    var body: some View {
+        let bind = Binding {
+            automaticSelectionType != .none
+        }
+        set: { _ in
+            automaticSelectionType = .none
+        }
+
+        NavigationLink(isActive: bind) {
+
+            ScanInstructionsView(documentType: automaticSelectionType)
+
+        } label: {
+
+            EmptyView()
+
+        }
+        .hidden()
+    }
+}
+
 struct SelectDocument_Previews: PreviewProvider {
     static var previews: some View {
-        SelectDocumentView(step: .init(orDocumentTypes: [AllowedDocumentType.passport]))
+        SelectDocumentView(step: .init(orDocumentTypes: [AllowedDocumentType.passport]), automaticSelectionType: .none)
             .environmentObject(ConfigViewModel())
     }
 }

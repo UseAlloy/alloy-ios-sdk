@@ -191,44 +191,39 @@ private struct Footer: View {
             } label: {
 
                 Button {
+                    guard !finalValidation else {
+                        return dismiss()
+                    }
 
-                    if finalValidation {
+                    switch resultType {
+                    case .success:
+                        configViewModel.markCurrentStepCompleted()
+                        configViewModel.lastAttemptSelectedDocument = nil
+                        showNext.toggle()
 
+                    case .pendingReview,
+                            .denied,
+                            .maxEvaluationAttempsExceded,
+                            .error:
                         dismiss()
 
-                    } else {
-
-                        switch resultType {
-                        case .success:
-                            configViewModel.markCurrentStepCompleted(documentSelected: nil)
-                            showNext.toggle()
-
-                        case .pendingReview,
-                                .denied,
-                                .maxEvaluationAttempsExceded,
-                                .error:
+                    case .retakeImages:
+                        guard evaluationViewModel.evaluationAttemptIsAllowed() else {
                             dismiss()
-
-                        case .retakeImages:
-                            guard evaluationViewModel.evaluationAttemptIsAllowed() else {
-                                dismiss()
-                                return
-                            }
-                            evaluationViewModel.restart()
-                            configViewModel.restartSteps()
-
+                            return
                         }
+                        evaluationViewModel.restart()
+                        configViewModel.restartSteps()
                     }
 
                 } label: {
-
                     if finalValidation {
 
                         Text("result_finish", bundle: .module)
-
+                        
                     } else {
-                        switch resultType {
 
+                        switch resultType {
                         case .success:
                             Text("continue", bundle: .module)
 
@@ -240,7 +235,6 @@ private struct Footer: View {
 
                         case .retakeImages:
                             Text("result_retry", bundle: .module)
-
                         }
                     }
                 }

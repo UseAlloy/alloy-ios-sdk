@@ -54,7 +54,8 @@ internal struct ScanInstructionsView: View {
                     
                     evaluationViewModel.removeLast()
                     presentation.wrappedValue.dismiss()
-                    
+                    configViewModel.lastAttemptSelectedDocument = nil
+
                 } label: {
                     
                     Image(.arrowBack)
