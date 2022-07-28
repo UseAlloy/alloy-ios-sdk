@@ -7,55 +7,6 @@
 
 import SwiftUI
 
-internal extension ResultType {
-    
-    var animation: Image.Identifier {
-        switch self {
-        case .success:
-            return .resultSuccess
-        case .pendingReview, .denied, .error:
-            return .resultFailure
-        case .retakeImages, .maxEvaluationAttempsExceded:
-            // TODO: cambiar animacion
-            return .resultFailure
-        }
-    }
-    
-    var title: LocalizedStringKey {
-        switch self {
-        case .success:
-            return LocalizedStringKey("result_success")
-        case .pendingReview:
-            return LocalizedStringKey("result_pending")
-        case .denied:
-            return LocalizedStringKey("result_denied")
-        case .retakeImages:
-            return LocalizedStringKey("result_retake_images")
-        case .maxEvaluationAttempsExceded:
-            return LocalizedStringKey("result_unable_verify")
-        case .error:
-            return LocalizedStringKey("result_error")
-        }
-    }
-    
-    var subtitle: LocalizedStringKey {
-        switch self {
-        case .success:
-            return LocalizedStringKey("result_validated")
-        case .pendingReview:
-            return LocalizedStringKey("result_manual_review")
-        case .denied:
-            return LocalizedStringKey("result_cannot_validated")
-        case .retakeImages:
-            return LocalizedStringKey("result_go_back")
-        case .maxEvaluationAttempsExceded:
-            return ""
-        case .error:
-            return LocalizedStringKey("result_error_process")
-        }
-    }
-}
-
 struct ValidationResultView: View {
     
     // MARK: - Properties
@@ -217,26 +168,10 @@ private struct Footer: View {
                     }
 
                 } label: {
-                    if finalValidation {
-
-                        Text("result_finish", bundle: .module)
-                        
-                    } else {
-
-                        switch resultType {
-                        case .success:
-                            Text("continue", bundle: .module)
-
-                        case .pendingReview,
-                                .denied,
-                                .maxEvaluationAttempsExceded,
-                                .error:
-                            Text("result_finish", bundle: .module)
-
-                        case .retakeImages:
-                            Text("result_retry", bundle: .module)
-                        }
-                    }
+                    
+                    Text(resultType.buttonTitle(finalValidation: finalValidation),
+                         bundle: .module)
+                    
                 }
                 .buttonStyle(DefaultButtonStyle())
             }
