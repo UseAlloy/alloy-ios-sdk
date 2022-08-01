@@ -18,7 +18,8 @@ class ViewController: UIViewController {
         AlloySettings.configure.production = true
         AlloySettings.configure.realProduction = false
         AlloySettings.configure.evaluateOnUpload = false
-        
+        AlloySettings.configure.selfieEnabled = true
+
         AlloySettings.configure.steps = [
             .init(orDocumentTypes: [.license, .passport]),
             .init(orDocumentTypes: [.paystub, .bankStatement, .docW2])

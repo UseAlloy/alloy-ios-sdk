@@ -96,6 +96,14 @@ class EvaluationViewModel: ObservableObject {
         documentUploads.insert(upload)
         
     }
+
+    func remove(_ uploads: [DocumentCreateUploadResponse?]) {
+
+        uploads
+            .compactMap { $0 }
+            .forEach { documentUploads.remove($0) }
+        
+    }
     
     func evaluatePendingIDDocuments() async throws {
         guard !isLoading else {
@@ -121,11 +129,16 @@ class EvaluationViewModel: ObservableObject {
             $0.step == .selfie && $0.type == .selfie
         })
         
+        if AlloySettings.configure.selfieEnabled,
+           selfie == nil {
+            return
+        }
+
         evaluatingProgress = 0.0
-        
+
         // ID type
-        if let front = frontID, let back = backID, let selfie = selfie {
-                        
+        if let front = frontID, let back = backID {
+
             let evaluation = try await EvaluationEndpoint
                 .evaluateFinal(
                     data: evaluationData,
@@ -137,15 +150,12 @@ class EvaluationViewModel: ObservableObject {
             
             let result = Evaluation(creation: front, evaluation: evaluation)
             addEvaluation(evaluation: result)
-            
-            documentUploads.remove(front)
-            documentUploads.remove(back)
-            documentUploads.remove(selfie)
-                        
+
+            remove([front,back,selfie])
         }
         
         // Passport type
-        if let passport = passport, let selfie = selfie {
+        if let passport = passport {
 
             let evaluation = try await EvaluationEndpoint
                 .evaluateFinal(
@@ -157,10 +167,8 @@ class EvaluationViewModel: ObservableObject {
             
             let result = Evaluation(creation: passport, evaluation: evaluation)
             addEvaluation(evaluation: result)
-                        
-            documentUploads.remove(passport)
-            documentUploads.remove(selfie)
-            
+
+            remove([passport,selfie])
         }
         
         // Other documents

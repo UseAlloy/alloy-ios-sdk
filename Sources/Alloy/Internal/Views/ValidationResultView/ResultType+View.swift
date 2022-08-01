@@ -48,20 +48,23 @@ internal extension ResultType {
         }
     }
 
-    func buttonTitle(finalValidation: Bool) -> LocalizedStringKey {
-        guard !finalValidation else {
-            return LocalizedStringKey("result_finish")
-        }
-
+    func buttonTitle(finalValidation: Bool, evaluationAttemptIsAllowed: Bool) -> LocalizedStringKey {
         switch self {
         case .success:
-            return LocalizedStringKey("continue")
+            if finalValidation {
+                return LocalizedStringKey("result_finish")
+            } else {
+                return LocalizedStringKey("continue")
+            }
         case .pendingReview,
                 .denied,
                 .error,
                 .maxEvaluationAttempsExceded:
             return LocalizedStringKey("result_finish")
         case .retakeImages:
+            guard evaluationAttemptIsAllowed else {
+                return LocalizedStringKey("result_finish")
+            }
             return LocalizedStringKey("result_retry")
         }
     }

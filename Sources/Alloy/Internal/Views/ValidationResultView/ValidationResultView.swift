@@ -142,15 +142,15 @@ private struct Footer: View {
             } label: {
 
                 Button {
-                    guard !finalValidation else {
-                        return dismiss()
-                    }
 
                     switch resultType {
                     case .success:
-                        configViewModel.markCurrentStepCompleted()
-                        configViewModel.lastAttemptSelectedDocument = nil
-                        showNext.toggle()
+                        if finalValidation {
+                            dismiss()
+                        } else {
+                            configViewModel.markCurrentStepCompleted()
+                            showNext.toggle()
+                        }
 
                     case .pendingReview,
                             .denied,
@@ -169,7 +169,8 @@ private struct Footer: View {
 
                 } label: {
                     
-                    Text(resultType.buttonTitle(finalValidation: finalValidation),
+                    Text(resultType.buttonTitle(finalValidation: finalValidation,
+                                                evaluationAttemptIsAllowed: evaluationViewModel.evaluationAttemptIsAllowed()),
                          bundle: .module)
                     
                 }

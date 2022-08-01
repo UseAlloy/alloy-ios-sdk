@@ -150,7 +150,7 @@ private struct DocumentTypesList: View {
                     
                     Button {
                         
-                        configViewModel.lastAttemptSelectedDocument = type
+                        configViewModel.setLastAttemptSelectedDocument(type)
                         selectedType = type
                         
                     } label: {
@@ -214,14 +214,16 @@ private struct AutomaticNavigationLink: View {
     @State var automaticSelectionType: DocumentType
 
     var body: some View {
-        let bind = Binding {
+        let isActiveBind = Binding {
             automaticSelectionType != .none
         }
-        set: { _ in
-            automaticSelectionType = .none
+        set: { isActive in
+            if !isActive {
+                automaticSelectionType = .none
+            }
         }
 
-        NavigationLink(isActive: bind) {
+        NavigationLink(isActive: isActiveBind) {
 
             ScanInstructionsView(documentType: automaticSelectionType)
 

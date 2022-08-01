@@ -44,6 +44,9 @@ public class AlloySettings {
 
     /// Configure SDK for make tests in environment (default is false)
     public var realProduction = false
+
+    /// Configure if is mandatory a selfie step after a KYC document (default is false)
+    public var selfieEnabled = false
 }
 
 extension AlloySettings {

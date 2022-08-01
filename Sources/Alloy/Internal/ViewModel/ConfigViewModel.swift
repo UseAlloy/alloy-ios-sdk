@@ -15,14 +15,15 @@ internal class ConfigViewModel: ObservableObject {
     // MARK: - Properties
     let theme: Theme
     var needsSelfie: Bool {
-        steps
+        return steps
             .flatMap({ $0.orDocumentTypes })
             .contains(where: { $0.isKYC })
+        && AlloySettings.configure.selfieEnabled
     }
-    var lastAttemptSelectedDocument: DocumentType?
 
     // MARK: - Private
     private let apiKey: String
+    private var lastAttemptSelectedDocument: DocumentType = .none
     
     // MARK: - Init
     init() {
@@ -61,9 +62,13 @@ internal extension ConfigViewModel {
             return AnyView(ValidationResultView(finalValidation: false))
 
         } else {
-
-            return AnyView(SelectDocumentView(step: step,
-                                              automaticSelectionType: lastAttemptSelectedDocument ?? .none))
+            if isFirstStep() {
+                return AnyView(SelectDocumentView(step: step,
+                                                  automaticSelectionType: lastAttemptSelectedDocument))
+            } else {
+                return AnyView(SelectDocumentView(step: step,
+                                                  automaticSelectionType: .none))
+            }
 
         }
 
@@ -95,15 +100,30 @@ internal extension ConfigViewModel {
         
     }
 
+    func setLastAttemptSelectedDocument(_ document: DocumentType) {
+        guard isFirstStep() else {
+            return
+        }
+        lastAttemptSelectedDocument = document
+    }
+
+    func resetLastAttemptSelectedDocument() {
+        lastAttemptSelectedDocument = DocumentType.none
+    }
 }
 
 private extension ConfigViewModel {
     func insertSelfie(for documentSelected: DocumentType?, afterIndex currentStepIndex: Int ) {
-        if let documentSelected = documentSelected,
+        if AlloySettings.configure.selfieEnabled,
+           let documentSelected = documentSelected,
            documentSelected.isKYC,
            !steps.contains(where: { $0.isSelfie }) {
             steps.insert(Step.selfie, at: currentStepIndex + 1)
             steps.insert(Step.validation, at: currentStepIndex + 2)
         }
+    }
+
+    func isFirstStep() -> Bool {
+        !steps.contains(where: { $0.completed })
     }
 }
