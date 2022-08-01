@@ -15,7 +15,8 @@ struct ValidationResultView: View {
     @EnvironmentObject private var configViewModel: ConfigViewModel
     
     @State private var animate = false
-    
+    @State private var opacity = 1.0
+
     // MARK: - Main
     var body: some View {
         
@@ -28,13 +29,13 @@ struct ValidationResultView: View {
                     .scaledToFit()
                     .frame(height: 50)
                     .foregroundColor(configViewModel.theme.icon)
-                    .colorMultiply(configViewModel.theme.icon.opacity(animate ? 0.2 : 1.0))
+                    .colorMultiply(configViewModel.theme.icon.opacity(opacity))
+                    .animation(.easeInOut(duration: 1.5).repeatForever(autoreverses: true),
+                               value: opacity)
                     .onAppear {
-                        withAnimation(.easeInOut(duration: 1.5).repeatForever(autoreverses: true)) {
-                            animate = true
-                        }
+                        opacity = 0.2
                     }
-                
+
                 Text("result_evaluating", bundle: .module)
                     .font(.headline)
                     .foregroundColor(configViewModel.theme.title)

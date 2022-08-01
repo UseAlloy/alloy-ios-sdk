@@ -18,6 +18,10 @@ internal enum ResultType {
     
 }
 
+enum EvaluationError: Error {
+    case selfieNotFound
+}
+
 @MainActor
 class EvaluationViewModel: ObservableObject {
     
@@ -27,7 +31,9 @@ class EvaluationViewModel: ObservableObject {
     @Published var evaluatingProgress = 0.0
 
     var resultType: ResultType {
-        if evaluations.contains(where: { $0.evaluation.summary.outcome == .denied }) {
+        if error != nil {
+            return .error
+        } else if evaluations.contains(where: { $0.evaluation.summary.outcome == .denied }) {
             return .denied
         } else if evaluations.contains(where: { $0.evaluation.summary.outcome == .manualReview }) {
             return .pendingReview
@@ -53,7 +59,8 @@ class EvaluationViewModel: ObservableObject {
     private var evaluationAttemps = 0
     private var documentUploads = Set<DocumentCreateUploadResponse>()
     private var evaluations = Set<Evaluation>()
-    
+    private var error: EvaluationError?
+
     // MARK: - Init
     init(data: EvaluationData) {
         
@@ -113,8 +120,6 @@ class EvaluationViewModel: ObservableObject {
         defer { isLoading = false }
         increaseEvaluationAttempts()
 
-        evaluations.removeAll()
-        
         // Get parts
         let frontID = documentUploads.first(where: {
             $0.step == .front && ($0.type == .license || $0.type == .canadaProvincialID || $0.type == .indigenousCard)
@@ -131,9 +136,13 @@ class EvaluationViewModel: ObservableObject {
         
         if AlloySettings.configure.selfieEnabled,
            selfie == nil {
+            error = .selfieNotFound
+            evaluations.removeAll()
+            documentUploads.removeAll()
             return
         }
 
+        evaluations.removeAll()
         evaluatingProgress = 0.0
 
         // ID type
