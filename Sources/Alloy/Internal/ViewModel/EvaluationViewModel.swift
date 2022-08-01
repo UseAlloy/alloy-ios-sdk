@@ -111,7 +111,7 @@ class EvaluationViewModel: ObservableObject {
             .forEach { documentUploads.remove($0) }
         
     }
-    
+
     func evaluatePendingIDDocuments() async throws {
         guard !isLoading else {
             return
@@ -134,19 +134,11 @@ class EvaluationViewModel: ObservableObject {
             $0.step == .selfie && $0.type == .selfie
         })
         
-        if AlloySettings.configure.selfieEnabled,
-           selfie == nil {
-            error = .selfieNotFound
-            evaluations.removeAll()
-            documentUploads.removeAll()
-            return
-        }
-
         evaluations.removeAll()
         evaluatingProgress = 0.0
 
         // ID type
-        if let front = frontID, let back = backID {
+        if let front = frontID, let back = backID, selfieExistIfNeeded(selfie: selfie) {
 
             let evaluation = try await EvaluationEndpoint
                 .evaluateFinal(
@@ -164,7 +156,7 @@ class EvaluationViewModel: ObservableObject {
         }
         
         // Passport type
-        if let passport = passport {
+        if let passport = passport, selfieExistIfNeeded(selfie: selfie) {
 
             let evaluation = try await EvaluationEndpoint
                 .evaluateFinal(
@@ -209,6 +201,7 @@ class EvaluationViewModel: ObservableObject {
     
 }
 
+// MARK: - EvaluationAttempts
 extension EvaluationViewModel {
     func increaseEvaluationAttempts() {
         evaluationAttemps += 1
@@ -216,5 +209,23 @@ extension EvaluationViewModel {
 
     func evaluationAttemptIsAllowed() -> Bool {
         evaluationAttemps < AlloySettings.configure.maxEvaluationAttempts
+    }
+
+    func resetEvaluationAttempts() {
+        evaluationAttemps = 0
+    }
+}
+
+// MARK: - Private
+private extension EvaluationViewModel {
+    func selfieExistIfNeeded(selfie: DocumentCreateUploadResponse?) -> Bool {
+        if AlloySettings.configure.selfieEnabled,
+           selfie == nil {
+            error = .selfieNotFound
+            evaluations.removeAll()
+            documentUploads.removeAll()
+            return false
+        }
+        return true
     }
 }

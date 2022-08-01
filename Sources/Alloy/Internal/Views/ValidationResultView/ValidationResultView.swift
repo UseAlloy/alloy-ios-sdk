@@ -150,6 +150,8 @@ private struct Footer: View {
                             dismiss()
                         } else {
                             configViewModel.markCurrentStepCompleted()
+                            evaluationViewModel.restart()
+                            evaluationViewModel.resetEvaluationAttempts()
                             showNext.toggle()
                         }
 
