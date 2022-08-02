@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-public enum DocumentType: String, CaseIterable, Codable {
+/// Maintain in sync with AllowedDocumentType
+enum DocumentType: String, CaseIterable, Codable {
     
     case none
     case selfie = "utility"
@@ -24,6 +25,17 @@ public enum DocumentType: String, CaseIterable, Codable {
     case docT1 = "t1"
     case docT4 = "t4"
     
+}
+
+internal extension DocumentType {
+    var isKYC: Bool {
+        switch self {
+        case .license, .passport, .canadaProvincialID, .indigenousCard:
+            return true
+        default:
+            return false
+        }
+    }
 }
 
 internal extension DocumentType {
@@ -44,9 +56,9 @@ internal extension DocumentType {
     }
     
     static var idTypes: [DocumentType] {
-        
+
         [.selfie, .passport, .license, .canadaProvincialID, .indigenousCard]
-        
+
     }
     
     static var documentTypes: [DocumentType] {

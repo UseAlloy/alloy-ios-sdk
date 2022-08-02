@@ -13,16 +13,16 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
         AlloySettings.configure.apiKey = "028d85e0-aa24-4ca1-99f2-90e3ee3f4e6b"
         AlloySettings.configure.production = true
+        AlloySettings.configure.realProduction = false
         AlloySettings.configure.evaluateOnUpload = false
-        
+        AlloySettings.configure.selfieEnabled = true
+
         AlloySettings.configure.steps = [
             .init(orDocumentTypes: [.license, .passport]),
-            .init(orDocumentTypes: [.paystub, .bankStatement, .docW2]),
-            .selfie
+            .init(orDocumentTypes: [.paystub, .bankStatement, .docW2])
         ]
         
     }
@@ -38,7 +38,7 @@ class ViewController: UIViewController {
     
     @IBAction func openAlloyApproved(_ sender: UIButton) {
         
-        let data = EvaluationData(nameFirst: "John", nameLast: "approved")
+        let data = EvaluationData(nameFirst: "John", nameLast: "Approved")
         let alloy = AlloyController(evaluationData: data)
         
         present(alloy, animated: true)
@@ -47,7 +47,7 @@ class ViewController: UIViewController {
     
     @IBAction func openAlloyDenied(_ sender: UIButton) {
         
-        let data = EvaluationData(nameFirst: "John", nameLast: "denied")
+        let data = EvaluationData(nameFirst: "John", nameLast: "Denied")
         let alloy = AlloyController(evaluationData: data)
         
         present(alloy, animated: true)
@@ -56,11 +56,20 @@ class ViewController: UIViewController {
     
     @IBAction func openAlloyManual(_ sender: UIButton) {
         
-        let data = EvaluationData(nameFirst: "John", nameLast: "manual Review")
+        let data = EvaluationData(nameFirst: "John", nameLast: "Manual Review")
         let alloy = AlloyController(evaluationData: data)
         
         present(alloy, animated: true)
         
+    }
+
+    @IBAction func openAlloyRetake(_ sender: UIButton) {
+
+        let data = EvaluationData(nameFirst: "John", nameLast: "Retake Images")
+        let alloy = AlloyController(evaluationData: data)
+
+        present(alloy, animated: true)
+
     }
     
 }

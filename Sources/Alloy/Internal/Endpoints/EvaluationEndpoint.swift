@@ -10,7 +10,7 @@ import Foundation
 internal enum EvaluationEndpoint {
 
     case evaluate(step: Evaluation.Variant, data: EvaluationData, createUploadResponse: DocumentCreateUploadResponse)
-    case evaluateFinal(data: EvaluationData, front: DocumentCreateUploadResponse, back: DocumentCreateUploadResponse? = nil, selfie: DocumentCreateUploadResponse)
+    case evaluateFinal(data: EvaluationData, front: DocumentCreateUploadResponse, back: DocumentCreateUploadResponse? = nil, selfie: DocumentCreateUploadResponse?)
     
 }
 
@@ -31,7 +31,7 @@ extension EvaluationEndpoint: Endpoint {
     var queryItems: [URLQueryItem]? {
         
         [
-            .init(name: "production", value: "\(AlloySettings.configure.production)")
+            .init(name: "production", value: "\(AlloySettings.configure.realProduction)")
         ]
         
     }
@@ -88,7 +88,7 @@ extension EvaluationEndpoint: Endpoint {
             
             customerData?["document_token_front"] = front.documentToken
             customerData?["document_token_back"] = back?.documentToken
-            customerData?["document_token_selfie"] = selfie.documentToken
+            customerData?["document_token_selfie"] = selfie?.documentToken
             
         }
         

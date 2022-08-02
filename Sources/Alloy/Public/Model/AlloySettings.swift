@@ -36,12 +36,17 @@ public class AlloySettings {
     /// Evaluate document on upload image/file
     public var evaluateOnUpload = false
     
-    /// Maximum evaluation attemps (retries(
+    /// Maximum evaluation attemps when retake images
     public var maxEvaluationAttempts: Int = 2
     
     /// Configure SDK with production environment (default is false)
     public var production = false
-    
+
+    /// Configure SDK for make tests in environment (default is false)
+    public var realProduction = false
+
+    /// Configure if is mandatory a selfie step after a KYC document (default is false)
+    public var selfieEnabled = false
 }
 
 extension AlloySettings {

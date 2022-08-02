@@ -7,53 +7,16 @@
 
 import SwiftUI
 
-internal extension ResultType {
-    
-    var animation: Image.Identifier {
-        switch self {
-        case .success:
-            return .resultSuccess
-        case .pendingReview, .denied, .error:
-            return .resultFailure
-        }
-    }
-    
-    var title: LocalizedStringKey {
-        switch self {
-        case .success:
-            return LocalizedStringKey("result_success")
-        case .pendingReview:
-            return LocalizedStringKey("result_pending")
-        case .denied:
-            return LocalizedStringKey("result_denied")
-        case .error:
-            return LocalizedStringKey("result_error")
-        }
-    }
-    
-    var subtitle: LocalizedStringKey {
-        switch self {
-        case .success:
-            return LocalizedStringKey("result_validated")
-        case .pendingReview:
-            return LocalizedStringKey("result_manual_review")
-        case .denied:
-            return LocalizedStringKey("result_cannot_validated")
-        case .error:
-            return LocalizedStringKey("result_error_process")
-        }
-    }
-    
-}
-
 struct ValidationResultView: View {
     
     // MARK: - Properties
+    let finalValidation: Bool
     @EnvironmentObject private var evaluationViewModel: EvaluationViewModel
     @EnvironmentObject private var configViewModel: ConfigViewModel
     
     @State private var animate = false
-    
+    @State private var opacity = 1.0
+
     // MARK: - Main
     var body: some View {
         
@@ -66,13 +29,13 @@ struct ValidationResultView: View {
                     .scaledToFit()
                     .frame(height: 50)
                     .foregroundColor(configViewModel.theme.icon)
-                    .colorMultiply(configViewModel.theme.icon.opacity(animate ? 0.2 : 1.0))
+                    .colorMultiply(configViewModel.theme.icon.opacity(opacity))
+                    .animation(.easeInOut(duration: 1.5).repeatForever(autoreverses: true),
+                               value: opacity)
                     .onAppear {
-                        withAnimation(.easeInOut(duration: 1.5).repeatForever(autoreverses: true)) {
-                            animate = true
-                        }
+                        opacity = 0.2
                     }
-                
+
                 Text("result_evaluating", bundle: .module)
                     .font(.headline)
                     .foregroundColor(configViewModel.theme.title)
@@ -105,12 +68,13 @@ struct ValidationResultView: View {
                 
                 Spacer()
                 
-                Footer(resultType: evaluationViewModel.resultType)
+                Footer(resultType: evaluationViewModel.resultType,
+                       finalValidation: finalValidation)
                     .adjustBottomPadding()
                 
             }
             .navigationBarBackButtonHidden(true)
-            
+
         }
 
     }
@@ -141,6 +105,7 @@ private struct Animation: View {
                     .font(.subheadline)
                     .bold()
                     .foregroundColor(configViewModel.theme.title)
+                    .multilineTextAlignment(.center)
                 
                 Text(subtitle, bundle: .module)
                     .font(.subheadline)
@@ -152,7 +117,7 @@ private struct Animation: View {
             
         }
         .fixedSize(horizontal: false, vertical: true)
-        
+
     }
     
 }
@@ -161,27 +126,64 @@ private struct Footer: View {
     
     // MARK: - Properties
     let resultType: ResultType
-    
+    @State var showNext: Bool = false
+    let finalValidation: Bool
+
+    @EnvironmentObject private var configViewModel: ConfigViewModel
+    @EnvironmentObject private var evaluationViewModel: EvaluationViewModel
+
     // MARK: - Main
     var body: some View {
         
         VStack(spacing: 20) {
-            
-            Button {
-                
-                dismiss()
-                
+            NavigationLink(isActive: $showNext) {
+
+                configViewModel.nextStepView
+
             } label: {
-                
-                Text("result_finish", bundle: .module)
-                
+
+                Button {
+
+                    switch resultType {
+                    case .success:
+                        if finalValidation {
+                            dismiss()
+                        } else {
+                            configViewModel.markCurrentStepCompleted()
+                            evaluationViewModel.restart()
+                            evaluationViewModel.resetEvaluationAttempts()
+                            showNext.toggle()
+                        }
+
+                    case .pendingReview,
+                            .denied,
+                            .maxEvaluationAttempsExceded,
+                            .error:
+                        dismiss()
+
+                    case .retakeImages:
+                        guard evaluationViewModel.evaluationAttemptIsAllowed() else {
+                            dismiss()
+                            return
+                        }
+                        evaluationViewModel.restart()
+                        configViewModel.restartSteps()
+                    }
+
+                } label: {
+                    
+                    Text(resultType.buttonTitle(finalValidation: finalValidation,
+                                                evaluationAttemptIsAllowed: evaluationViewModel.evaluationAttemptIsAllowed()),
+                         bundle: .module)
+                    
+                }
+                .buttonStyle(DefaultButtonStyle())
             }
-            .buttonStyle(DefaultButtonStyle())
-            
+            .frame(maxWidth: .infinity, alignment: .center)
+            .padding(.horizontal, 40)
+
         }
-        .frame(maxWidth: .infinity, alignment: .center)
-        .padding(.horizontal, 40)
-        
+
     }
     
 }
@@ -196,7 +198,7 @@ struct ResultView_Previews: PreviewProvider {
         let model = EvaluationViewModel(data: .init(nameFirst: "John", nameLast: "Who"))
         model.addPendingDocument(upload: .init(step: .front, documentToken: "", type: .bankStatement, name: "", extension: .jpeg, uploaded: true, timestamp: Date()))
         
-        return ValidationResultView()
+        return ValidationResultView(finalValidation: true)
             .environmentObject(model)
             .environmentObject(ConfigViewModel())
         

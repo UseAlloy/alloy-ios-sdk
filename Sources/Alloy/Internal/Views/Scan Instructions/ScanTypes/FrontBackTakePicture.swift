@@ -158,7 +158,7 @@ internal struct FrontBackTakePicture: View {
             let outcomes = [frontViewModel.outcome, backViewModel.outcome]
             switch outcomes {
             case let outcome where outcome.allSatisfy({ $0 == .approved || $0 == .manualReview || $0 == .pendingEvaluation }):
-                ScanFooter { restart(variant: nil) }
+                ScanFooter(documentType: documentType) { restart(variant: nil) }
                 
             case let outcome where outcome.contains(where: { $0 == .denied }):
                 DeniedFooter { restart(variant: nil) }

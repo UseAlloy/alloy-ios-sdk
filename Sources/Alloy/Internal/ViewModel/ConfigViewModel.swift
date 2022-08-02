@@ -8,17 +8,22 @@
 import SwiftUI
 
 internal class ConfigViewModel: ObservableObject {
-    
-    // MARK: - Properties
-    let apiKey: String
-    let theme: Theme
+
+    // MARK: - Published
     @Published var steps: [Step]
+
+    // MARK: - Properties
+    let theme: Theme
     var needsSelfie: Bool {
-        steps
+        return steps
             .flatMap({ $0.orDocumentTypes })
-            .compactMap({ $0 })
-            .contains(.selfie)
+            .contains(where: { $0.isKYC })
+        && AlloySettings.configure.selfieEnabled
     }
+
+    // MARK: - Private
+    private let apiKey: String
+    private var lastAttemptSelectedDocument: DocumentType = .none
     
     // MARK: - Init
     init() {
@@ -41,39 +46,48 @@ internal class ConfigViewModel: ObservableObject {
 internal extension ConfigViewModel {
 
     var nextStepView: some View {
-                        
+
         guard let step = steps.first(where: { $0.completed == false }) else {
 
-            return AnyView(ValidationResultView())
+            return AnyView(ValidationResultView(finalValidation: true))
             
         }
         
-        if step.onlySelfie {
+        if step.isSelfie {
         
             return AnyView(TakeSelfieView())
             
+        } else if step.isValidation {
+
+            return AnyView(ValidationResultView(finalValidation: false))
+
         } else {
-        
-            return AnyView(SelectDocumentView(step: step))
-            
+            if isFirstStep() {
+                return AnyView(SelectDocumentView(step: step,
+                                                  automaticSelectionType: lastAttemptSelectedDocument))
+            } else {
+                return AnyView(SelectDocumentView(step: step,
+                                                  automaticSelectionType: .none))
+            }
+
         }
 
     }
     
-    func markCurrentStepCompleted() {
+    func markCurrentStepCompleted(documentSelected: DocumentType? = nil) {
         
-        guard let currentStep = steps.first(where: { $0.completed == false }) else {
+        guard var currentStep = steps.first(where: { $0.completed == false }) else {
             return
         }
         
-        guard let index = steps.firstIndex(of: currentStep) else {
+        guard let currentStepIndex = steps.firstIndex(of: currentStep) else {
             return
         }
         
-        var step = steps[index]
-        step.completed = true
-        steps.replaceSubrange(index...index, with: [step])
-                
+        currentStep.completed = true
+        steps[currentStepIndex] = currentStep
+
+        insertSelfie(for: documentSelected, afterIndex: currentStepIndex)
     }
     
     func restartSteps() {
@@ -85,5 +99,31 @@ internal extension ConfigViewModel {
         })
         
     }
-    
+
+    func setLastAttemptSelectedDocument(_ document: DocumentType) {
+        guard isFirstStep() else {
+            return
+        }
+        lastAttemptSelectedDocument = document
+    }
+
+    func resetLastAttemptSelectedDocument() {
+        lastAttemptSelectedDocument = DocumentType.none
+    }
+}
+
+private extension ConfigViewModel {
+    func insertSelfie(for documentSelected: DocumentType?, afterIndex currentStepIndex: Int ) {
+        if AlloySettings.configure.selfieEnabled,
+           let documentSelected = documentSelected,
+           documentSelected.isKYC,
+           !steps.contains(where: { $0.isSelfie }) {
+            steps.insert(Step.selfie, at: currentStepIndex + 1)
+            steps.insert(Step.validation, at: currentStepIndex + 2)
+        }
+    }
+
+    func isFirstStep() -> Bool {
+        !steps.contains(where: { $0.completed })
+    }
 }

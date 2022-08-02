@@ -54,7 +54,8 @@ internal struct ScanInstructionsView: View {
                     
                     evaluationViewModel.removeLast()
                     presentation.wrappedValue.dismiss()
-                    
+                    configViewModel.resetLastAttemptSelectedDocument()
+
                 } label: {
                     
                     Image(.arrowBack)
@@ -117,119 +118,6 @@ internal struct ScanInstructionsView: View {
         }
         
         return Text(LocalizedStringKey(title), bundle: .module)
-        
-    }
-    
-}
-
-internal struct ScanFooter: View {
-    
-    // MARK: - Properties
-    var retry: () -> Void
-
-    @EnvironmentObject private var configViewModel: ConfigViewModel
-    @State private var showNext = false
-    
-    // MARK: - Main
-    var body: some View {
-        
-        VStack(spacing: 20) {
-            
-            Button {
-                
-                configViewModel.markCurrentStepCompleted()
-                showNext = true
-
-            } label: {
-            
-                Text("scan_instructions_next", bundle: .module)
-                
-            }
-            .buttonStyle(DefaultButtonStyle())
-            
-            Button {
-                
-                retry()
-                
-            } label: {
-            
-                Text("scan_instructions_retry", bundle: .module)
-                    .font(.subheadline)
-                    .foregroundColor(configViewModel.theme.button)
-                
-            }
-            
-            NavigationLink(isActive: $showNext) {
-                
-                configViewModel.nextStepView
-                
-            } label: {
-                EmptyView()
-            }
-            .hidden()
-            
-        }
-        .frame(maxWidth: .infinity, alignment: .center)
-        
-    }
-    
-}
-
-internal struct DeniedFooter: View {
-    
-    // MARK: - Properties
-    var retry: () -> Void
-    
-    @EnvironmentObject private var configViewModel: ConfigViewModel
-    
-    // MARK: - Main
-    var body: some View {
-        
-        VStack(spacing: 30) {
-            
-            VStack(spacing: 10) {
-                
-                Text("scan_instructions_denied", bundle: .module)
-                    .font(.subheadline)
-                    .bold()
-                    .foregroundColor(configViewModel.theme.title)
-                
-                Text("scan_instructions_cannot_validated", bundle: .module)
-                    .font(.subheadline)
-                    .foregroundColor(configViewModel.theme.subtitle)
-                    .multilineTextAlignment(.center)
-                
-            }
-            
-            VStack(spacing: 20) {
-            
-                Button {
-                    
-                    retry()
-                    
-                } label: {
-                
-                    Text("scan_instructions_retry", bundle: .module)
-                    
-                }
-                .buttonStyle(DefaultButtonStyle())
-                
-                Button {
-                    
-                    dismiss()
-                    
-                } label: {
-                    
-                    Text("scan_instructions_leave", bundle: .module)
-                        .font(.subheadline)
-                        .foregroundColor(configViewModel.theme.button)
-                    
-                }
-                
-            }
-
-        }
-        .frame(maxWidth: .infinity, alignment: .center)
         
     }
     
